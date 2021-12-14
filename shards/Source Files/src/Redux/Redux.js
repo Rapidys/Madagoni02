@@ -19,7 +19,7 @@ import commentsReducer from "../Reducers/Comments/CommentsReducer";
 import creatNewCommentReducer
   from "../Reducers/Comments/CreateNewCommentReducer";
 import GetDocReducer from "../Reducers/getDocReducer";
-import notificationReducer from "../Reducers/notificationReducer";
+import notificationReducer from "../Reducers/notifications/notificationReducer";
 import BlogPostsReducer from "../Reducers/posts/blogPostsReducer";
 
 

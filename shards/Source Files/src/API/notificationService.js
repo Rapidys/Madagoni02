@@ -1,4 +1,4 @@
-import {setNotificationAC} from "../Reducers/notificationReducer";
+import {setNotificationAC} from "../Reducers/notifications/notificationReducer";
 import API from "./ApiBase";
 
 

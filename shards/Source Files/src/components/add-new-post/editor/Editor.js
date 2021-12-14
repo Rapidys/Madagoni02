@@ -11,19 +11,11 @@ import "react-quill/dist/quill.snow.css";
 import "../../../assets/quill.css";
 import {useDispatch, useSelector} from "react-redux";
 import {
-  setMotion,
-  setMotionDest
-} from "../../../Reducers/addNewPost/DocumentMotionsReducer";
-import {selectDocumentAC} from "../../../Reducers/addNewPost/selectDocReducer";
-import {
-  isSendedAC,
   setNewObject,
-  statusAC
 } from "../../../Reducers/addNewPost/addNewPostReducer";
 import {Redirect, useParams} from "react-router-dom";
 import {setSignDocument} from "../../../Reducers/signDocumentReducer";
 import FinishButtonModal from "./BtnModals/FinishButtonModal";
-import DocCreateModal from "./BtnModals/docCreateModal";
 import SignDocumentModal from "./BtnModals/signDocumentModal";
 import FinishMessage from "./BtnModals/finishMessage";
 
@@ -34,10 +26,10 @@ const Editor = (props) => {
   let params = useParams()
 
   let getDoc = useSelector((state => state.GetDoc))
-  let Motions = useSelector(state => state.docMotion)
-  let selectType = useSelector(state => state.selectDocument.selectType)
-  let fileId = useSelector(state => state.uploadFile.fileId)
-  let isSended = useSelector(state => state.addNewPost.isSended)
+  let Motions = useSelector((state => state.docMotion))
+  let selectType = useSelector((state => state.selectDocument.selectType))
+  let fileId = useSelector((state => state.uploadFile.fileId))
+  let isSended = useSelector((state => state.addNewPost.isSended))
 
   let dispatch = useDispatch()
 

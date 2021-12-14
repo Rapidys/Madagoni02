@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Col, Collapse, Row} from "shards-react";
+import {Button, Collapse} from "shards-react";
 import Chosen from "./chosen";
 
 const ChosenDestinations = ({

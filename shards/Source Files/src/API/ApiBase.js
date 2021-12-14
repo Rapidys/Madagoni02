@@ -55,6 +55,9 @@ const API = {
   getNotification() {
     return $ApiBase.get(`/Notifications/GetNotifications`)
   },
+  ReadNotification(id) {
+    return $ApiBase.get(`/Notifications/Read/${id}`)
+  },
   createNewComment(newComment) {
     return $ApiBase.post(`/DocComments/CreateComment`, newComment)
   },

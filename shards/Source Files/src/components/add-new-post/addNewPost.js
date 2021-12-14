@@ -36,7 +36,7 @@ const AddNewPost = ({
       <Row>
 
         {/* Editor */}
-        <Col lg="9" md="12">
+        <Col lg="9" md="12" >
           <Editor
             setDocumentTitle={setDocumentTitle}
             documentTitle={documentTitle}
@@ -50,7 +50,7 @@ const AddNewPost = ({
 
 
         {/* Sidebar Widgets */}
-        <Col lg="3" md="12">
+        <Col lg="3" md="12" className={'p-0'}>
 
           <SidebarActions
             chosenVisitor={chosenVisitor}

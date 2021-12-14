@@ -1,9 +1,10 @@
 import Tree from "./Tree";
 import styled from 'styled-components'
-import {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import Preloader from "../../Preloader/Preloader";
 import {useDispatch} from "react-redux";
 import {TreeData} from "../../Reducers/TreeDataReducer";
+import {FormCheckbox} from "shards-react";
 
 let Styles = styled.div`
 
@@ -31,7 +32,10 @@ let Styles = styled.div`
 const TreeList = (props) => {
 
   let dispatch = useDispatch()
-
+  const [positionVisibility, setPositionVisibility] = useState(false)
+  let setPositions = () => {
+    setPositionVisibility(v => !v)
+  }
   useEffect(async () => {
     return await dispatch(TreeData())
   }, [])
@@ -42,22 +46,36 @@ const TreeList = (props) => {
 
   return (
     <Styles>
-      <div className="row">
-        <div className="col ">
-          <div className="mt-3">
-            <div className="row mt-3 d-flex  ml-1">
-              <div className="text-left text-dark">
-                <Tree data={props.treeData}
-                      handleSetNodeValue={props.handleSetNodeValue}
-                      handleSetDepValue={props.handleSetDepValue}
+      <div className={'d-flex justify-content-between'}>
 
-                />
+        <div className="row">
+          <div className="col ">
+            <div className="mt-3">
+              <div className="row mt-3 d-flex  ml-1">
+                <div className="text-left text-dark">
+                  <Tree data={props.treeData}
+                        handleSetNodeValue={props.handleSetNodeValue}
+                        handleSetDepValue={props.handleSetDepValue}
+                        positionVisibility = {positionVisibility}
+                  />
 
+                </div>
               </div>
             </div>
           </div>
         </div>
+
+        <div>
+          <FormCheckbox toggle small
+                        checked={positionVisibility}
+                        onChange={setPositions}
+          >
+            თანამდებობები
+          </FormCheckbox>
+        </div>
       </div>
+
+
     </Styles>
 
   );

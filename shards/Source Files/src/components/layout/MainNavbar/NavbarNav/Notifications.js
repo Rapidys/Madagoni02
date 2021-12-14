@@ -3,6 +3,9 @@ import {NavItem, NavLink, Badge, Collapse, DropdownItem} from "shards-react";
 import {getNotification} from "../../../../API/notificationService";
 import {useDispatch, useSelector} from "react-redux";
 import styled from "styled-components";
+import {
+  getReadNotification
+} from "../../../../Reducers/notifications/notificationReducer";
 
 let Styles = styled.div`
   .icon-bell {
@@ -25,11 +28,12 @@ let Styles = styled.div`
     }
   }
 
-
-
 `
 
+
 let Notifications = () => {
+
+
   let dispatch = useDispatch()
   useEffect(() => {
     dispatch(getNotification())
@@ -38,6 +42,11 @@ let Notifications = () => {
   const [visible, setVisible] = useState(false)
   let toggleNotifications = () => {
     setVisible(e => !e)
+  }
+
+
+  let setAsReadable = (id) => {
+    dispatch(getReadNotification(id))
   }
 
   let notification = useSelector(state => state.getNotifications.notification)
@@ -74,7 +83,9 @@ let Notifications = () => {
                   {item.notificationContent}
                 </p>
               </div>
-              <i className="far fa-eye"/>
+              <i className="far fa-eye"
+                 onClick={() => setAsReadable(item.notificationId)}
+              />
             </DropdownItem>
           })}
 

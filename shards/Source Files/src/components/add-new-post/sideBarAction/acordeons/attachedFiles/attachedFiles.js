@@ -23,6 +23,37 @@ let Styles = styled.div`
     text-decoration: line-through
   }
 
+  .inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+
+  .inputfile + label {
+    font-size: 1em;
+    color: white;
+    background-color: #ffc107;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    padding: 6px;
+    border-radius: 10px;
+  }
+
+  .inputfile:focus + label,
+  .inputfile + label:hover {
+    background-color: #6294ce;
+  }
+
+  .inputfile + label {
+    cursor: pointer; /* "hand" cursor */
+  }
+
 `
 
 const AttachedFiles = (props) => {
@@ -56,17 +87,24 @@ const AttachedFiles = (props) => {
         <div className="p-3 mt-3 border rounded">
 
 
-
           <div className="custom-file mb-3">
-            <label className="custom-file-label" htmlFor="customFile2">
-              ფაილი...
-            </label>
             <input type="file"
+                   id="file"
                    name="file"
-                   className="custom-file-input"
-                   id="customFile2"
+                   className="inputfile"
                    onChange={(e) => saveFile(e)}
             />
+            <label htmlFor="file">
+              <div>
+                <span>აირჩიეთ</span>
+
+              </div>
+              <div>
+                <i className="fas fa-cloud-upload-alt"/>
+
+              </div>
+            </label>
+
 
             <ChosenFiles
               fileNames={fileNames}

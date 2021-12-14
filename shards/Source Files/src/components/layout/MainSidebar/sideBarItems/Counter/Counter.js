@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {setCounter} from "../../../../../Reducers/folderCountersReducer";
 import styled from "styled-components";
@@ -39,17 +39,14 @@ let Styles = styled.div`
     top: 170px;
   }
 
-  //.counterAlign {
-  //  display: inline-table;
-  //  margin: 1px auto;
-  //}
+
 
 `
 
 
 const Counter = ({item}) => {
   let dispatch = useDispatch()
-  let Counter = useSelector(state => state.folderCounter.folderCount)
+  let Counter = useSelector((state => state.folderCounter.folderCount))
 
   useEffect(() => {
     dispatch(setCounter())

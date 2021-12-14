@@ -10,8 +10,9 @@ import {setCounter} from "../../../Reducers/folderCountersReducer";
 let Styles = styled.div`
 
   .resTtd {
-    padding: 1.35rem;
+    padding: 1rem;
   }
+
   @media screen and (max-width: 840px) {
     .resTtd {
       font-size: 12px;
@@ -74,10 +75,10 @@ const DocumentBody = (props) => {
 
   return (
     <Styles>
-      <CardBody className="p-0 pb-3">
+      <CardBody className="p-4 pb-3">
         <RightClickMenu showMenu={showMenu} x={x} y={y}/>
 
-        <table className="table mb-0 p-5">
+        <table className="table mb-0 p-5" >
           <thead className="thead bg-light">
           <tr>
             <th scope="col" className="resTtd border-0">
@@ -95,7 +96,7 @@ const DocumentBody = (props) => {
 
           </tr>
           </thead>
-          <tbody >
+          <tbody>
 
 
           {props.Documents.map((Mess, index) => {
@@ -112,7 +113,7 @@ const DocumentBody = (props) => {
                 id={Mess.documentId}
                 style={{
                   backgroundColor: Mess.documentColorId === 1 && '#ffcccc' ||
-                    Mess.documentColorId === 2 && '#fff2cc' || Mess.documentColorId === 3 && '#ccffcc'
+                  Mess.documentColorId === 2 && '#fff2cc' || Mess.documentColorId === 3 && '#ccffcc'
                 }}
 
               >

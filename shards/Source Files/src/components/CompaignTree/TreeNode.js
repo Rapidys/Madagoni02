@@ -1,6 +1,7 @@
 import React, {useCallback, useState} from 'react';
 import Tree from "./Tree";
 import styled from "styled-components";
+import {Tooltip} from "@material-ui/core";
 
 let Styles = styled.span`
   .nameWrapper {
@@ -10,12 +11,12 @@ let Styles = styled.span`
 
   }
 
+
 `
 const TreeNode = (props) => {
 
 
-  const [visibility, setVisibility] = useState(false)
-
+  const [visibility, setVisibility] = useState(props.node.expand)
   const setChosen = useCallback(
     () => {
       props.handleSetNodeValue({
@@ -43,9 +44,11 @@ const TreeNode = (props) => {
   const hasEmployes = props.node.employes ? true : false
   return (
     <li className={"d-tree-node border-0"}>
-      <div className={"d-flex"}
 
+
+      <div className={"d-flex"}
       >
+
         {hasChild && (
           <div
             className={`d-inline d-tree-toggler ${visibility ? 'active' : ''}`}>
@@ -73,11 +76,20 @@ const TreeNode = (props) => {
                      className={"nameWrapper"}
                    >{props.node.displayName}</span>
                 </Styles>
+              <Tooltip
+                title={<span style={{
+                  color: 'white',
+                  fontSize: '16px'
+                }}>{props.node.position}</span>}
+                arrow>
+                     <span
+                       style={{cursor: "pointer"}}
+                       onClick={setChosen}
+                     >{props.node.firstName} {props.node.lastName}</span>
+              </Tooltip>
 
               <span
-                style={{cursor: "pointer"}}
-                onClick={setChosen}
-              >{props.node.firstName} {props.node.lastName}</span>
+                className={'ml-5 text-danger'}>{props.positionVisibility && props.node.position}</span>
             </span>
 
 
@@ -90,6 +102,8 @@ const TreeNode = (props) => {
             <Tree data={empl}
                   handleSetDepValue={props.handleSetDepValue}
                   handleSetNodeValue={props.handleSetNodeValue}
+                  positionVisibility={props.positionVisibility}
+
             />
           </ul>
         </div>
@@ -102,6 +116,7 @@ const TreeNode = (props) => {
             <Tree data={dep}
                   handleSetDepValue={props.handleSetDepValue}
                   handleSetNodeValue={props.handleSetNodeValue}
+                  positionVisibility={props.positionVisibility}
 
             />
           </ul>

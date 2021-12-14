@@ -9,6 +9,10 @@ const Chosen = (props) => {
         return <Col className={"mt-2"}
                     key={index}>
           <div className={'d-flex flex-column'}>
+            <Row className={'text-danger'}
+                 style={{fontSize: '11px'}}>
+              {u.dueDate && u.dueDate.slice(0, 10)}
+            </Row>
             <div>
               {u.firstName || u.targetTypeId === 1
                 ? <Row className={"p-2"}><i
@@ -27,9 +31,7 @@ const Chosen = (props) => {
                 </Row>}
 
             </div>
-            <Row className={'text-danger'}>
-              {u.dueDate && u.dueDate.slice(0, 10)}
-            </Row>
+
           </div>
 
 
