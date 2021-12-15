@@ -6,6 +6,7 @@ import {uniqueIdAC} from "../../../Reducers/chosenDocumentReducer";
 import {useDispatch} from "react-redux";
 import styled from "styled-components";
 import {setCounter} from "../../../Reducers/folderCountersReducer";
+import fire from '../../../assets/fire.gif'
 
 let Styles = styled.div`
 
@@ -78,7 +79,7 @@ const DocumentBody = (props) => {
       <CardBody className="p-4 pb-3">
         <RightClickMenu showMenu={showMenu} x={x} y={y}/>
 
-        <table className="table mb-0 p-5" >
+        <table className="table mb-0 p-5">
           <thead className="thead bg-light">
           <tr>
             <th scope="col" className="resTtd border-0">
@@ -113,7 +114,7 @@ const DocumentBody = (props) => {
                 id={Mess.documentId}
                 style={{
                   backgroundColor: Mess.documentColorId === 1 && '#ffcccc' ||
-                  Mess.documentColorId === 2 && '#fff2cc' || Mess.documentColorId === 3 && '#ccffcc'
+                    Mess.documentColorId === 2 && '#fff2cc' || Mess.documentColorId === 3 && '#ccffcc'
                 }}
 
               >

@@ -31,6 +31,9 @@ const API = {
   UploadFileApi(file) {
     return $ApiBase.post(`/docs/UploadFile`, file)
   },
+  downloadFile(id) {
+    return $ApiBase.get(`/Docs/DownloadFile/${id}`)
+  },
   getDocTypes() {
     return $ApiBase.get(`/reference/GetReference/DocumentTypes`)
   },

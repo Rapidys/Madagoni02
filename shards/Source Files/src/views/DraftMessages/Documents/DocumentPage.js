@@ -6,12 +6,21 @@ import Pagination from "../../../Pagination/Pagination";
 import styled from "styled-components";
 import {useSelector} from "react-redux";
 import Preloader from "../../../Preloader/Preloader";
+import fire from '../../../assets/fire.gif'
 
 let Styles = styled.div`
   .messWrapper:hover {
-    background: #cfd2ce;
+    //background: #cfd2ce;
     cursor: pointer;
+    background-image: url(${fire}) ;
+    background-position: 150% 20%;
+    background-repeat: repeat;
+    filter: brightness(75%) saturate(2);
+    overflow: hidden;
+
+   color:white;
   }
+
 `
 
 const DocumentPage = ({pageTitle, pageName, Documents, ...props}) => {

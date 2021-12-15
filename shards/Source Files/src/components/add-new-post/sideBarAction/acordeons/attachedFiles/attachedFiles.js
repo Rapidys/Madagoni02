@@ -19,6 +19,12 @@ let Styles = styled.div`
 
   }
 
+  .link {
+    text-decoration: underline;
+    cursor: pointer;
+    color: rgba(6,13,231,0.51);
+  }
+
   .deleteAttachment {
     text-decoration: line-through
   }
@@ -61,6 +67,7 @@ const AttachedFiles = (props) => {
 
   let [fileNames, setFileNames] = useState([])
   let dispatch = useDispatch()
+  let [file, setFile] = useState({})
 
 
   let saveFile = async (e) => {
@@ -70,6 +77,7 @@ const AttachedFiles = (props) => {
       formData.append("fileName", e.target.files[0].name)
       setFileNames([...fileNames, e.target.files[0].name])
       dispatch(uploadFile(formData))
+      setFile(formData)
     } catch (e) {
       console.log(e)
     }
@@ -108,6 +116,7 @@ const AttachedFiles = (props) => {
 
             <ChosenFiles
               fileNames={fileNames}
+              file={file}
             />
             <br/>
 

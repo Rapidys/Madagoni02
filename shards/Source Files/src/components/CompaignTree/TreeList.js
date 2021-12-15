@@ -2,9 +2,10 @@ import Tree from "./Tree";
 import styled from 'styled-components'
 import React, {useEffect, useState} from "react";
 import Preloader from "../../Preloader/Preloader";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {TreeData} from "../../Reducers/TreeDataReducer";
-import {FormCheckbox} from "shards-react";
+import {Button, FormCheckbox} from "shards-react";
+import {useHistory} from "react-router-dom";
 
 let Styles = styled.div`
 
@@ -30,7 +31,9 @@ let Styles = styled.div`
 `
 
 const TreeList = (props) => {
-
+  let history = useHistory()
+  let RegisterURL = history.location.pathname
+  let treeData = useSelector((state => state.Tree.Structure))
   let dispatch = useDispatch()
   const [positionVisibility, setPositionVisibility] = useState(false)
   let setPositions = () => {
@@ -43,7 +46,11 @@ const TreeList = (props) => {
   if (props.treeData.length === 0) {
     return <Preloader/>
   }
+let setNewTree = () => {
+    console.log(treeData)
+  // dispatch(setNewUser(treeData))
 
+}
   return (
     <Styles>
       <div className={'d-flex justify-content-between'}>
@@ -74,7 +81,12 @@ const TreeList = (props) => {
           </FormCheckbox>
         </div>
       </div>
+      {
+        RegisterURL === '/register' && <Button
+        onClick = {setNewTree}
 
+        >შენახვა</Button>
+      }
 
     </Styles>
 

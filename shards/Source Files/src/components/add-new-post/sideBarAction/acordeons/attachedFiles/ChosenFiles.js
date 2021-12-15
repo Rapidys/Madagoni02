@@ -1,13 +1,13 @@
-import React, {useMemo} from 'react';
+import React, {useMemo, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {
   delActiveAC,
 } from "../../../../../Reducers/addNewPost/UploadFileReducer";
-import {Link, useHistory,} from "react-router-dom";
-import styled from "styled-components";
+import {useHistory,} from "react-router-dom";
+import API from "../../../../../API/ApiBase";
 
 
-const ChosenFiles = ({fileNames}) => {
+const ChosenFiles = ({fileNames, file}) => {
   let url = useHistory()
 
   let PageUrl = url.location.pathname
@@ -23,6 +23,17 @@ const ChosenFiles = ({fileNames}) => {
     filterAttachment(nameId)
   }
   let chosen = useSelector(state => state.chosenDocument.currentMessagePage)
+  let downloadFile = (id, name) => {
+
+    API.downloadFile(id).then(response => {
+      const downloadUrl = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.setAttribute('download', `${name}`); //or any other extension
+      document.body.appendChild(link);
+      link.click();
+    })
+  }
 
   return (
     <div>
@@ -30,13 +41,17 @@ const ChosenFiles = ({fileNames}) => {
         className={"mt-2"}>
         {PageUrl === '/add-new-post'
           ? fileNames && fileNames.map((name, i) => {
-
           return <div
             className={"fileNamesWrapper"}
             key={i}>
             <div>
               <b>{i + 1}.</b><span
-              className={fileId[i].isActive === false ? 'deleteAttachment' : ''}>
+              className={fileId[i].isActive === false ? 'deleteAttachment' : 'link'}
+              onClick={() => {
+                downloadFile(fileId[i].AttachmentId, name)
+              }}
+
+            >
               {name}</span>
             </div>
             <div>
@@ -55,11 +70,15 @@ const ChosenFiles = ({fileNames}) => {
               key={name.attachmentId}>
               <div className={'d-flex'}>
                 <b>{index + 1}.</b>
-                <a target="_blank"
-                   href={`https://cyberdocapiservice20211103000756.azurewebsites.net/api/Docs/DownloadFile/${name.attachmentId}`}
-                   className="link-primary">
-                  <span className={'mt-3 link'}>{name.fileName}</span>
-                </a>
+                {/*<a target="_blank"*/}
+                {/*   href={`https://cyberdocapiservice20211103000756.azurewebsites.net/api/Docs/DownloadFile/${}`}*/}
+                {/*   className="link-primary">*/}
+                <span className={'link'}
+                      onClick={() => {
+                        downloadFile(name.attachmentId, name.fileName)
+                      }}
+                >{name.fileName}</span>
+                {/*</a>*/}
 
               </div>
             </div>
