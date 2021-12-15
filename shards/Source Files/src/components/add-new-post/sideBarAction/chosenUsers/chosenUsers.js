@@ -17,8 +17,16 @@ let Styles = styled.div`
     cursor: pointer;
     justify-content: center;
   }
-  .circleClases:hover{
+
+  .circleClases:hover {
     color: #007bff;
+  }
+
+  @media (max-width: 500px) {
+    .treeDialogContent {
+      margin: 0;
+      padding: 0;
+    }
   }
 `
 

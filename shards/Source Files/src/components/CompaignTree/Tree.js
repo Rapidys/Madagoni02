@@ -10,7 +10,7 @@ const Tree = (props) => {
         <TreeNode node={props.data}
                   handleSetNodeValue={props.handleSetNodeValue}
                   handleSetDepValue={props.handleSetDepValue}
-                  positionVisibility = {props.positionVisibility}
+                  positionVisibility={props.positionVisibility}
 
         />
 

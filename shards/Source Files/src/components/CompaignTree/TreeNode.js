@@ -2,12 +2,9 @@ import React, {useCallback, useState} from 'react';
 import Tree from "./Tree";
 import styled from "styled-components";
 import {Tooltip} from "@material-ui/core";
-import {setNewUser} from "../../Reducers/registerReducer";
-import {useDispatch, useSelector} from "react-redux";
 import RegisterModal from "../Register/RegisterModal";
-import MyModal from "../MyModal/MyModal";
-import {Button} from "shards-react";
 import {useHistory} from "react-router-dom";
+import UserChangesModal from "../Register/userChangesModal/userChangesModal";
 
 let Styles = styled.span`
   .nameWrapper {
@@ -28,8 +25,13 @@ const TreeNode = (props) => {
   let [open, SetOpen] = useState(false)
   let onClose = (e) => SetOpen(e => !e)
   let [userControlOpen, setUserControlOpen] = useState(false)
+  let [userNewName, setUserNewName] = useState({name: '', lastName: ''})
+  let [changedDepNames, setChangedDepNames] = useState('')
   let [Type, setType] = useState('')
   const [visibility, setVisibility] = useState(props.node.expand)
+
+  //axali dokumentis sheqmnis destinate an visitor
+
   const setChosen = useCallback(
     () => {
       props.handleSetNodeValue && props.handleSetNodeValue({
@@ -51,6 +53,10 @@ const TreeNode = (props) => {
     })
 
   }
+  //axali dokumentis sheqmnis destinate an visitor
+
+
+  // useris damateba departamentshi
 
   let addUserInDepartment = (e) => {
     SetOpen(true)
@@ -61,7 +67,7 @@ const TreeNode = (props) => {
     setUserControlOpen(v => !v)
   }
 
-
+// axali iuseris an departamentis chasma xeshi
   let addUser = (values) => {
     if (Type === 'ახალი თანამშრომელი') {
       let newUser = {
@@ -91,18 +97,32 @@ const TreeNode = (props) => {
     }
     SetOpen(false)
   }
-
+// departamentis washla
   let deleteDepOrUser = () => {
     props.node.isActive = false
   }
+
+  let changeDepName = () => {
+    props.node.displayName = changedDepNames
+    SetOpen(false)
+  }
+
+  // useris washlis modali
   let userControl = () => {
     setUserControlOpen(true)
   }
+  // useris washlis gilaki
   let delUser = () => {
     props.node.isActive = false
     setUserControlOpen(false)
   }
+// useris saxeli shecvla
 
+  let changeUserName = () => {
+    props.node.firstName = userNewName.name
+    props.node.lastName = userNewName.lastName
+    setUserControlOpen(false)
+  }
   const hasChild = props.node.departments ? true : false
   const hasEmployes = props.node.employes ? true : false
   return (
@@ -117,26 +137,31 @@ const TreeNode = (props) => {
         setDepValues={setDepValues}
         depValues={depValues}
         deleteDepOrUser={deleteDepOrUser}
+        changeDepName={changeDepName}
+        changedDepNames={changedDepNames}
+        setChangedDepNames={setChangedDepNames}
       />
-      <MyModal
-        open={userControlOpen}
-        onClose={controlClose}
-        title={'თანამშრომლის წაშლა'}
-      >
-        <Button className={'bg-danger d-flex  m-auto'}
-                onClick={delUser}
-        >წაშლა</Button>
-      </MyModal>
+      <UserChangesModal
+        userControlOpen={userControlOpen}
+        controlClose={controlClose}
+        delUser={delUser}
+        changeUserName={changeUserName}
+        setUserNewName={setUserNewName}
+        userNewName={userNewName}
+      />
+
+
       <div className={"d-flex"}
       >
 
         {hasChild && (
           <div
-            className={`d-inline d-tree-toggler ${visibility ? 'active' : ''}`}>
-            <i className="fas fa-plus-square mr-2"
-               onClick={(e) => {
-                 setVisibility(v => !v)
-               }}
+            className={`d-inline d-tree-toggler `}>
+            <i
+              className={`fas fa-plus-square mr-2 ${visibility ? 'active' : ''}`}
+              onClick={(e) => {
+                setVisibility(v => !v)
+              }}
             />
 
           </div>
@@ -150,12 +175,14 @@ const TreeNode = (props) => {
 
 
           {
-            <span>
+            <span style={{cursor: 'pointer',}}>
                 <Styles>
                    <span
                      onClick={RegisterURL === '/register' ? addUserInDepartment : setDepartment}
                      className={"nameWrapper"}
-                   >{props.node.displayName}</span>
+                   >
+                     {props.node.displayName}
+                   </span>
                 </Styles>
               <Tooltip
                 title={<span style={{
@@ -164,7 +191,6 @@ const TreeNode = (props) => {
                 }}>{props.node.position}</span>}
                 arrow>
                      <span
-                       style={{cursor: "pointer"}}
                        onClick={RegisterURL === '/register' ? userControl : setChosen}
                      >{props.node.firstName} {props.node.lastName}</span>
               </Tooltip>

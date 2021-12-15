@@ -125,7 +125,7 @@ const SideBarDestinations = (props) => {
              onClick={props.handleClose}/>
         </div>
 
-        <DialogContent>
+        <DialogContent className={'treeDialogContent'}>
           <DialogContentText>
             აირჩიეთ სასურველი ავტორები
           </DialogContentText>
@@ -135,7 +135,7 @@ const SideBarDestinations = (props) => {
             <MenuItem value="xl" style={{minHeight: 400, padding: 0}}>
               <Row className={"w-100"}>
 
-                <Col lg="8">
+                <Col lg="8" className={'treeCol'}>
 
 
                   <TreeList

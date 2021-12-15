@@ -22,11 +22,21 @@ let Styles = styled.div`
     margin: 0 0.85rem;
   }
 
-  .d-tree-toggler.active {
+  @media (max-width: 600px ) {
+    .d-tree-node {
+      margin: 0;
+    }
+  }
+
+  .active {
     transform: rotate(45deg);
     transition: 0.5s;
   }
 
+  .checkbox {
+    position: absolute;
+    right: 10px;
+  }
 
 `
 
@@ -46,11 +56,11 @@ const TreeList = (props) => {
   if (props.treeData.length === 0) {
     return <Preloader/>
   }
-let setNewTree = () => {
+  let setNewTree = () => {
     console.log(treeData)
-  // dispatch(setNewUser(treeData))
+    // dispatch(setNewUser(treeData))
 
-}
+  }
   return (
     <Styles>
       <div className={'d-flex justify-content-between'}>
@@ -63,7 +73,7 @@ let setNewTree = () => {
                   <Tree data={props.treeData}
                         handleSetNodeValue={props.handleSetNodeValue}
                         handleSetDepValue={props.handleSetDepValue}
-                        positionVisibility = {positionVisibility}
+                        positionVisibility={positionVisibility}
                   />
 
                 </div>
@@ -72,7 +82,7 @@ let setNewTree = () => {
           </div>
         </div>
 
-        <div>
+        <div className={'checkbox'}>
           <FormCheckbox toggle small
                         checked={positionVisibility}
                         onChange={setPositions}
@@ -83,7 +93,7 @@ let setNewTree = () => {
       </div>
       {
         RegisterURL === '/register' && <Button
-        onClick = {setNewTree}
+          onClick={setNewTree}
 
         >შენახვა</Button>
       }
