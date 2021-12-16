@@ -26,7 +26,6 @@ const ChosenFiles = ({fileNames, file}) => {
   let downloadFile = (id, name) => {
 
     API.downloadFile(id).then(response => {
-      debugger
       const downloadUrl = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = downloadUrl;
@@ -53,7 +52,8 @@ const ChosenFiles = ({fileNames, file}) => {
               }}
 
             >
-              {name}</span>
+              {name.length > 15 ? name.slice(0, 15) + '...' : name}
+            </span>
             </div>
             <div>
               <i className="fa fa-times ml-5"
@@ -71,15 +71,12 @@ const ChosenFiles = ({fileNames, file}) => {
               key={name.attachmentId}>
               <div className={'d-flex'}>
                 <b>{index + 1}.</b>
-                {/*<a target="_blank"*/}
-                {/*   href={`https://cyberdocapiservice20211103000756.azurewebsites.net/api/Docs/DownloadFile/${}`}*/}
-                {/*   className="link-primary">*/}
+
                 <span className={'link'}
                       onClick={() => {
                         downloadFile(name.attachmentId, name.fileName)
                       }}
-                >{name.fileName}</span>
-                {/*</a>*/}
+                >{name.fileName.length > 15 ? name.fileName.slice(0, 15) + '...' : name.fileName}</span>
 
               </div>
             </div>

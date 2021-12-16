@@ -16,16 +16,22 @@ const ChosenDestinations = ({
           setVisibleDestinations(v => !v)
         }}
       >ადრესატები</Button>
+
       <Collapse open={visibleDestinations}>
-          <span className={'circleClases'}>
-             <i className="fas fa-plus-circle mt-3"
+        <div className={'d-flex flex-column text-center'}>
+          <div>
+            <span className={'circleClases'}>
+             <i className="fas fa-plus-circle mt-3 "
                 onClick={handleClickOpen}
              />
           </span>
 
-        <Chosen
-          chosenDestination={props.chosenDestination}
-        />
+          </div>
+          <Chosen
+            chosenDestination={props.chosenDestination}
+          />
+        </div>
+
       </Collapse>
 
     </div>

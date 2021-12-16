@@ -13,7 +13,7 @@ import ChosenVisitorDoc from "./chosenVisitors/chosenVisitorDoc";
 let Styles = styled.div`
   .circleClases {
     font-size: 18px;
-    color: rgba(121, 172, 243, 0.57);
+    color: #ffc107;
     cursor: pointer;
     justify-content: center;
   }

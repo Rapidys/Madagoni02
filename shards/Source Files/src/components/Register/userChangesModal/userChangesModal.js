@@ -34,7 +34,7 @@ const UserChangesModal = ({
     <MyModal
       open={userControlOpen}
       onClose={controlClose}
-      title={'თანამშრომლის წაშლა'}
+      title={'რედაქტირება'}
     >
 
       <div className={'d-flex'}>
@@ -43,10 +43,9 @@ const UserChangesModal = ({
                 onClick={userChangeNameInput}
         >სახელის შეცვლა</Button>
 
-        <Button className={'bg-danger border-0'}
+        <Button className={'bg-danger border-0 '}
                 onClick={delUser}
         >წაშლა</Button>
-
       </div>
 
       {isUserChangeName === true
@@ -92,6 +91,8 @@ const UserChangesModal = ({
           >
             შეცვლა
           </Button>
+
+
         </Form>
       }
     </MyModal>

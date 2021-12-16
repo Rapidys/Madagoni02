@@ -6,6 +6,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {TreeData} from "../../Reducers/TreeDataReducer";
 import {Button, FormCheckbox} from "shards-react";
 import {useHistory} from "react-router-dom";
+import {setNewUser} from "../../Reducers/registerReducer";
+import MyModal from "../MyModal/MyModal";
 
 let Styles = styled.div`
 
@@ -44,6 +46,7 @@ const TreeList = (props) => {
   let history = useHistory()
   let RegisterURL = history.location.pathname
   let treeData = useSelector((state => state.Tree.Structure))
+  let [newTreeFinal, setNewTreeFinal] = useState(false)
   let dispatch = useDispatch()
   const [positionVisibility, setPositionVisibility] = useState(false)
   let setPositions = () => {
@@ -56,9 +59,13 @@ const TreeList = (props) => {
   if (props.treeData.length === 0) {
     return <Preloader/>
   }
+  let newTreeFinalClose = () => {
+    setNewTreeFinal(v => !v)
+  }
   let setNewTree = () => {
-    console.log(treeData)
-    // dispatch(setNewUser(treeData))
+    setNewTreeFinal(true)
+    dispatch(setNewUser(treeData))
+    dispatch(TreeData())
 
   }
   return (
@@ -90,10 +97,23 @@ const TreeList = (props) => {
             თანამდებობები
           </FormCheckbox>
         </div>
+        <MyModal
+          open={newTreeFinal}
+          onClose={newTreeFinalClose}
+          maxWidth={'sm'}
+        >
+          <div className={'d-flex align-items-center'}>
+            <i className="fas fa-check-circle ml-3"
+               style={{color: 'green', fontSize: '30px'}}/>
+            <span className={'ml-4'}>წარმატებით შეიცვალა</span>
+          </div>
+
+        </MyModal>
       </div>
       {
         RegisterURL === '/register' && <Button
           onClick={setNewTree}
+          className={'mt-5 ml-5 mb-5'}
 
         >შენახვა</Button>
       }

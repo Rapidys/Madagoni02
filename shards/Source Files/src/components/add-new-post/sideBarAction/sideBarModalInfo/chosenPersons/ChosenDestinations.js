@@ -1,10 +1,7 @@
-import React, {useMemo, useState} from 'react';
+import React, {useMemo} from 'react';
 import RangeDatePicker from "../../../../common/RangeDatePicker";
-import {useDispatch, useSelector} from "react-redux";
-import {setMotion} from "../../../../../Reducers/addNewPost/DocumentMotionsReducer";
-import MotionTypeFiltering
-  from "../../../../../views/motionTypeFiltering/motionTypeFiltering";
-import {useHistory} from "react-router-dom";
+import {useSelector} from "react-redux";
+
 
 const ChosenDestinations = (props) => {
 

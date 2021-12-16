@@ -32,7 +32,7 @@ const API = {
     return $ApiBase.post(`/docs/UploadFile`, file)
   },
   downloadFile(id) {
-    return $ApiBase.get(`/Docs/DownloadFile/${id}`)
+    return $ApiBase.get(`/Docs/DownloadFile/${id}`,{responseType:'blob'})
   },
   getDocTypes() {
     return $ApiBase.get(`/reference/GetReference/DocumentTypes`)
