@@ -18,6 +18,12 @@ let Styles = styled.span`
   .d-tree-head {
     border-left: 1px dashed black;
   }
+
+  .positions {
+    position: absolute;
+    top: 19px;
+    left: 0;
+  }
 `
 const TreeNode = (props) => {
 
@@ -187,11 +193,18 @@ const TreeNode = (props) => {
               style={{cursor: 'pointer'}}
             />
           }
+          <Styles>
+              <span
+                className={'ml-5 text-success positions'}>
+                {props.positionVisibility && props.node.position}<
+                /span>
 
+          </Styles>
 
           {
             <span style={{cursor: 'pointer',}}>
                 <Styles>
+
                    <span
                      onClick={RegisterURL === '/register' ? addUserInDepartment : setDepartment}
                      className={props.node.isActive === false ? "deletedDep " : "" &&
@@ -205,6 +218,7 @@ const TreeNode = (props) => {
                    >
                      {props.node.displayName}
                    </span>
+
                 </Styles>
               <Tooltip
                 title={<span style={{
@@ -218,15 +232,12 @@ const TreeNode = (props) => {
                          width: '50px',
                          overflowWrap: ' break-word',
                          whiteSpace: 'pre-wrap'
-
                        }}
                        onClick={RegisterURL === '/register' ? userControl : setChosen}
                        className={props.node.userId === 0 ? 'text-success' : ''}
                      >{props.node.firstName} {props.node.lastName}</span>
               </Tooltip>
 
-              <span
-                className={'ml-5 text-danger'}>{props.positionVisibility && props.node.position}</span>
             </span>
 
 

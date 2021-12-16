@@ -6,7 +6,6 @@ import {uniqueIdAC} from "../../../Reducers/chosenDocumentReducer";
 import {useDispatch} from "react-redux";
 import styled from "styled-components";
 import {setCounter} from "../../../Reducers/folderCountersReducer";
-import fire from '../../../assets/fire.gif'
 
 let Styles = styled.div`
 

@@ -10,15 +10,15 @@ import fire from '../../../assets/fire.gif'
 
 let Styles = styled.div`
   .messWrapper:hover {
-    //background: #cfd2ce;
-    cursor: pointer;
-    background-image: url(${fire}) ;
-    background-position: 150% 20%;
-    background-repeat: repeat;
-    filter: brightness(75%) saturate(2);
-    overflow: hidden;
-
-   color:white;
+    background: #cfd2ce;
+     cursor: pointer;
+   //  background-image: url(${fire}) ;
+   //  background-position: 150% 20%;
+   //  background-repeat: repeat;
+   //  filter: brightness(75%) saturate(2);
+   //  overflow: hidden;
+   //
+   // color:white;
   }
 
 `

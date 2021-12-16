@@ -20,10 +20,13 @@ import SignDocumentModal from "./BtnModals/signDocumentModal";
 import FinishMessage from "./BtnModals/finishMessage";
 import SideBarDestinations
   from "../sideBarAction/sideBarModalInfo/sideBarDestinations";
+import {updateDocument} from "../../../Reducers/updateDocumentReducer";
+import MyModal from "../../MyModal/MyModal";
 
 
 const Editor = (props) => {
 
+  let destinations = useSelector(state => state.updateDocument.destinations)
 
   let params = useParams()
   let history = useHistory()
@@ -34,10 +37,10 @@ const Editor = (props) => {
   let fileId = useSelector((state => state.uploadFile.fileId))
   let isSended = useSelector((state => state.addNewPost.isSended))
   let [resendAddresant, setResendAddresant] = useState(false)
+  let [successResended, setSuccessResended] = useState(false)
   let dispatch = useDispatch()
 
   const [openSign, setOpenSign] = useState(false)
-
 
   function addNewPost() {
     {
@@ -85,13 +88,18 @@ const Editor = (props) => {
 
   let resendDocModal = () => {
     setResendAddresant(v => !v)
+
+  }
+  let onSuccessResend = () => {
+    setSuccessResended(v => !v)
   }
   let resendDocument = () => {
-    console.log('working')
+    dispatch(updateDocument(props.documentTitle, props.documentBody, selectType, destinations, fileId))
     setResendAddresant(false)
-
+    if (resendAddresant === true) {
+      setSuccessResended(true)
+    }
   }
-
   return (
     <Card small className="mb-3">
       <CardBody>
@@ -108,13 +116,24 @@ const Editor = (props) => {
             modules={Editor.modules}
             formats={Editor.formats}
             onChange={handleBody}
-            value={props.documentBody}
+            value={props.documentBody || ''}
 
           />
-          <div>
+          <MyModal
+            open={successResended}
+            onClose={onSuccessResend}
+            maxWidth={'sm'}
+          >
+            <div className={'d-flex align-items-center'}>
+              <i className="fas fa-check-circle"
 
+                 style={{color: 'green', fontSize: '30px'}}/>
+              <span className={'ml-2'}>
+                          წარმატებით გადაიგზავნა
+            </span>
+            </div>
 
-          </div>
+          </MyModal>
         </Form>
         <SideBarDestinations
           open={resendAddresant}
@@ -123,7 +142,7 @@ const Editor = (props) => {
         />
         {url === '/add-new-post'
           ? <Button
-            disabled={!props.documentTitle}
+            disabled={!Motions.MotionDest.length && true}
             onClick={addNewPost}
             className={getDoc.addBtn !== true ? 'd-none' : 'border - 1'}
           >გაგზავნა</Button>
@@ -135,7 +154,7 @@ const Editor = (props) => {
 
         {/*"ml-lg-2 ml-sm-0 border - 1"*/}
         <Button
-          disabled={!props.documentTitle}
+          disabled={!Motions.MotionDest.length && true}
           onClick={handleDraft}
           className={props.draftBtn}
         >დრაფტად შენახვა</Button>

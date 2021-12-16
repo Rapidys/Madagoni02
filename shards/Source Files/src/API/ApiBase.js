@@ -32,7 +32,7 @@ const API = {
     return $ApiBase.post(`/docs/UploadFile`, file)
   },
   downloadFile(id) {
-    return $ApiBase.get(`/Docs/DownloadFile/${id}`,{responseType:'blob'})
+    return $ApiBase.get(`/Docs/DownloadFile/${id}`, {responseType: 'blob'})
   },
   getDocTypes() {
     return $ApiBase.get(`/reference/GetReference/DocumentTypes`)
@@ -42,6 +42,9 @@ const API = {
   },
   getDocuments(documentStatus) {
     return $ApiBase.post(`/docs/GetDocuments`, documentStatus,)
+  },
+  updateDocument(document) {
+    return $ApiBase.post(`/docs/UpdateDocument`, document,)
   },
   signDocument(id) {
     return $ApiBase.get(`/docs/SignDocument/${id}`,)

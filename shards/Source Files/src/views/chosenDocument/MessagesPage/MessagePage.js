@@ -63,6 +63,7 @@ const ChosenDocument = () => {
             setChosenDestination={setchosenDestination}
             setChosenVisitor={setchosenVisitor}
             documentTitle={documentTitle}
+            setDocumentTitle = {setDocumentTitle}
             documentBody={documentBody}
             documentType={documentType}
             draftBtn={MotionStatus === 0 ? 'lg-ml-3 xs-ml-0 border - 1' : 'd-none'}

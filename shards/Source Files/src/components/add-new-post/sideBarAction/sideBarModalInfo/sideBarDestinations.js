@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {Button, Col, Row} from "shards-react";
 import TreeList from "../../../CompaignTree/TreeList";
 import {useDispatch, useSelector} from "react-redux";
@@ -17,6 +17,9 @@ import {
   setMotionDest
 } from "../../../../Reducers/addNewPost/DocumentMotionsReducer";
 import {useHistory} from "react-router-dom";
+import {
+  getUpdateDestinatesAC
+} from "../../../../Reducers/updateDocumentReducer";
 
 let Styles = styled.div`
   .wrapper:first-child {
@@ -43,7 +46,6 @@ const SideBarDestinations = (props) => {
   let handleSetDate = (value, index) => {
     destination[index].dueDate = value
   }
-
 
   function handleSetNodeValue(value) {
     setValueFromTree(value)
@@ -81,6 +83,9 @@ const SideBarDestinations = (props) => {
       }
     }
   }, [valueFromTree])
+  useEffect(()=>{
+    dispatch(getUpdateDestinatesAC(destination))
+  },[destination])
 
   useMemo(() => {
     let rame = 0
@@ -105,8 +110,6 @@ const SideBarDestinations = (props) => {
       }
     }
   }, [department])
-
-
   const save = () => {
     let authorMotion = {
       MotionTypeId: 1,

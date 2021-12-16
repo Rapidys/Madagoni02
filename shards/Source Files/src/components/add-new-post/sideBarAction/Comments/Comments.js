@@ -13,7 +13,9 @@ import {
   setModalVisible
 } from "../../../../Reducers/Comments/CommentsReducer";
 import {useParams} from "react-router-dom";
-import {createComment} from "../../../../Reducers/Comments/CreateNewCommentReducer";
+import {
+  createComment
+} from "../../../../Reducers/Comments/CreateNewCommentReducer";
 
 let Styles = styled.div`
   .commentBody {
@@ -98,7 +100,6 @@ const Comments = () => {
 
 
   let visible = useSelector(state => state.getComments.isVisibleModal)
-  let visibleBtn = useSelector(state => state.getComments.isVisibleBtn)
 
   const [textValue, setTextValue] = useState('')
   let params = useParams()
@@ -135,7 +136,7 @@ const Comments = () => {
 
   }
   let userImg = useSelector(state => state.userInfo.img)
-  console.log('working')
+
   return (
     <Dialog
       open={visible}
@@ -155,9 +156,7 @@ const Comments = () => {
       <DialogTitle>კომენტარები</DialogTitle>
 
       <DialogContent>
-        <DialogContentText>
-          აირჩიეთ სასურველი ავტორები
-        </DialogContentText>
+
 
         <FormControl sx={{mt: 2, minWidth: 120}} className={"w-100"}>
 
@@ -198,7 +197,7 @@ const Comments = () => {
               <Col>
                 <div>
                   <p className="mb-2">
-                    {"🤔 Waiting for you to say something..."}
+                    {"🤔 დაწერეთ რამე საინტერესო..."}
                   </p>
                   <FormTextarea onChange={onTextChange} value={textValue}
                                 placeholder='კომენტარი ...'
