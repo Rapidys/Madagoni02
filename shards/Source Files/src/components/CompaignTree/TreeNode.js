@@ -14,6 +14,14 @@ let Styles = styled.span`
 
   }
 
+  .deletedDep {
+    text-decoration: line-through;
+  }
+
+  .newDepColor {
+    color: #ffc107;
+  }
+
 
 `
 const TreeNode = (props) => {
@@ -100,10 +108,13 @@ const TreeNode = (props) => {
 // departamentis washla
   let deleteDepOrUser = () => {
     props.node.isActive = false
-  }
+    SetOpen(false)
 
+  }
+//departamentis saxelis  shecvla
   let changeDepName = () => {
     props.node.displayName = changedDepNames
+    setChangedDepNames('')
     SetOpen(false)
   }
 
@@ -121,6 +132,7 @@ const TreeNode = (props) => {
   let changeUserName = () => {
     props.node.firstName = userNewName.name
     props.node.lastName = userNewName.lastName
+    setUserNewName({name: '', lastName: ''})
     setUserControlOpen(false)
   }
   const hasChild = props.node.departments ? true : false
@@ -169,8 +181,16 @@ const TreeNode = (props) => {
 
         <div className={"col d-tree-head"}>
           {props.node.displayName
-            ? <i className="mr-2 mt-1 fas fa-university"/>
-            : <i className="ml-2 mr-2 mt-1 fas fa-user"/>
+            ? <i
+              className={props.node.departmentId === 0 ? 'text-success mr-2 mt-1 fas fa-university' : 'mr-2 mt-1 fas fa-university'}
+              onClick={RegisterURL === '/register' ? addUserInDepartment : setDepartment}
+              style={{cursor: 'pointer'}}
+            />
+            : <i
+              className={props.node.userId === 0 ? "text-success ml-2 mr-2 mt-1 fas fa-user" : "ml-2 mr-2 mt-1 fas fa-user"}
+              onClick={RegisterURL === '/register' ? userControl : setChosen}
+              style={{cursor: 'pointer'}}
+            />
           }
 
 
@@ -179,7 +199,9 @@ const TreeNode = (props) => {
                 <Styles>
                    <span
                      onClick={RegisterURL === '/register' ? addUserInDepartment : setDepartment}
-                     className={"nameWrapper"}
+                     className={props.node.isActive === false ? "deletedDep nameWrapper" : "nameWrapper" &&
+                     props.node.departmentId === 0 ? 'text-success' : ''
+                     }
                    >
                      {props.node.displayName}
                    </span>
@@ -191,7 +213,11 @@ const TreeNode = (props) => {
                 }}>{props.node.position}</span>}
                 arrow>
                      <span
+                       style={{
+                         textDecoration: props.node.isActive === false && 'line-through',
+                       }}
                        onClick={RegisterURL === '/register' ? userControl : setChosen}
+                       className={props.node.userId === 0 ? 'text-success' : ''}
                      >{props.node.firstName} {props.node.lastName}</span>
               </Tooltip>
 

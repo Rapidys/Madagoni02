@@ -26,6 +26,7 @@ const ChosenFiles = ({fileNames, file}) => {
   let downloadFile = (id, name) => {
 
     API.downloadFile(id).then(response => {
+      debugger
       const downloadUrl = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = downloadUrl;
