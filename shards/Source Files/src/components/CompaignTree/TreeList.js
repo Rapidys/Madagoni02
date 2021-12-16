@@ -10,6 +10,14 @@ import {setNewUser} from "../../Reducers/registerReducer";
 import MyModal from "../MyModal/MyModal";
 
 let Styles = styled.div`
+  .wrapper {
+    overflow-y: scroll;
+    max-height: 430px;
+  }
+
+  .d-tree-head {
+    border-left: 1px dashed grey;
+  }
 
   .d-tree-container {
     list-style: none;
@@ -27,6 +35,7 @@ let Styles = styled.div`
   @media (max-width: 600px ) {
     .d-tree-node {
       margin: 0;
+
     }
   }
 
@@ -70,7 +79,7 @@ const TreeList = (props) => {
   }
   return (
     <Styles>
-      <div className={'d-flex justify-content-between'}>
+      <div className={'d-flex justify-content-between wrapper'}>
 
         <div className="row">
           <div className="col ">
@@ -89,7 +98,7 @@ const TreeList = (props) => {
           </div>
         </div>
 
-        <div className={'checkbox'}>
+        <div className={'checkbox mr-5'}>
           <FormCheckbox toggle small
                         checked={positionVisibility}
                         onChange={setPositions}

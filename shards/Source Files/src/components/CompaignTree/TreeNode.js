@@ -7,13 +7,6 @@ import {useHistory} from "react-router-dom";
 import UserChangesModal from "../Register/userChangesModal/userChangesModal";
 
 let Styles = styled.span`
-  .nameWrapper {
-    max-width: 150px;
-    overflow-wrap: break-word;
-    white-space: pre-wrap;
-
-  }
-
   .deletedDep {
     text-decoration: line-through;
   }
@@ -22,7 +15,9 @@ let Styles = styled.span`
     color: #ffc107;
   }
 
-
+  .d-tree-head {
+    border-left: 1px dashed black;
+  }
 `
 const TreeNode = (props) => {
 
@@ -199,9 +194,14 @@ const TreeNode = (props) => {
                 <Styles>
                    <span
                      onClick={RegisterURL === '/register' ? addUserInDepartment : setDepartment}
-                     className={props.node.isActive === false ? "deletedDep nameWrapper" : "nameWrapper" &&
+                     className={props.node.isActive === false ? "deletedDep " : "" &&
                      props.node.departmentId === 0 ? 'text-success' : ''
                      }
+                     style={{
+                       width: '50px',
+                       overflowWrap: ' break-word',
+                       whiteSpace: 'pre-wrap'
+                     }}
                    >
                      {props.node.displayName}
                    </span>
@@ -215,6 +215,10 @@ const TreeNode = (props) => {
                      <span
                        style={{
                          textDecoration: props.node.isActive === false && 'line-through',
+                         width: '50px',
+                         overflowWrap: ' break-word',
+                         whiteSpace: 'pre-wrap'
+
                        }}
                        onClick={RegisterURL === '/register' ? userControl : setChosen}
                        className={props.node.userId === 0 ? 'text-success' : ''}

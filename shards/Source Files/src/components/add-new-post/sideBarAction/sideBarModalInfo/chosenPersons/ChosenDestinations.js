@@ -1,6 +1,19 @@
 import React, {useMemo} from 'react';
 import RangeDatePicker from "../../../../common/RangeDatePicker";
 import {useSelector} from "react-redux";
+import styled from "styled-components";
+
+let Styles = styled.div`
+
+  .fileNamesWrapper {
+    width: 250px;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    display: flex;
+    justify-content: space-between;
+
+  }
+`
 
 
 const ChosenDestinations = (props) => {
@@ -35,13 +48,13 @@ const ChosenDestinations = (props) => {
   }
 
   return (
-    <div>
+    <Styles>
       {props.destination.length > 0 && props.destination.map((user, index) => {
         return (
           <div key={index}
           >
             <div className={"d-flex justify-content-between p-2 mt-1"}>
-              <div>
+              <div className={'fileNamesWrapper'}>
                 {user.firstName
                   ? user.firstName + ' ' + user.lastName
                   : user.displayName
@@ -71,7 +84,7 @@ const ChosenDestinations = (props) => {
       }
 
 
-    </div>
+    </Styles>
   );
 };
 

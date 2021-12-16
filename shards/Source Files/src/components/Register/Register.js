@@ -31,7 +31,7 @@ const Register = () => {
       <Container className={'loginWrapper'}>
         <Card>
 
-          <CardBody className={'card'}>
+          <CardBody className={'card '}>
 
             <TreeList treeData={treeData}
 

@@ -2,7 +2,7 @@ import React from 'react';
 import {Button, Collapse} from "shards-react";
 import Chosen from "./chosen";
 
-const ChosenDestinations = ({
+const DocumentDestinates = ({
                               setVisibleDestinations,
                               visibleDestinations,
                               handleClickOpen,
@@ -19,14 +19,14 @@ const ChosenDestinations = ({
 
       <Collapse open={visibleDestinations}>
         <div className={'d-flex flex-column text-center'}>
-          <div>
-            <span className={'circleClases'}>
-             <i className="fas fa-plus-circle mt-3 "
-                onClick={handleClickOpen}
-             />
-          </span>
+          {/*<div>*/}
+          {/*  <span className={'circleClases'}>*/}
+          {/*   <i className="fas fa-plus-circle mt-3 "*/}
+          {/*      onClick={handleClickOpen}*/}
+          {/*   />*/}
+          {/*</span>*/}
 
-          </div>
+          {/*</div>*/}
           <Chosen
             chosenDestination={props.chosenDestination}
           />
@@ -38,4 +38,4 @@ const ChosenDestinations = ({
   );
 };
 
-export default ChosenDestinations;
+export default DocumentDestinates;

@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
-import {Button, Card, Col, Collapse, Row} from "shards-react";
 import SideBarVisitors from "../sideBarModalInfo/sideBarVisitors";
 import SideBarDestinations from "../sideBarModalInfo/sideBarDestinations";
 import styled from "styled-components";
-import ChosenDestinations from "./chosenDestinations/chosenDestinations";
+import DocumentDestinates from "./chosenDestinations/documentDestinates";
 import {useHistory} from "react-router-dom";
 import ChosenInNewDoc from "./chosenDestinations/chosenInNewDoc";
 import ChosenVisitorNewDoc from "./chosenVisitors/chosenVisitorNewDoc";
@@ -85,7 +84,7 @@ const ChosenUsers = (props) => {
             chosenDestination={props.chosenDestination}
             handleClickOpen={handleClickOpen}
           />
-          : <ChosenDestinations
+          : <DocumentDestinates
             setVisibleDestinations={setVisibleDestinations}
             visibleDestinations={visibleDestinations}
             handleClickOpen={handleClickOpen}

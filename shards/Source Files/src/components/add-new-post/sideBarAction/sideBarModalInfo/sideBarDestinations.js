@@ -12,14 +12,30 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import ChosenDestinations from "./chosenPersons/ChosenDestinations";
+import styled from "styled-components";
 import {
   setMotionDest
 } from "../../../../Reducers/addNewPost/DocumentMotionsReducer";
+import {useHistory} from "react-router-dom";
 
+let Styles = styled.div`
+  .wrapper:first-child {
+    padding-top: 0;
+  }
+
+  @media (max-width: 500px) {
+
+    .wrapper {
+      padding: 0;
+      margin: 0 0 0 5px;
+    }
+  }
+`
 
 const SideBarDestinations = (props) => {
 
-
+  let history = useHistory()
+  let url = history.location.pathname
   let [destination, setDestination] = useState([])
   let [valueFromTree, setValueFromTree] = useState([])
   let [department, setDepartment] = useState([])
@@ -124,53 +140,64 @@ const SideBarDestinations = (props) => {
           <i className="fas fa-times p-4" style={{cursor: 'pointer'}}
              onClick={props.handleClose}/>
         </div>
+        <Styles>
+          <DialogContent className={'wrapper'}>
+            <DialogContentText>
+              აირჩიეთ სასურველი ავტორები
+            </DialogContentText>
 
-        <DialogContent className={'treeDialogContent'}>
-          <DialogContentText>
-            აირჩიეთ სასურველი ავტორები
-          </DialogContentText>
+            <FormControl sx={{mt: 2, minWidth: 120}} className={"w-100"}>
 
-          <FormControl sx={{mt: 2, minWidth: 120}} className={"w-100"}>
+              <MenuItem value="xl" style={{minHeight: 400, padding: 0}}>
+                <Row className={"w-100"}>
 
-            <MenuItem value="xl" style={{minHeight: 400, padding: 0}}>
-              <Row className={"w-100"}>
-
-                <Col lg="8" className={'treeCol'}>
-
-
-                  <TreeList
-                    treeData={treeData}
-                    setTreeDatas={props.setTreeDatas}
-                    handleSetNodeValue={handleSetNodeValue}
-                    handleSetDepValue={handleSetDepValue}
-                  />
-
-                </Col>
-                <Col lg="4" className={"border-left"}>
+                  <Col lg="8" className={'treeCol'}>
 
 
-                  <br/>
-
-                  <div>
-                    <b>ადრესატები</b>
-                    <ChosenDestinations
-                      destination={destination}
-                      department={department}
-                      setDepartment={setDepartment}
-                      setDestination={setDestination}
-                      handleSetDate={handleSetDate}
-                      save={save}
-
+                    <TreeList
+                      treeData={treeData}
+                      setTreeDatas={props.setTreeDatas}
+                      handleSetNodeValue={handleSetNodeValue}
+                      handleSetDepValue={handleSetDepValue}
                     />
-                  </div>
-                </Col>
-              </Row>
-            </MenuItem>
-          </FormControl>
 
-        </DialogContent>
+                  </Col>
+                  <Col lg="4" className={"border-left"}>
+
+
+                    <br/>
+
+                    <div>
+                      <b>ადრესატები</b>
+                      <ChosenDestinations
+                        destination={destination}
+                        department={department}
+                        setDepartment={setDepartment}
+                        setDestination={setDestination}
+                        handleSetDate={handleSetDate}
+                        save={save}
+
+                      />
+                    </div>
+                  </Col>
+                </Row>
+              </MenuItem>
+            </FormControl>
+
+          </DialogContent>
+
+        </Styles>
+
         <DialogActions>
-          <Button onClick={save}>შენახვა</Button>
+          {url === '/add-new-post'
+            ? <Button onClick={save}>შენახვა</Button>
+            : <Button
+              onClick={props.resendDocument}
+              disabled={!destination.length && true}
+            >გადაგზავნა</Button>
+          }
+
+
         </DialogActions>
       </Dialog>
     </div>

@@ -13,24 +13,27 @@ import {useDispatch, useSelector} from "react-redux";
 import {
   setNewObject,
 } from "../../../Reducers/addNewPost/addNewPostReducer";
-import {Redirect, useParams} from "react-router-dom";
+import {Redirect, useHistory, useParams} from "react-router-dom";
 import {setSignDocument} from "../../../Reducers/signDocumentReducer";
 import FinishButtonModal from "./BtnModals/FinishButtonModal";
 import SignDocumentModal from "./BtnModals/signDocumentModal";
 import FinishMessage from "./BtnModals/finishMessage";
+import SideBarDestinations
+  from "../sideBarAction/sideBarModalInfo/sideBarDestinations";
 
 
 const Editor = (props) => {
 
 
   let params = useParams()
-
+  let history = useHistory()
+  let url = history.location.pathname
   let getDoc = useSelector((state => state.GetDoc))
   let Motions = useSelector((state => state.docMotion))
   let selectType = useSelector((state => state.selectDocument.selectType))
   let fileId = useSelector((state => state.uploadFile.fileId))
   let isSended = useSelector((state => state.addNewPost.isSended))
-
+  let [resendAddresant, setResendAddresant] = useState(false)
   let dispatch = useDispatch()
 
   const [openSign, setOpenSign] = useState(false)
@@ -79,6 +82,16 @@ const Editor = (props) => {
     return <Redirect to={'/sentDocuments'}/>
 
   }
+
+  let resendDocModal = () => {
+    setResendAddresant(v => !v)
+  }
+  let resendDocument = () => {
+    console.log('working')
+    setResendAddresant(false)
+
+  }
+
   return (
     <Card small className="mb-3">
       <CardBody>
@@ -103,11 +116,23 @@ const Editor = (props) => {
 
           </div>
         </Form>
-        <Button
-          disabled={!props.documentTitle}
-          onClick={addNewPost}
-          className={getDoc.addBtn !== true ? 'd-none' : 'border - 1'}
-        >გადაგზავნა</Button>
+        <SideBarDestinations
+          open={resendAddresant}
+          handleClose={resendDocModal}
+          resendDocument={resendDocument}
+        />
+        {url === '/add-new-post'
+          ? <Button
+            disabled={!props.documentTitle}
+            onClick={addNewPost}
+            className={getDoc.addBtn !== true ? 'd-none' : 'border - 1'}
+          >გაგზავნა</Button>
+          : <Button
+            onClick={resendDocModal}
+            className={getDoc.addBtn !== true ? 'd-none' : 'border - 1'}
+          >გადაგზავნა</Button>
+        }
+
         {/*"ml-lg-2 ml-sm-0 border - 1"*/}
         <Button
           disabled={!props.documentTitle}
@@ -143,6 +168,8 @@ const Editor = (props) => {
                            setFinishCategories={setFinishCategories}
         />
         <FinishMessage/>
+
+
       </CardBody>
     </Card>
   )
