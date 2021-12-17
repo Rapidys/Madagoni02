@@ -22,11 +22,7 @@ const AdminPage = () => {
       to: "chartControl"
     },
     {
-      title: "იუზერის დარეგისტრირება",
-      to: "/register"
-    },
-    {
-      title: "იუზერის წაშლა",
+      title: "სტრუქტურის რედაქტირება",
       to: "/register"
     },
     {

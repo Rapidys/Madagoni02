@@ -21,8 +21,9 @@ let Styles = styled.span`
 
   .positions {
     position: absolute;
-    top: 19px;
-    left: 0;
+    top: -10px;
+    left: -5px;
+    font-size: 12px;
   }
 `
 const TreeNode = (props) => {
@@ -37,6 +38,7 @@ const TreeNode = (props) => {
   let [userNewName, setUserNewName] = useState({name: '', lastName: ''})
   let [changedDepNames, setChangedDepNames] = useState('')
   let [Type, setType] = useState('')
+  let [positonName, setPositonName] = useState('')
   const [visibility, setVisibility] = useState(props.node.expand)
 
   //axali dokumentis sheqmnis destinate an visitor
@@ -136,6 +138,14 @@ const TreeNode = (props) => {
     setUserNewName({name: '', lastName: ''})
     setUserControlOpen(false)
   }
+
+  // tanamdebobis shecvla
+  let changePositionName = () => {
+    props.node.position = positonName
+    setPositonName('')
+    setUserControlOpen(false)
+  }
+
   const hasChild = props.node.departments ? true : false
   const hasEmployes = props.node.employes ? true : false
   return (
@@ -161,6 +171,9 @@ const TreeNode = (props) => {
         changeUserName={changeUserName}
         setUserNewName={setUserNewName}
         userNewName={userNewName}
+        positonName={positonName}
+        setPositonName={setPositonName}
+        changePositionName={changePositionName}
       />
 
 

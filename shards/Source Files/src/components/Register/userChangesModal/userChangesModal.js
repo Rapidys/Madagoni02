@@ -9,19 +9,32 @@ const UserChangesModal = ({
                             changeUserName,
                             setUserNewName,
                             userNewName,
+                            positonName,
+                            setPositonName,
+                            changePositionName
+
                           }) => {
 
   let [isUserChangeName, setIsUserChangeName] = useState(true)
-
+  let [userPosition, setUserPosition] = useState(false)
 
   let [nameError, setNameError] = useState('')
   let [lastNameError, setLastNameError] = useState('')
+  let [positionError, setPositionError] = useState('')
+
+
   let blurName = () => {
     if (userNewName.name === '') {
       setNameError('შეიყვანეთ ახალი სახელი')
     }
-
   }
+  let blurPosition = () => {
+    if (positonName === '') {
+      setPositionError('შეიყვანეთ თანამდებობა')
+    }
+  }
+
+
   let BlurLastName = () => {
     if (userNewName.lastName === '') {
       setLastNameError('შეიყვანეთ ახალი გვარი')
@@ -29,6 +42,11 @@ const UserChangesModal = ({
   }
   let userChangeNameInput = () => {
     setIsUserChangeName(v => !v)
+    setUserPosition(false)
+  }
+  let onUserPositionClose = () => {
+    setUserPosition(v => !v)
+    setIsUserChangeName(false)
   }
   return (
     <MyModal
@@ -42,12 +60,41 @@ const UserChangesModal = ({
         <Button className={'d-flex bg-primary mr-2'}
                 onClick={userChangeNameInput}
         >სახელის შეცვლა</Button>
-
+        <Button className={'d-flex bg-primary mr-2'}
+                onClick={onUserPositionClose}
+        >თანამდებობა</Button>
         <Button className={'bg-danger border-0 '}
                 onClick={delUser}
         >წაშლა</Button>
       </div>
+      {
+        userPosition === true &&
 
+        <Form>
+          <FormInput
+            type="text"
+            placeholder={'თანამდებობა'}
+            className={'mt-2'}
+            value={positonName}
+            onChange={(e) => {
+              setPositonName(e.target.value)
+            }}
+            onBlur={blurPosition}
+          />
+
+          <label style={{color: 'red'}}>{positionError}</label>
+          <br/>
+          <Button
+            className={'bg-warning border-0'}
+            onClick={changePositionName}
+            disabled={positonName === '' && true}
+
+          >
+            შეცვლა
+          </Button>
+        </Form>
+
+      }
       {isUserChangeName === true
 
         && <Form>
