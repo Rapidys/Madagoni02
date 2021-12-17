@@ -83,14 +83,6 @@ const API = {
 }
 
 let $ApiBase = API.axiosCreate()
-$ApiBase.interceptors.response.use((config) => {
-  return config
-}, (error) => {
-  if (error && error.status === 403 || 400 || 401) {
-    return <Redirect to='/login'/> && localStorage.clear()
-  }
 
-  return Promise.reject(error);
-})
 
 export default API

@@ -42,6 +42,7 @@ const SideBarDestinations = (props) => {
   let [destination, setDestination] = useState([])
   let [valueFromTree, setValueFromTree] = useState([])
   let [department, setDepartment] = useState([])
+  let chosen = useSelector(state => state.chosenDocument.currentMessagePage)
 
   let handleSetDate = (value, index) => {
     destination[index].dueDate = value
@@ -56,7 +57,6 @@ const SideBarDestinations = (props) => {
   }
 
   let dispatch = useDispatch()
-
   useMemo(() => {
     let rame = 0
     let newDestinate = {
@@ -83,9 +83,9 @@ const SideBarDestinations = (props) => {
       }
     }
   }, [valueFromTree])
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(getUpdateDestinatesAC(destination))
-  },[destination])
+  }, [destination])
 
   useMemo(() => {
     let rame = 0

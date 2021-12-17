@@ -226,7 +226,8 @@ const TreeNode = (props) => {
                      style={{
                        width: '50px',
                        overflowWrap: ' break-word',
-                       whiteSpace: 'pre-wrap'
+                       whiteSpace: 'pre-wrap',
+                       color: props.node.departmentId === 0 && '#17c671'
                      }}
                    >
                      {props.node.displayName}
@@ -243,7 +244,7 @@ const TreeNode = (props) => {
                        style={{
                          textDecoration: props.node.isActive === false && 'line-through',
                          width: '50px',
-                         overflowWrap: ' break-word',
+                         overflowWrap: 'break-word',
                          whiteSpace: 'pre-wrap'
                        }}
                        onClick={RegisterURL === '/register' ? userControl : setChosen}

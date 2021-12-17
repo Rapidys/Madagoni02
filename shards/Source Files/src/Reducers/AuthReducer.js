@@ -50,6 +50,7 @@ let AuthReducer = (state = initialState, action) => {
       }
     }
 
+
     default:
       return state
   }
@@ -67,10 +68,10 @@ export let TokenAC = (tok) => ({type: Token, tok})
 export const login = (email, password) => {
   return (dispatch) => {
     dispatch(LoadingAC(true))
-
     try {
       API.AuthAPI(email, password)
         .then(response => {
+
           dispatch(setUser({email, password}))
           if (!response) {
             dispatch(LoadingAC(false))
@@ -83,7 +84,14 @@ export const login = (email, password) => {
             dispatch(TokenAC(response.data.token))
             dispatch(LoadingAC(false))
           }
-        })
+
+        }).catch(function (error) {
+        if (error && error.response.status === 403) {
+          dispatch(LoadingAC(false))
+          dispatch(setIsAuth(false))
+        }
+
+      })
 
     } catch (e) {
       console.log(e)

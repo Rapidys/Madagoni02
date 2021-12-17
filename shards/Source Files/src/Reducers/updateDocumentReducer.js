@@ -34,21 +34,12 @@ export let getUpdateDestinatesAC = (destinations) => ({
 
 export default updateDocumentReducer
 
-export let updateDocument = (documentTitle, documentBody, selectType, destinations, fileId) => {
+export let updateDocument = (updateDoc) => {
   return dispatch => {
-    let updatedDocument = {
-      DocumentId: 0,
-      DocumentDate: null,
-      DocumentTitle: documentTitle,
-      DocumentBody: documentBody,
-      isActive: true,
-      DocumentTypeId: 0,
-      DocumentMotions: destinations,
-      Attachments: fileId
-    }
+
     try {
-      API.updateDocument(updatedDocument).then(response => {
-        dispatch(setUpdateDocumentAC(updatedDocument))
+      API.updateDocument(updateDoc).then(response => {
+        dispatch(setUpdateDocumentAC(updateDoc))
       })
     } catch (e) {
       console.log(e)

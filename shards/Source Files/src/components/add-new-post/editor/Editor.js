@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import ReactQuill from "react-quill";
 import {
   Button,
@@ -22,6 +22,7 @@ import SideBarDestinations
   from "../sideBarAction/sideBarModalInfo/sideBarDestinations";
 import {updateDocument} from "../../../Reducers/updateDocumentReducer";
 import MyModal from "../../MyModal/MyModal";
+import {getMessagePage} from "../../../API/sentDocumentService";
 
 
 const Editor = (props) => {
@@ -39,6 +40,9 @@ const Editor = (props) => {
   let [resendAddresant, setResendAddresant] = useState(false)
   let [successResended, setSuccessResended] = useState(false)
   let dispatch = useDispatch()
+
+  let chosen = useSelector(state => state.chosenDocument.currentMessagePage)
+
 
   const [openSign, setOpenSign] = useState(false)
 
@@ -92,14 +96,24 @@ const Editor = (props) => {
   }
   let onSuccessResend = () => {
     setSuccessResended(v => !v)
+
   }
+
+// dokumentis gadagzavna moushenis chamatebit
+
   let resendDocument = () => {
-    dispatch(updateDocument(props.documentTitle, props.documentBody, selectType, destinations, fileId))
+    chosen.documentMotions = [...chosen.documentMotions, ...destinations]
+
+    dispatch(updateDocument(chosen))
+
     setResendAddresant(false)
-    if (resendAddresant === true) {
-      setSuccessResended(true)
+    setSuccessResended(true)
+    if (successResended === false) {
+      dispatch(getMessagePage(params.id))
+
     }
   }
+
   return (
     <Card small className="mb-3">
       <CardBody>

@@ -26,6 +26,7 @@ const ChosenDocument = () => {
   }, [pageId])
 
 
+
   const [documentTitle, setDocumentTitle] = useState('')
   const [documentBody, setDocumentBody] = useState('')
   const [chosenDestination, setchosenDestination] = useState([])
@@ -45,7 +46,6 @@ const ChosenDocument = () => {
     MotionTypeFiltering(chosen, chosenDestination, chosenVisitor)
   }, [chosen])
 
-
   let MotionStatus = useSelector(state => state.MotionStatus.motionStatus)
   let history = useHistory()
   useEffect(() => {
@@ -63,7 +63,7 @@ const ChosenDocument = () => {
             setChosenDestination={setchosenDestination}
             setChosenVisitor={setchosenVisitor}
             documentTitle={documentTitle}
-            setDocumentTitle = {setDocumentTitle}
+            setDocumentTitle={setDocumentTitle}
             documentBody={documentBody}
             documentType={documentType}
             draftBtn={MotionStatus === 0 ? 'lg-ml-3 xs-ml-0 border - 1' : 'd-none'}

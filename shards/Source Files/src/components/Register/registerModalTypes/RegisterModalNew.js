@@ -3,10 +3,10 @@ import {Formik} from "formik";
 import {Button, Form, FormInput} from "shards-react";
 import * as yup from "yup";
 
-const RegisterModalNew = ({Type,addUser}) => {
+const RegisterModalNew = ({Type, addUser}) => {
   let validationSchema = yup.object().shape({
-    name: yup.string().required('აუცილებელი ველი'),
-    lastName: yup.string().required('აუცილებელი ველი'),
+    name: yup.string().required('შეიყვანეთ სახელი'),
+    lastName: yup.string().required('შეიყვანეთ გვარი'),
     email: yup.string().email('შეიყვანეთ ელ-ფოსტა').required('აუცილებელი ველი')
   })
   return (

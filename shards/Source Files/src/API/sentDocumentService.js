@@ -18,7 +18,6 @@ export let getMessagePage = (params) => {
 
         .then(response => {
           dispatch(chosenIsLoadingAC(false))
-
           dispatch(chosenDocPageAC(response.data))
         })
     } catch (e) {
