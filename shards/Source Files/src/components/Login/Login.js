@@ -1,16 +1,20 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Button, Card, CardBody, Form, FormGroup, FormInput} from "shards-react";
 import styled from "styled-components";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {login} from "../../Reducers/AuthReducer";
 import {Formik} from "formik";
 import * as yup from 'yup'
-import MyModal from "../MyModal/MyModal";
 
 let Styles = styled.div`
+
+  .test{
+   margin-top: 150px;
+  }
   .loginWrapper {
     max-width: 400px;
-    margin: auto;
+    margin:auto;
+
   }
 `
 
@@ -26,65 +30,68 @@ const Login = () => {
 
   return (
     <Styles>
-      <Card className="loginWrapper mt-5">
+      <div className={'test'}>
+        <Card className="loginWrapper mt-5">
 
-        <CardBody>
-          <Formik
-            initialValues={{
-              email: '',
-              password: '',
-            }}
-            validateOnBlur
-            validationSchema={validationSchema}
-            onSubmit={(values) => {
-              dispatch(login(values.email, values.password))
-            }}
-          >
-            {({
-                values, touched, handleBlur,
-                handleSubmit, handleChange, errors, isValid
-              }) => (
-              <Form className="m-auto">
-                <FormGroup className={'mb-0'}>
-                  <label htmlFor="#username">ელ-ფოსტა</label>
-                  <FormInput id="#username"
-                             placeholder="ელ-ფოსტა"
-                             name='email'
-                             value={values.email}
-                             onChange={handleChange}
-                             onBlur={handleBlur}
-                  />
-                </FormGroup>
-                {errors.email &&
-                  <span className={'text-danger'}>{errors.email}</span>}
-                <FormGroup>
-                  <label htmlFor="#password">პაროლი</label>
-                  <FormInput type="password"
-                             id="#password"
-                             placeholder="პაროლი"
-                             name='password'
-                             value={values.password}
-                             onChange={handleChange}
-                             onBlur={handleBlur}
-                  />
-                  {errors.password &&
-                    <span className={'text-danger'}>{errors.password}</span>}
-                </FormGroup>
+          <CardBody>
+            <Formik
+              initialValues={{
+                email: '',
+                password: '',
+              }}
+              validateOnBlur
+              validationSchema={validationSchema}
+              onSubmit={(values) => {
+                dispatch(login(values.email, values.password))
+              }}
+            >
+              {({
+                  values, touched, handleBlur,
+                  handleSubmit, handleChange, errors, isValid
+                }) => (
+                <Form className="m-auto">
+                  <FormGroup className={'mb-0'}>
+                    <label htmlFor="#username">ელ-ფოსტა</label>
+                    <FormInput id="#username"
+                               placeholder="ელ-ფოსტა"
+                               name='email'
+                               value={values.email}
+                               onChange={handleChange}
+                               onBlur={handleBlur}
+                    />
+                  </FormGroup>
+                  {errors.email &&
+                    <span className={'text-danger'}>{errors.email}</span>}
+                  <FormGroup>
+                    <label htmlFor="#password">პაროლი</label>
+                    <FormInput type="password"
+                               id="#password"
+                               placeholder="პაროლი"
+                               name='password'
+                               value={values.password}
+                               onChange={handleChange}
+                               onBlur={handleBlur}
+                    />
+                    {errors.password &&
+                      <span className={'text-danger'}>{errors.password}</span>}
+                  </FormGroup>
 
-                <Button theme="secondary"
-                        onClick={handleSubmit}
-                >
-                  შესვლა
-                </Button>
-              </Form>
-            )
+                  <Button theme="secondary"
+                          onClick={handleSubmit}
+                  >
+                    შესვლა
+                  </Button>
+                </Form>
+              )
 
-            }
-          </Formik>
+              }
+            </Formik>
 
-        </CardBody>
+          </CardBody>
 
-      </Card>
+        </Card>
+      </div>
+
     </Styles>
 
   );

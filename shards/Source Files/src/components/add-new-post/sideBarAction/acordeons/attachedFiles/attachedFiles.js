@@ -7,6 +7,7 @@ import {
 import styled from "styled-components";
 import ChosenFiles from "./ChosenFiles";
 import Preloader from "../../../../../Preloader/Preloader";
+import {useHistory} from "react-router-dom";
 
 let Styles = styled.div`
 
@@ -80,7 +81,8 @@ let Styles = styled.div`
 
 const AttachedFiles = (props) => {
 
-
+  let history = useHistory()
+  let url = history.location.pathname
   let [fileNames, setFileNames] = useState([])
   let dispatch = useDispatch()
   let [file, setFile] = useState({})

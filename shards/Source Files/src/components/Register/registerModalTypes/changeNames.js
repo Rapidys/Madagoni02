@@ -9,7 +9,7 @@ const ChangeNames = ({
                      }) => {
   let [errorForDep, setErrorForDep] = useState('')
   let blur = () => {
-    if (changedDepNames.department === '') {
+    if (changedDepNames === '') {
       setErrorForDep('შეიყვანეთ ახალი სახელი')
     }
   }
@@ -33,8 +33,8 @@ const ChangeNames = ({
 
           <label style={{color: 'red'}}>{errorForDep}</label>
           <br/>
-          <Button className={'bg-danger mt-3'}
-                  disabled={changedDepNames.department === '' && true}
+          <Button className={'bg-danger mt-3 border-0'}
+                  disabled={changedDepNames === '' && true}
                   onClick={changeDepName}
           >
             შეცვლა
