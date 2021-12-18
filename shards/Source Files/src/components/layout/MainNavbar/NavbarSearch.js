@@ -25,11 +25,17 @@ let Styles = styled.div`
     font-size: 20px;
   }
 
+  .hov:hover {
+    color: #007bff;
+
+  }
 
 
 `
 
 export default () => {
+
+  let [hovered, setHovered] = useState(false)
 
 
   const [visible, setVisible] = useState(false)
@@ -61,6 +67,20 @@ export default () => {
               <i
                 className="material-icons cursor-pointer hov">vertical_split</i>
               <span className={"ml-2"}>პოსტები</span>
+            </DropdownItem>
+          </NavLink>
+          <NavLink to="/newFile" className={"text-decoration-none"}>
+            <DropdownItem className={"items"}>
+              <i
+                className="material-icons cursor-pointer hov">description</i>
+              <span className={"ml-2"}>ფაილის შექმნა</span>
+            </DropdownItem>
+          </NavLink>
+          <NavLink to="/MyFiles" className={"text-decoration-none"}>
+            <DropdownItem className={"items"}>
+              <i
+                className="material-icons cursor-pointer hov">description</i>
+              <span className={"ml-2"}>ჩემი ფაილები</span>
             </DropdownItem>
           </NavLink>
 

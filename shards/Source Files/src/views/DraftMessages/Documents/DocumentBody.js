@@ -25,12 +25,12 @@ let Styles = styled.div`
       font-size: 12px;
     }
   }
-  @media screen and (max-width: 460px) {
+  @media screen and (max-width: 490px) {
     .resTtd {
       font-size: 9px;
     }
 
-    @media screen and (max-width: 400px) {
+    @media screen and (max-width: 420px) {
       .resTtd {
         font-size: 6px;
       }
@@ -40,9 +40,14 @@ let Styles = styled.div`
         font-size: 6px;
       }
     }
-    @media screen and (max-width: 300px) {
+    @media screen and (max-width: 340px) {
       .resTtd {
         font-size: 5px;
+      }
+    }
+    @media screen and (max-width: 310px) {
+      .resTtd {
+        font-size: 4px;
       }
     }
 

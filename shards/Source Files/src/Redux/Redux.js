@@ -22,6 +22,8 @@ import GetDocReducer from "../Reducers/getDocReducer";
 import notificationReducer from "../Reducers/notifications/notificationReducer";
 import BlogPostsReducer from "../Reducers/posts/blogPostsReducer";
 import updateDocumentReducer from "../Reducers/updateDocumentReducer";
+import MyFilesReducer from "../Reducers/MyFilesReducer";
+import signDocumentReducer from "../Reducers/signDocumentReducer";
 
 
 let Reducers = combineReducers({
@@ -43,8 +45,10 @@ let Reducers = combineReducers({
   getComments: commentsReducer,
   creatNewComment: creatNewCommentReducer,
   getNotifications: notificationReducer,
-  BlogPosts :BlogPostsReducer,
-  updateDocument:updateDocumentReducer,
+  BlogPosts: BlogPostsReducer,
+  updateDocument: updateDocumentReducer,
+  MyFiles: MyFilesReducer,
+  signDocument:signDocumentReducer,
 })
 
 let store = createStore(Reducers, applyMiddleware(thunk))

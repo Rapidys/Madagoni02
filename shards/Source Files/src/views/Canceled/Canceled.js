@@ -14,6 +14,7 @@ import {
   setCancelAC,
   setFinishDocAC
 } from "../../Reducers/getDocReducer";
+import {visibleOrUnvisible} from "../visibleOrUnvisible/visibleOrUnvisible";
 
 
 const CanceledDocuments = () => {
@@ -36,11 +37,7 @@ const CanceledDocuments = () => {
   }, [currentPage, rowsPerPage])
 
   useEffect(() => {
-    dispatch(setCurrentPageAC(1));
-    dispatch(setVisibleBtnAC(true))
-    dispatch(setFinishDocAC(false))
-    dispatch(approveBtnAC(false))
-    dispatch(setCancelAC(false))
+    visibleOrUnvisible(dispatch)
   }, [])
 
   let visirable = useSelector(state => state.GetDoc.documents)

@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {
   Dialog, DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle, FormControl, MenuItem
 } from "@material-ui/core";
 import {Button, Card, Col, FormTextarea, Row,} from "shards-react";
@@ -133,6 +132,7 @@ const Comments = () => {
       CommentBody: textValue,
     }
     dispatch(createComment(newComment, params.id))
+    setTextValue('')
 
   }
   let userImg = useSelector(state => state.userInfo.img)

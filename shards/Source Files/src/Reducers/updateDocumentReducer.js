@@ -1,4 +1,5 @@
 import API from "../API/ApiBase";
+import {getMessagePage} from "../API/sentDocumentService";
 
 let initialState = {
   updatedDocument: {},
@@ -41,12 +42,14 @@ export let getUpdateDestinatesAC = (destinations) => ({
 export let setIsUpdatedAC = (updated) => ({type: setIsUpdated, updated})
 export default updateDocumentReducer
 
-export let updateDocument = (updateDoc) => {
+export let updateDocument = (updateDoc, id) => {
   return dispatch => {
 
     try {
       API.updateDocument(updateDoc).then(response => {
         dispatch(setUpdateDocumentAC(updateDoc))
+        dispatch(getMessagePage(id))
+        dispatch(setIsUpdatedAC(true))
       })
     } catch (e) {
       console.log(e)

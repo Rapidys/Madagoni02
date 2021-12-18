@@ -18,8 +18,10 @@ import AdminPage from "./components/adminPage/adminPage";
 import CompletedDocuments from "./views/Completed/completed";
 import CanceledDocuments from "./views/Canceled/Canceled";
 import ChartControl from "./components/blog/chartControl/chartControl";
-import Files from "./components/Files/File";
+import Files from "./components/Files/newFile/File";
 import Register from "./components/Register/Register";
+import MyFiles from "./components/Files/MyFiles/MyFiles";
+import ChosenFile from "./components/Files/chosenFile/chosenFile";
 
 export let PrivacyRoutes = [
   {
@@ -133,9 +135,19 @@ export let PrivacyRoutes = [
     component: Register
   },
   {
-    path: "/Files",
+    path: "/newFile",
     layout: DefaultLayout,
     component: Files
+  },
+  {
+    path: "/MyFiles",
+    layout: DefaultLayout,
+    component: MyFiles
+  },
+  {
+    path: "/File/:id",
+    layout: DefaultLayout,
+    component: ChosenFile
   },
 ]
 

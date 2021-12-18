@@ -11,10 +11,14 @@ import "react-quill/dist/quill.snow.css";
 import "../../../assets/quill.css";
 import {useDispatch, useSelector} from "react-redux";
 import {
+  isErrorAC,
   setNewObject,
 } from "../../../Reducers/addNewPost/addNewPostReducer";
 import {Redirect, useHistory, useParams} from "react-router-dom";
-import {setSignDocument} from "../../../Reducers/signDocumentReducer";
+import {
+  setRealoadDOCAC,
+  setSignDocument
+} from "../../../Reducers/signDocumentReducer";
 import FinishButtonModal from "./BtnModals/FinishButtonModal";
 import SignDocumentModal from "./BtnModals/signDocumentModal";
 import FinishMessage from "./BtnModals/finishMessage";
@@ -26,12 +30,21 @@ import {
 } from "../../../Reducers/updateDocumentReducer";
 import MyModal from "../../MyModal/MyModal";
 import {getMessagePage} from "../../../API/sentDocumentService";
+import {
+  setMotionDest, setMotionVis
+} from "../../../Reducers/addNewPost/DocumentMotionsReducer";
 
 
 const Editor = (props) => {
 
-  let destinations = useSelector(state => state.updateDocument.destinations)
+  useEffect(() => {
+    dispatch(isErrorAC(false))
+    dispatch(setRealoadDOCAC(false))
+    dispatch(setIsUpdatedAC(false))
+  }, [])
 
+
+  let destinations = useSelector(state => state.updateDocument.destinations)
   let params = useParams()
   let history = useHistory()
   let url = history.location.pathname
@@ -42,11 +55,13 @@ const Editor = (props) => {
   let isSended = useSelector((state => state.addNewPost.isSended))
   let [resendAddresant, setResendAddresant] = useState(false)
   let [successResended, setSuccessResended] = useState(false)
+  let error = useSelector((state => state.addNewPost.error))
+
   let dispatch = useDispatch()
 
   let chosen = useSelector(state => state.chosenDocument.currentMessagePage)
   let isUpdatedDocument = useSelector((state => state.updateDocument.isUpdated))
-
+  let signDocRel = useSelector((state => state.signDocument.reloadDoc))
 
   const [openSign, setOpenSign] = useState(false)
 
@@ -57,6 +72,7 @@ const Editor = (props) => {
       })
     }
     dispatch(setNewObject(Motions, selectType, props.documentBody, props.documentTitle, fileId))
+
   }
 
   let handleDraft = () => {
@@ -77,44 +93,53 @@ const Editor = (props) => {
   const handleTitle = (e) => {
     props.setDocumentTitle && props.setDocumentTitle(e.target.value)
   }
-  const setSignature = () => {
-    dispatch(setSignDocument(Number(params.id)))
+
+  // xelmoweris ambavi
+  let onCloseSignature = () => {
     setOpenSign((e) => !e)
   }
+  const setSignature = () => {
+    dispatch(setSignDocument(Number(params.id), params.id))
+  }
+  useMemo(() => {
+    if (signDocRel === true) {
+      setOpenSign(true)
+    }
+  }, [signDocRel])
 
+  // resend documentis ambavi
+  useMemo(() => {
+    if (isUpdatedDocument === true) {
+      setSuccessResended(true)
+    }
+  }, [isUpdatedDocument])
+  // resend documentis ambavi
+
+  // xelmoweris ambavi
 
   let [finishCategories, setFinishCategories] = useState(false)
   let finishModal = () => {
     setFinishCategories((e) => !e)
   }
 
-
   if (isSended) {
     return <Redirect to={'/sentDocuments'}/>
-
   }
 
   let resendDocModal = () => {
     setResendAddresant(v => !v)
-
   }
   let onSuccessResend = () => {
-    dispatch(setIsUpdatedAC(false))
-
+    setSuccessResended(v => !v)
   }
+
 // dokumentis gadagzavna moushenis chamatebit
+
 
   let resendDocument = () => {
     chosen.documentMotions = [...chosen.documentMotions, ...destinations]
-    dispatch(updateDocument(chosen))
+    dispatch(updateDocument(chosen, params.id))
     setResendAddresant(false)
-
-    if (successResended === false) {
-      dispatch(getMessagePage(params.id))
-    }
-    if (isUpdatedDocument === false) {
-      dispatch(setIsUpdatedAC(true))
-    }
 
   }
 
@@ -138,7 +163,7 @@ const Editor = (props) => {
 
           />
           <MyModal
-            open={isUpdatedDocument}
+            open={successResended}
             onClose={onSuccessResend}
             maxWidth={'sm'}
           >
@@ -190,7 +215,7 @@ const Editor = (props) => {
 
         <SignDocumentModal
           openSign={openSign}
-          closeSign={setSignature}
+          closeSign={onCloseSignature}
         />
 
 
@@ -206,6 +231,12 @@ const Editor = (props) => {
         />
         <FinishMessage/>
 
+        {
+          error === true &&
+          <p className={'text-danger'}>
+            შეყვანილი მონაცემები არ არის საკმარისი
+          </p>
+        }
 
       </CardBody>
     </Card>
