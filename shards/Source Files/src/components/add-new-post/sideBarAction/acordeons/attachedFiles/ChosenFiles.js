@@ -52,7 +52,7 @@ const ChosenFiles = ({fileNames, file}) => {
               }}
 
             >
-              {name.length > 15 ? name.slice(0, 15) + '...' : name}
+              {name.length > 10 ? name.slice(0, 10) + '...' : name}
             </span>
             </div>
             <div>
@@ -76,7 +76,7 @@ const ChosenFiles = ({fileNames, file}) => {
                       onClick={() => {
                         downloadFile(name.attachmentId, name.fileName)
                       }}
-                >{name.fileName.length > 15 ? name.fileName.slice(0, 15) + '...' : name.fileName}</span>
+                >{name.fileName.length > 10 ? name.fileName.slice(0, 10) + '...' : name.fileName}</span>
 
               </div>
             </div>

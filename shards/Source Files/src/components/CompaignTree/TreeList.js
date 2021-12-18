@@ -57,13 +57,14 @@ const TreeList = (props) => {
   let treeData = useSelector((state => state.Tree.Structure))
   let [newTreeFinal, setNewTreeFinal] = useState(false)
   let dispatch = useDispatch()
+  let newTree = useSelector((state => state.Register.newUser))
   const [positionVisibility, setPositionVisibility] = useState(false)
   let setPositions = () => {
     setPositionVisibility(v => !v)
   }
   useEffect(async () => {
     return await dispatch(TreeData())
-  }, [])
+  }, [newTree])
 
   if (props.treeData.length === 0) {
     return <Preloader/>
@@ -74,7 +75,6 @@ const TreeList = (props) => {
   let setNewTree = () => {
     setNewTreeFinal(true)
     dispatch(setNewUser(treeData))
-    dispatch(TreeData())
 
   }
   return (

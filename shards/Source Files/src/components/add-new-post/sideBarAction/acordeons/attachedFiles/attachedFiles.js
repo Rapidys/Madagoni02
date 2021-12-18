@@ -22,7 +22,7 @@ let Styles = styled.div`
   .link {
     text-decoration: underline;
     cursor: pointer;
-    color: rgba(6,13,231,0.51);
+    color: rgba(6, 13, 231, 0.51);
   }
 
   .deleteAttachment {
@@ -60,6 +60,22 @@ let Styles = styled.div`
     cursor: pointer; /* "hand" cursor */
   }
 
+  .drugWrapper {
+    width: 100%;
+    height: 60px;
+    border: 1px dashed black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .drop-area {
+    width: 50%;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `
 
 const AttachedFiles = (props) => {
@@ -69,7 +85,27 @@ const AttachedFiles = (props) => {
   let dispatch = useDispatch()
   let [file, setFile] = useState({})
 
+  let [drag, setDrag] = useState(false)
 
+  let dragStartHandler = (e) => {
+    e.preventDefault()
+    setDrag(true)
+  }
+  let dragLeaveHandler = (e) => {
+    e.preventDefault()
+    setDrag(false)
+  }
+  let onDropHandler = (e) => {
+    e.preventDefault()
+    let files = [...e.dataTransfer.files]
+    const formData = new FormData();
+    formData.append("File", files[0])
+    formData.append("fileName", files[0].name)
+    setFileNames([...fileNames, files[0].name])
+    dispatch(uploadFile(formData))
+    setFile(formData)
+    setDrag(false)
+  }
   let saveFile = async (e) => {
     try {
       const formData = new FormData();
@@ -92,7 +128,14 @@ const AttachedFiles = (props) => {
 
       <Collapse open={props.attachedFiles}>
 
-        <div className="p-3 mt-3 border rounded">
+        <div className="p-3 mt-3 rounded"
+             onDragStart={e => dragStartHandler(e)}
+             onDragLeave={e => dragLeaveHandler(e)}
+             onDragOver={e => dragStartHandler(e)}
+             onDrop={e => onDropHandler(e)}
+             style={{border: drag === true ? 'dashed' : 'solid'}}
+
+        >
 
 
           <div className="custom-file mb-3">
@@ -122,6 +165,7 @@ const AttachedFiles = (props) => {
 
           </div>
         </div>
+
       </Collapse>
     </Styles>
   )

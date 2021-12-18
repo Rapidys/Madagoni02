@@ -3,7 +3,7 @@ import sideBarReducer from "../Reducers/sideBarReducer";
 import AuthReducer from "../Reducers/AuthReducer";
 import thunk from "redux-thunk";
 import {addNewPostReducer} from "../Reducers/addNewPost/addNewPostReducer";
-import {setNewUser} from "../Reducers/registerReducer";
+import registerReducer, {setNewUser} from "../Reducers/registerReducer";
 import treeDataReducer from "../Reducers/TreeDataReducer";
 import DocumentMotionsReducer
   from "../Reducers/addNewPost/DocumentMotionsReducer";
@@ -31,7 +31,7 @@ let Reducers = combineReducers({
   chosenDocument: chosenDocumentReducer,
   PaginationData: PaginationReducer,
   addNewPost: addNewPostReducer,
-  Register: setNewUser,
+  Register: registerReducer,
   Tree: treeDataReducer,
   docMotion: DocumentMotionsReducer,
   selectDocument: selectDocumentReducer,

@@ -3,9 +3,11 @@ import API from "../API/ApiBase";
 let initialState = {
   updatedDocument: {},
   destinations: [],
+  isUpdated: false,
 }
 let setUpdateDocument = 'SET-UPDATE-DOCUMENT'
 let getUpdateDestinates = 'GET-UPDATE-DESTINATES'
+let setIsUpdated = 'setIsUpdated'
 let updateDocumentReducer = (state = initialState, action) => {
   switch (action.type) {
     case setUpdateDocument:
@@ -17,6 +19,11 @@ let updateDocumentReducer = (state = initialState, action) => {
       return {
         ...state,
         destinations: action.destinations
+      }
+    case setIsUpdated:
+      return {
+        ...state,
+        isUpdated: action.updated
       }
     default:
       return state
@@ -31,7 +38,7 @@ export let getUpdateDestinatesAC = (destinations) => ({
   type: getUpdateDestinates,
   destinations
 })
-
+export let setIsUpdatedAC = (updated) => ({type: setIsUpdated, updated})
 export default updateDocumentReducer
 
 export let updateDocument = (updateDoc) => {

@@ -20,7 +20,10 @@ import SignDocumentModal from "./BtnModals/signDocumentModal";
 import FinishMessage from "./BtnModals/finishMessage";
 import SideBarDestinations
   from "../sideBarAction/sideBarModalInfo/sideBarDestinations";
-import {updateDocument} from "../../../Reducers/updateDocumentReducer";
+import {
+  setIsUpdatedAC,
+  updateDocument
+} from "../../../Reducers/updateDocumentReducer";
 import MyModal from "../../MyModal/MyModal";
 import {getMessagePage} from "../../../API/sentDocumentService";
 
@@ -42,6 +45,7 @@ const Editor = (props) => {
   let dispatch = useDispatch()
 
   let chosen = useSelector(state => state.chosenDocument.currentMessagePage)
+  let isUpdatedDocument = useSelector((state => state.updateDocument.isUpdated))
 
 
   const [openSign, setOpenSign] = useState(false)
@@ -95,23 +99,23 @@ const Editor = (props) => {
 
   }
   let onSuccessResend = () => {
-    setSuccessResended(v => !v)
+    dispatch(setIsUpdatedAC(false))
 
   }
-
 // dokumentis gadagzavna moushenis chamatebit
 
   let resendDocument = () => {
     chosen.documentMotions = [...chosen.documentMotions, ...destinations]
-
     dispatch(updateDocument(chosen))
-
     setResendAddresant(false)
-    setSuccessResended(true)
+
     if (successResended === false) {
       dispatch(getMessagePage(params.id))
-
     }
+    if (isUpdatedDocument === false) {
+      dispatch(setIsUpdatedAC(true))
+    }
+
   }
 
   return (
@@ -134,7 +138,7 @@ const Editor = (props) => {
 
           />
           <MyModal
-            open={successResended}
+            open={isUpdatedDocument}
             onClose={onSuccessResend}
             maxWidth={'sm'}
           >

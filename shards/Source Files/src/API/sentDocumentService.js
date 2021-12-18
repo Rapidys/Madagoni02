@@ -7,7 +7,8 @@ import {
   chosenDocPageAC,
   chosenIsLoadingAC
 } from "../Reducers/chosenDocumentReducer";
-import {LoadingAC, setIsAuth} from "../Reducers/AuthReducer";
+import {setIsAuth} from "../Reducers/AuthReducer";
+import {setIsUpdatedAC} from "../Reducers/updateDocumentReducer";
 
 
 export let getMessagePage = (params) => {
@@ -19,6 +20,7 @@ export let getMessagePage = (params) => {
         .then(response => {
           dispatch(chosenIsLoadingAC(false))
           dispatch(chosenDocPageAC(response.data))
+
         })
     } catch (e) {
       console.log(e)

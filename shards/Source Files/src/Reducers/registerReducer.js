@@ -12,6 +12,8 @@ let registerReducer = (state = initialState, action) => {
         ...state,
         newUser: action.user
       }
+    default:
+      return state
   }
 }
 
