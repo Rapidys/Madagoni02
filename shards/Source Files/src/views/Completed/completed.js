@@ -12,7 +12,7 @@ import {setVisibleBtnAC} from "../../Reducers/Comments/CommentsReducer";
 import {
   approveBtnAC,
   setCancelAC,
-  setFinishDocAC
+  setFinishDocAC, setIsFinishedAC
 } from "../../Reducers/getDocReducer";
 
 
@@ -41,6 +41,7 @@ const CompletedDocuments = () => {
     dispatch(setFinishDocAC(false))
     dispatch(approveBtnAC(false))
     dispatch(setCancelAC(false))
+    dispatch(setIsFinishedAC(false))
   }, [])
 
   let visirable = useSelector(state => state.GetDoc.documents)

@@ -36,7 +36,7 @@ const SentDocuments = () => {
   useEffect(() => {
     dispatch(setCurrentPageAC(1));
     dispatch(setVisibleBtnAC(true))
-    dispatch(setFinishDocAC(false))
+    dispatch(setFinishDocAC(true))
     dispatch(approveBtnAC(false))
     dispatch(isSendedAC(false)) // doc gagzavnis shemdeg redirectis gauqmeba
     dispatch(setCancelAC(false))

@@ -10,8 +10,7 @@ import {
 import {motionStatusAC} from "../../Reducers/MotionStatusReducer";
 import {setVisibleBtnAC} from "../../Reducers/Comments/CommentsReducer";
 import {approveBtnAC, setCancelAC} from "../../Reducers/getDocReducer";
-import DocCreateModal
-  from "../../components/add-new-post/editor/BtnModals/docCreateModal";
+
 
 
 const IncomingDocuments = () => {

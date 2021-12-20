@@ -21,7 +21,6 @@ import {
 } from "../../../Reducers/signDocumentReducer";
 import FinishButtonModal from "./BtnModals/FinishButtonModal";
 import SignDocumentModal from "./BtnModals/signDocumentModal";
-import FinishMessage from "./BtnModals/finishMessage";
 import SideBarDestinations
   from "../sideBarAction/sideBarModalInfo/sideBarDestinations";
 import {
@@ -29,10 +28,7 @@ import {
   updateDocument
 } from "../../../Reducers/updateDocumentReducer";
 import MyModal from "../../MyModal/MyModal";
-import {getMessagePage} from "../../../API/sentDocumentService";
-import {
-  setMotionDest, setMotionVis
-} from "../../../Reducers/addNewPost/DocumentMotionsReducer";
+import {setIsFinishedAC} from "../../../Reducers/getDocReducer";
 
 
 const Editor = (props) => {
@@ -41,6 +37,10 @@ const Editor = (props) => {
     dispatch(isErrorAC(false))
     dispatch(setRealoadDOCAC(false))
     dispatch(setIsUpdatedAC(false))
+    dispatch(setIsFinishedAC(false))
+  if(url === '/sentDocument') {
+
+  }
   }, [])
 
 
@@ -53,6 +53,7 @@ const Editor = (props) => {
   let selectType = useSelector((state => state.selectDocument.selectType))
   let fileId = useSelector((state => state.uploadFile.fileId))
   let isSended = useSelector((state => state.addNewPost.isSended))
+  let isSendedDraft = useSelector((state => state.addNewPost.isSendedDraft))
   let [resendAddresant, setResendAddresant] = useState(false)
   let [successResended, setSuccessResended] = useState(false)
   let error = useSelector((state => state.addNewPost.error))
@@ -62,6 +63,7 @@ const Editor = (props) => {
   let chosen = useSelector(state => state.chosenDocument.currentMessagePage)
   let isUpdatedDocument = useSelector((state => state.updateDocument.isUpdated))
   let signDocRel = useSelector((state => state.signDocument.reloadDoc))
+
 
   const [openSign, setOpenSign] = useState(false)
 
@@ -107,6 +109,7 @@ const Editor = (props) => {
     }
   }, [signDocRel])
 
+
   // resend documentis ambavi
   useMemo(() => {
     if (isUpdatedDocument === true) {
@@ -121,10 +124,15 @@ const Editor = (props) => {
   let finishModal = () => {
     setFinishCategories((e) => !e)
   }
-
+  //dokumentis gagzavnis da draftis mere shesabamisi redirect
   if (isSended) {
     return <Redirect to={'/sentDocuments'}/>
   }
+  if (isSendedDraft) {
+    return <Redirect to={'/draftDocuments'}/>
+  }
+  //dokumentis gagzavnis da draftis mere shesabamisi redirect
+
 
   let resendDocModal = () => {
     setResendAddresant(v => !v)
@@ -229,7 +237,7 @@ const Editor = (props) => {
                            finishModal={finishModal}
                            setFinishCategories={setFinishCategories}
         />
-        <FinishMessage/>
+
 
         {
           error === true &&

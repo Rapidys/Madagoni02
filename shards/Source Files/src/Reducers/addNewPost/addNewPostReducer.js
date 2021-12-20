@@ -8,6 +8,7 @@ let initialState = {
   documentId: null,
   status: null,
   isSended: false,
+  isSendedDraft: false,
   error: false,
 }
 
@@ -17,6 +18,7 @@ const setDocumentId = "SET-DOCUMENT-ID"
 const status = "status"
 const isSended = "isSended"
 const isError = "IS-ERROR"
+const isSendedDraft = "isSendedDraft"
 
 export let addNewPostReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -45,6 +47,12 @@ export let addNewPostReducer = (state = initialState, action) => {
         ...state,
         isSended: action.send
       }
+    case isSendedDraft :
+      return {
+        ...state,
+        isSendedDraft: action.draft
+      }
+
     case isError :
       return {
         ...state,
@@ -62,6 +70,7 @@ export let setDocumentDateAC = (Date) => ({type: setDocumentDate, Date})
 export let setDocumentIdAC = (id) => ({type: setDocumentId, id})
 export let statusAC = (is) => ({type: status, is})
 export let isSendedAC = (send) => ({type: isSended, send})
+export let isSendedDraftAC = (draft) => ({type: isSendedDraft, draft})
 export let isErrorAC = (err) => ({type: isError, err})
 
 
@@ -91,7 +100,12 @@ export let setNewObject = (
             dispatch(setDocumentIdAC(response.data.documentId))
             dispatch(setDocumentDateAC(response.data.documentDate))
             dispatch(statusAC(response.status))
-            dispatch(isSendedAC(true))
+            if (Motions.MotionDest[0].MotionStatusId === 2) {
+              dispatch(isSendedAC(true))
+            }
+            if (Motions.MotionDest[0].MotionStatusId === 1) {
+              dispatch(isSendedDraftAC(true))
+            }
             dispatch(isErrorAC(false))
             dispatch(setMotionDest([]))
             dispatch(setMotionVis([]))
