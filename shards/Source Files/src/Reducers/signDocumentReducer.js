@@ -5,10 +5,12 @@ let initialState = {
   documentId: null,
   isSign: false,
   reloadDoc: false,
+  isBlocked: false,
 }
 let setDoCid = 'SET-DOC-ID'
 let isSign = 'IS-SIGN-DOCUMENT'
 let setRealoadDOC = 'set-reload-doc'
+let isBlocked = 'IS-BLOCKED'
 let signDocumentReducer = (state = initialState, action) => {
   switch (action.type) {
     case setDoCid:
@@ -26,6 +28,11 @@ let signDocumentReducer = (state = initialState, action) => {
         ...state,
         reloadDoc: action.reloadDoc
       }
+    case isBlocked :
+      return {
+        ...state,
+        isBlocked: action.bloked
+      }
     default:
       return state
   }
@@ -33,6 +40,7 @@ let signDocumentReducer = (state = initialState, action) => {
 
 export let signDocIdAC = (id) => ({type: setDoCid, id})
 export let isSignAC = (issign) => ({type: isSign, issign})
+export let setIsBlockedAC = (bloked) => ({type: isBlocked, bloked})
 export let setRealoadDOCAC = (reloadDoc) => ({type: setRealoadDOC, reloadDoc})
 
 export default signDocumentReducer
@@ -45,6 +53,18 @@ export let setSignDocument = (id, reloadId) => {
         dispatch(isSignAC(true))
         dispatch(getMessagePage(reloadId))
         dispatch(setRealoadDOCAC(true))
+      } catch (e) {
+        console.log(e)
+      }
+    })
+  }
+}
+export let setBlockedDocument = (id) => {
+  return dispatch => {
+    API.RejectDocument(id).then(() => {
+      try {
+        dispatch(signDocIdAC(id))
+        dispatch(setIsBlockedAC(true))
       } catch (e) {
         console.log(e)
       }

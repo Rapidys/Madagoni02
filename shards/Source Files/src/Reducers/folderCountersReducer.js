@@ -3,7 +3,7 @@ import {LoadingAC, setIsAuth} from "./AuthReducer";
 
 let initialState = {
   folderCount: {},
-  sesiaDie :false,
+  sesiaDie: false,
 }
 let setFolderCount = 'SET-FOLDER-COUNT'
 let setSesiaDie = 'setSesiaDie'
@@ -14,7 +14,7 @@ let folderCounterReducer = (state = initialState, action) => {
         ...state,
         folderCount: action.count
       }
-      case setSesiaDie:
+    case setSesiaDie:
       return {
         ...state,
         sesiaDie: action.sesia
@@ -37,7 +37,7 @@ export let setCounter = () => {
           dispatch(setFolderCountAC(response.data))
         }
       }).catch(function (error) {
-        if (error.response.status === 401) {
+        if (error.response && error.response.status === 401) {
           dispatch(LoadingAC(false))
           dispatch(setIsAuth(false))
           localStorage.clear()

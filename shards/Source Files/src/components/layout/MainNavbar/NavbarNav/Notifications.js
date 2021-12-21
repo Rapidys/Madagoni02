@@ -35,15 +35,17 @@ let Notifications = () => {
 
 
   let dispatch = useDispatch()
+
+  let isRead = useSelector((state => state.getNotifications.isRead))
+
   useEffect(() => {
     dispatch(getNotification())
-  }, [])
+  }, [isRead])
 
   const [visible, setVisible] = useState(false)
   let toggleNotifications = () => {
     setVisible(e => !e)
   }
-
 
   let setAsReadable = (id) => {
     dispatch(getReadNotification(id))
@@ -70,7 +72,9 @@ let Notifications = () => {
 
         >
           {notification && notification.map(item => {
-            return <DropdownItem key={item.notificationId}>
+            return <DropdownItem key={item.notificationId}
+                                 onClick={() => setAsReadable(item.notificationId)}
+            >
               <div className="notification__icon-wrapper">
                 <div className="notification__icon">
                   <i className="material-icons">&#xE6E1;</i>
@@ -84,7 +88,7 @@ let Notifications = () => {
                 </p>
               </div>
               <i className="far fa-eye"
-                 onClick={() => setAsReadable(item.notificationId)}
+
               />
             </DropdownItem>
           })}

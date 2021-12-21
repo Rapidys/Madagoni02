@@ -6,11 +6,17 @@ import {uniqueIdAC} from "../../../Reducers/chosenDocumentReducer";
 import {useDispatch} from "react-redux";
 import styled from "styled-components";
 import {setCounter} from "../../../Reducers/folderCountersReducer";
+import fire from '../../../assets/fire1.gif'
 
 let Styles = styled.div`
 
   .resTtd {
     padding: 1rem;
+  }
+
+  .fire {
+    width: 40px;
+    height: 40px;
   }
 
   @media screen and (max-width: 840px) {
@@ -98,12 +104,9 @@ const DocumentBody = (props) => {
             <th scope="col" className="resTtd border-0">
               ავტორი
             </th>
-
           </tr>
           </thead>
           <tbody>
-
-
           {props.Documents.map((Mess, index) => {
             return (
               <tr
@@ -120,7 +123,6 @@ const DocumentBody = (props) => {
                   backgroundColor: Mess.documentColorId === 1 && '#ffcccc' ||
                     Mess.documentColorId === 2 && '#fff2cc' || Mess.documentColorId === 3 && '#ccffcc'
                 }}
-
               >
                 <td className={"resTtd"}>{Mess.documentId}</td>
                 <td className={"resTtd"}>
@@ -131,8 +133,14 @@ const DocumentBody = (props) => {
                   }).format(new Date(Mess.documentDate))}
                 </td>
                 <td className={"resTtd"}>{Mess.documentTitle}</td>
-                <td className={"resTtd"}>{Mess.documentType}</td>
-
+                <td className={"resTtd"}>{Mess.documentType} </td>
+                <td>
+                  {
+                    Mess.overdue !== 0 && <img src={fire} alt="fireAnimation"
+                                               className={'fire'}
+                    />
+                  }
+                </td>
 
               </tr>
 

@@ -10,7 +10,7 @@ import {
 import {motionStatusAC} from "../../Reducers/MotionStatusReducer";
 import {setVisibleBtnAC} from "../../Reducers/Comments/CommentsReducer";
 import {
-  approveBtnAC,
+  approveBtnAC, setAddBtnAC,
   setCancelAC,
   setFinishDocAC, setIsFinishedAC
 } from "../../Reducers/getDocReducer";
@@ -33,15 +33,17 @@ const CompletedDocuments = () => {
     }))
 
 
+
   }, [currentPage, rowsPerPage])
 
   useEffect(() => {
     dispatch(setCurrentPageAC(1));
-    dispatch(setVisibleBtnAC(true))
+    dispatch(setVisibleBtnAC(true)) // es memgoni zedmetia unda davtesto !!!
     dispatch(setFinishDocAC(false))
     dispatch(approveBtnAC(false))
     dispatch(setCancelAC(false))
     dispatch(setIsFinishedAC(false))
+    dispatch(setAddBtnAC(true))
   }, [])
 
   let visirable = useSelector(state => state.GetDoc.documents)

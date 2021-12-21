@@ -49,6 +49,9 @@ const API = {
   signDocument(id) {
     return $ApiBase.get(`/docs/SignDocument/${id}`,)
   },
+  RejectDocument(id) {
+    return $ApiBase.get(`/docs/RejectDocument/${id}`,)
+  },
   setDocumentColor(documentColor) {
     return $ApiBase.post(`/docs/SetDocumentColor`, documentColor)
   },

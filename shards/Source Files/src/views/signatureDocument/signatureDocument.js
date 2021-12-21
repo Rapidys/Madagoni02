@@ -10,6 +10,7 @@ import {
 import {motionStatusAC} from "../../Reducers/MotionStatusReducer";
 import {setVisibleBtnAC} from "../../Reducers/Comments/CommentsReducer";
 import {setAddBtnAC, setFinishDocAC} from "../../Reducers/getDocReducer";
+import {setIsBlockedAC} from "../../Reducers/signDocumentReducer";
 
 
 const SignatureDocuments = () => {

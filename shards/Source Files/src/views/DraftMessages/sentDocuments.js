@@ -12,7 +12,6 @@ import {
   setCancelAC,
   setFinishDocAC
 } from "../../Reducers/getDocReducer";
-import Preloader from "../../Preloader/Preloader";
 import {isSendedAC} from "../../Reducers/addNewPost/addNewPostReducer";
 import DocCreateModal
   from "../../components/add-new-post/editor/BtnModals/docCreateModal";
@@ -33,10 +32,11 @@ const SentDocuments = () => {
       RecordsPerPage: rowsPerPage,
     }))
   }, [rowsPerPage, currentPage])
+
   useEffect(() => {
     dispatch(setCurrentPageAC(1));
     dispatch(setVisibleBtnAC(true))
-    dispatch(setFinishDocAC(true))
+    dispatch(setFinishDocAC(false))
     dispatch(approveBtnAC(false))
     dispatch(isSendedAC(false)) // doc gagzavnis shemdeg redirectis gauqmeba
     dispatch(setCancelAC(false))

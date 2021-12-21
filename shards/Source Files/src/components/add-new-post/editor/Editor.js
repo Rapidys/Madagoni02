@@ -16,6 +16,7 @@ import {
 } from "../../../Reducers/addNewPost/addNewPostReducer";
 import {Redirect, useHistory, useParams} from "react-router-dom";
 import {
+  setBlockedDocument, setIsBlockedAC,
   setRealoadDOCAC,
   setSignDocument
 } from "../../../Reducers/signDocumentReducer";
@@ -28,7 +29,8 @@ import {
   updateDocument
 } from "../../../Reducers/updateDocumentReducer";
 import MyModal from "../../MyModal/MyModal";
-import {setIsFinishedAC} from "../../../Reducers/getDocReducer";
+import {setAddBtnAC, setIsFinishedAC} from "../../../Reducers/getDocReducer";
+import API from "../../../API/ApiBase";
 
 
 const Editor = (props) => {
@@ -38,9 +40,10 @@ const Editor = (props) => {
     dispatch(setRealoadDOCAC(false))
     dispatch(setIsUpdatedAC(false))
     dispatch(setIsFinishedAC(false))
-  if(url === '/sentDocument') {
+    if (url === `/completedDocument/${params.id}`) {
+      dispatch(setAddBtnAC(true))
 
-  }
+    }
   }, [])
 
 
@@ -63,6 +66,7 @@ const Editor = (props) => {
   let chosen = useSelector(state => state.chosenDocument.currentMessagePage)
   let isUpdatedDocument = useSelector((state => state.updateDocument.isUpdated))
   let signDocRel = useSelector((state => state.signDocument.reloadDoc))
+  let isBlocked = useSelector((state => state.signDocument.isBlocked))
 
 
   const [openSign, setOpenSign] = useState(false)
@@ -145,12 +149,29 @@ const Editor = (props) => {
 
 
   let resendDocument = () => {
-    chosen.documentMotions = [...chosen.documentMotions, ...destinations]
-    dispatch(updateDocument(chosen, params.id))
+    if (url === `/draftDocument/${params.id}`) {
+      chosen.documentMotions = [...chosen.documentMotions, ...destinations]
+      chosen.documentMotions[0].motionStatusId = 2
+      chosen.documentId = 0
+      API.newPostAPI(chosen).then(response => {
+        dispatch(setIsUpdatedAC(true))
+      })
+    } else {
+      chosen.documentMotions = [...chosen.documentMotions, ...destinations]
+      dispatch(updateDocument(chosen, params.id))
+    }
     setResendAddresant(false)
 
   }
 
+  // reject document
+
+  let rejectDocument = () => {
+    dispatch(setBlockedDocument(params.id))
+  }
+  if (isBlocked === true) {
+    return <Redirect to={'/canceled'}/>
+  }
   return (
     <Card small className="mb-3">
       <CardBody>
@@ -219,6 +240,7 @@ const Editor = (props) => {
 
         <Button
           className={getDoc.cancel !== true ? 'd-none' : 'border - 1'}
+          onClick={rejectDocument}
         >გაუქმება</Button>
 
         <SignDocumentModal

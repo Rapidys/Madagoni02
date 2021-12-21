@@ -4,31 +4,29 @@ import {
   getDocs
 } from "../../API/sentDocumentService";
 import {useDispatch, useSelector} from "react-redux";
-import {
-  setCurrentPageAC
-} from "../../Reducers/PaginationReducer";
 import {motionStatusAC} from "../../Reducers/MotionStatusReducer";
+import {setCurrentPageAC} from "../../Reducers/PaginationReducer";
 import {setVisibleBtnAC} from "../../Reducers/Comments/CommentsReducer";
 import {
-  approveBtnAC,
+  approveBtnAC, setAddBtnAC,
   setCancelAC,
   setFinishDocAC
 } from "../../Reducers/getDocReducer";
-import {visibleOrUnvisible} from "../visibleOrUnvisible/visibleOrUnvisible";
+import {setIsBlockedAC} from "../../Reducers/signDocumentReducer";
 
 
 const CanceledDocuments = () => {
 
-  let currentPage = useSelector(state => state.PaginationData.currentPage)
-  let rowsPerPage = useSelector(state => state.PaginationData.rowsPerPage)
-  let totalCount = useSelector(state => state.PaginationData.totalPages)
+  let currentPage = useSelector((state => state.PaginationData.currentPage))
+  let rowsPerPage = useSelector((state => state.PaginationData.rowsPerPage))
+  let totalCount = useSelector((state => state.PaginationData.totalPages))
 
 
   let dispatch = useDispatch()
   useEffect(() => {
     dispatch(motionStatusAC(4))
     dispatch(getDocs({
-      MotionStatus: 4,  // ეს აიდი არის ხელმოწერილების
+      MotionStatus: 7,  // ეს აიდი არის ხელმოწერილების
       PageNumber: currentPage,
       RecordsPerPage: rowsPerPage,
     }))
@@ -37,7 +35,13 @@ const CanceledDocuments = () => {
   }, [currentPage, rowsPerPage])
 
   useEffect(() => {
-    visibleOrUnvisible(dispatch)
+    dispatch(setCurrentPageAC(1));
+    dispatch(setVisibleBtnAC(false))
+    dispatch(setAddBtnAC(false))
+    dispatch(setFinishDocAC(false))
+    dispatch(approveBtnAC(false))
+    dispatch(setCancelAC(false))
+    dispatch(setIsBlockedAC(false))
   }, [])
 
   let visirable = useSelector(state => state.GetDoc.documents)
