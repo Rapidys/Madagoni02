@@ -14,9 +14,17 @@ import {
 } from "@material-ui/core";
 import ChosenVisitors from "./chosenPersons/ChosenVisitors";
 import {
-  setMotion,
   setMotionVis
 } from "../../../../Reducers/addNewPost/DocumentMotionsReducer";
+import styled from "styled-components";
+
+let Styles = styled.div`
+  .footer {
+    position: fixed;
+    bottom: 0;
+    right: 20px;
+  }
+`
 
 
 const SideBarVisitors = (props) => {
@@ -68,7 +76,7 @@ const SideBarVisitors = (props) => {
   return (
 
 
-    <div>
+    <Styles>
       <Dialog
         open={props.openVisitors}
         onClose={props.handleCloseVisitors}
@@ -76,7 +84,7 @@ const SideBarVisitors = (props) => {
         maxWidth={"lg"}
       >
         <div className={'d-flex justify-content-between'}>
-          <DialogTitle>დეპარტამენტები</DialogTitle>
+          <DialogTitle>სტრუქტურა</DialogTitle>
           <i className="fas fa-times p-4" style={{cursor: 'pointer'}}
              onClick={props.handleCloseVisitors}/>
         </div>
@@ -88,7 +96,7 @@ const SideBarVisitors = (props) => {
 
           <FormControl sx={{mt: 2, minWidth: 120}} className={"w-100"}>
 
-            <MenuItem value="xl" style={{minHeight: 400, padding: 0}}>
+            <MenuItem value="xl" style={{padding: 0}}>
               <Row className={"w-100"}>
 
                 <Col lg="8">
@@ -104,11 +112,6 @@ const SideBarVisitors = (props) => {
                 </Col>
                 <Col lg="4" className={"border-left"}>
 
-                  <div>
-                    <b>ვადა</b>
-
-                  </div>
-                  <br/>
 
                   <div>
                     <b>ვიზიტორები</b>
@@ -128,12 +131,13 @@ const SideBarVisitors = (props) => {
           </FormControl>
 
         </DialogContent>
-        <DialogActions>
+
+        <DialogActions className={'footer'}>
           <Button onClick={Save}>შენახვა</Button>
 
         </DialogActions>
       </Dialog>
-    </div>
+    </Styles>
   );
 };
 

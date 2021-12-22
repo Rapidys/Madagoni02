@@ -24,6 +24,8 @@ import BlogPostsReducer from "../Reducers/posts/blogPostsReducer";
 import updateDocumentReducer from "../Reducers/updateDocumentReducer";
 import MyFilesReducer from "../Reducers/MyFilesReducer";
 import signDocumentReducer from "../Reducers/signDocumentReducer";
+import filterReducer from "../Reducers/filterReducer";
+import PositionsReducer from "../Reducers/PositionsReducer";
 
 
 let Reducers = combineReducers({
@@ -48,7 +50,9 @@ let Reducers = combineReducers({
   BlogPosts: BlogPostsReducer,
   updateDocument: updateDocumentReducer,
   MyFiles: MyFilesReducer,
-  signDocument:signDocumentReducer,
+  signDocument: signDocumentReducer,
+  filterR: filterReducer,
+  positions: PositionsReducer,
 })
 
 let store = createStore(Reducers, applyMiddleware(thunk))

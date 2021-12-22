@@ -1,12 +1,17 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PageTitle from "../components/common/PageTitle";
 import {Col, Container, Row} from "shards-react";
 import UsersOverview from "../components/blog/UsersOverview";
 import UsersByDevice from "../components/blog/UsersByDevice";
 import PrimaryChart from "../components/blog/Chart/PrimaryChart";
+import {setErrorAC} from "../Reducers/AuthReducer";
+import {useDispatch} from "react-redux";
 
 const BlogOverview = () => {
-
+  let dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(setErrorAC(false))
+  }, [])
 
   return (
     <Container fluid className="main-content-container px-4">
@@ -38,8 +43,6 @@ const BlogOverview = () => {
       </Row>
     </Container>)
 };
-
-
 
 
 export default BlogOverview;

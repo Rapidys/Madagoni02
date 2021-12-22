@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import DocumentPage from "../DraftMessages/Documents/DocumentPage";
+import DocumentPage from "../Documents/DocumentPage";
 import {
   getDocs,
 } from "../../API/sentDocumentService";

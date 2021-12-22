@@ -1,14 +1,31 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Formik} from "formik";
 import {Button, Form, FormInput} from "shards-react";
 import * as yup from "yup";
+import MySelect from "../../../MySelect/MySelect";
+import {useDispatch, useSelector} from "react-redux";
+import {getPositions, setPositionsAC} from "../../../Reducers/PositionsReducer";
 
 const RegisterModalNew = ({Type, addUser}) => {
+  let dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getPositions())
+  }, [])
+  let Positions = useSelector((state => state.positions.positions))
+  let [PositionValue, setPositionValue] = useState('')
+
+
   let validationSchema = yup.object().shape({
     name: yup.string().required('შეიყვანეთ სახელი'),
     lastName: yup.string().required('შეიყვანეთ გვარი'),
-    email: yup.string().email('შეიყვანეთ ელ-ფოსტა').required('აუცილებელი ველი')
+    email: yup.string().email('შეიყვანეთ ელ-ფოსტა').required('აუცილებელი ველი'),
+    mobile: yup.string().required('შეიყვანეთ მობ.ნომერი')
   })
+
+  let onPositionChange = (e) => {
+    setPositionValue(e.target.value)
+  }
   return (
     <div>
       {
@@ -18,7 +35,10 @@ const RegisterModalNew = ({Type, addUser}) => {
           initialValues={{
             name: '',
             lastName: '',
-            email: ''
+            email: '',
+            mobile: '',
+            position: ''
+
           }}
           validateOnBlur
           onSubmit={(values => {
@@ -69,7 +89,29 @@ const RegisterModalNew = ({Type, addUser}) => {
                 <label style={{color: 'red'}}>{errors.email}</label>
 
               }
-              <br/>
+              <FormInput
+                type="text" placeholder={'მობ.ნომერი'}
+                name='mobile'
+                id='#mobile'
+                value={values.mobile}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                className={'mt-2'}
+              />
+              {touched.mobile && errors.mobile &&
+                <label style={{color: 'red'}}>{errors.mobile}</label>
+
+              }
+              <div className={'mt-2'}>
+                <MySelect
+                  defaultValue={'თანამდებობები'}
+                  options={Positions}
+                  onChange={onPositionChange}
+                  value={PositionValue}
+
+                />
+              </div>
+
               <Button className={'mt-3'}
                       onClick={handleSubmit}
                       disabled={!isValid || !dirty}

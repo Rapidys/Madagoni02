@@ -22,6 +22,11 @@ import {
 } from "../../../../Reducers/updateDocumentReducer";
 
 let Styles = styled.div`
+  .footer {
+    position: fixed;
+    bottom: 0;
+    right: 20px;
+  }
   .wrapper:first-child {
     padding-top: 0;
   }
@@ -34,6 +39,7 @@ let Styles = styled.div`
     }
   }
 `
+
 
 const SideBarDestinations = (props) => {
 
@@ -131,27 +137,27 @@ const SideBarDestinations = (props) => {
   return (
 
 
-    <div>
+    <Styles>
       <Dialog
         open={props.open}
         onClose={props.handleClose}
         fullWidth={true}
         maxWidth={"lg"}
+        className={'wrapper'}
       >
         <div className={'d-flex justify-content-between'}>
-          <DialogTitle>დეპარტამენტები</DialogTitle>
+          <DialogTitle>სტრუქტურა</DialogTitle>
           <i className="fas fa-times p-4" style={{cursor: 'pointer'}}
              onClick={props.handleClose}/>
         </div>
-        <Styles>
           <DialogContent className={'wrapper'}>
             <DialogContentText>
-              აირჩიეთ სასურველი ავტორები
+              აირჩიეთ სასურველი ადრესატები
             </DialogContentText>
 
             <FormControl sx={{mt: 2, minWidth: 120}} className={"w-100"}>
 
-              <MenuItem value="xl" style={{minHeight: 400, padding: 0}}>
+              <MenuItem value="xl" style={{padding: 0}}>
                 <Row className={"w-100"}>
 
                   <Col lg="8" className={'treeCol'}>
@@ -189,21 +195,22 @@ const SideBarDestinations = (props) => {
 
           </DialogContent>
 
-        </Styles>
 
-        <DialogActions>
-          {url === '/add-new-post'
-            ? <Button onClick={save}>შენახვა</Button>
-            : <Button
-              onClick={props.resendDocument}
-              disabled={!destination.length && true}
-            >გადაგზავნა</Button>
-          }
+        <DialogActions className={'footer'}>
+            {url === '/add-new-post'
+              ? <Button onClick={save}>შენახვა</Button>
+              : <Button
+                onClick={props.resendDocument}
+                disabled={!destination.length && true}
+              >გადაგზავნა</Button>
+            }
+
 
 
         </DialogActions>
+
       </Dialog>
-    </div>
+    </Styles>
 
   );
 };

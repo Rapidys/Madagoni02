@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import {CardBody} from "shards-react";
 import {useHistory} from "react-router-dom/cjs/react-router-dom";
-import RightClickMenu from "../../../RightClick/RightClickMenu";
-import {uniqueIdAC} from "../../../Reducers/chosenDocumentReducer";
+import RightClickMenu from "../../RightClick/RightClickMenu";
+import {uniqueIdAC} from "../../Reducers/chosenDocumentReducer";
 import {useDispatch} from "react-redux";
 import styled from "styled-components";
-import {setCounter} from "../../../Reducers/folderCountersReducer";
-import fire from '../../../assets/fire1.gif'
+import {setCounter} from "../../Reducers/folderCountersReducer";
+import fire from '../../assets/fire1.gif'
 
 let Styles = styled.div`
 
@@ -19,45 +19,81 @@ let Styles = styled.div`
     height: 40px;
   }
 
-  @media screen and (max-width: 840px) {
+  @media screen and (max-width: 921px) {
     .resTtd {
       font-size: 12px;
       padding: 0.75rem;
+    }
 
+    .fire {
+      width: 30px;
+      height: 30px;
     }
   }
+  @media screen and (max-width: 840px) {
+    .resTtd {
+      font-size: 14px;
+      padding: 0.35rem;
+    }
+
+    .fire {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
   @media screen and (max-width: 540px) {
     .resTtd {
-      font-size: 12px;
+      font-size: 14px;
     }
-  }
-  @media screen and (max-width: 490px) {
+
+    thead {
+      font-size: 12px;
+      padding: 0;
+      margin: 0;
+    }
+
+    table {
+      padding: 0;
+    }
+
+    .fire {
+      width: 20px;
+      height: 20px;
+    }
+
     .resTtd {
       font-size: 9px;
     }
 
-    @media screen and (max-width: 420px) {
-      .resTtd {
-        font-size: 6px;
-      }
+  }
+
+
+  @media screen and (max-width: 420px) {
+    .resTtd {
+      font-size: 8px;
+      padding: 0.25rem;
     }
-    @media screen and (max-width: 400px) {
-      .resTtd {
-        font-size: 6px;
-      }
+  }
+  @media screen and (max-width: 400px) {
+    .resTtd {
+      font-size: 7px;
+      padding: 0.15rem;
     }
-    @media screen and (max-width: 340px) {
-      .resTtd {
-        font-size: 5px;
-      }
+  }
+  @media screen and (max-width: 340px) {
+    .resTtd {
+      font-size: 5px;
     }
-    @media screen and (max-width: 310px) {
-      .resTtd {
-        font-size: 4px;
-      }
+  }
+  @media screen and (max-width: 310px) {
+    .resTtd {
+      font-size: 4px;
     }
+  }
 
 `
+
 
 const DocumentBody = (props) => {
 
@@ -134,7 +170,7 @@ const DocumentBody = (props) => {
                 </td>
                 <td className={"resTtd"}>{Mess.documentTitle}</td>
                 <td className={"resTtd"}>{Mess.documentType} </td>
-                <td>
+                <td className={"resTtd"}>
                   {
                     Mess.overdue !== 0 && <img src={fire} alt="fireAnimation"
                                                className={'fire'}

@@ -13,7 +13,7 @@ let Styles = styled.div`
 `
 
 
-const SidebarNavItem = ({item, ...props}) => {
+const SidebarNavItem = ({item}) => {
 
   return (
     <Styles>

@@ -1,24 +1,27 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Button, Card, CardBody, Form, FormGroup, FormInput} from "shards-react";
 import styled from "styled-components";
-import {useDispatch} from "react-redux";
-import {login} from "../../Reducers/AuthReducer";
+import {useDispatch, useSelector} from "react-redux";
+import {login, setErrorAC} from "../../Reducers/AuthReducer";
 import {Formik} from "formik";
 import * as yup from 'yup'
 
 let Styles = styled.div`
 
-  .test{
-   margin-top: 150px;
+  .test {
+    margin-top: 150px;
   }
+
   .loginWrapper {
     max-width: 400px;
-    margin:auto;
+    margin: auto;
 
   }
 `
 
 const Login = () => {
+
+
 
   let validationSchema = yup.object().shape({
     email: yup.string().email('შეიყვანეთ ელ-ფოსტა').required('შეიყვანეთ ელ-ფოსტა'),
@@ -26,6 +29,7 @@ const Login = () => {
   })
 
 
+  let errorMessage = useSelector((state => state.Auth.errorMessage))
   let dispatch = useDispatch()
 
   return (
@@ -44,12 +48,19 @@ const Login = () => {
               onSubmit={(values) => {
                 dispatch(login(values.email, values.password))
               }}
+
             >
               {({
                   values, touched, handleBlur,
                   handleSubmit, handleChange, errors, isValid
                 }) => (
-                <Form className="m-auto">
+                <Form className="m-auto"
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          handleSubmit();
+                        }
+                      }}
+                >
                   <FormGroup className={'mb-0'}>
                     <label htmlFor="#username">ელ-ფოსტა</label>
                     <FormInput id="#username"
@@ -75,9 +86,15 @@ const Login = () => {
                     {errors.password &&
                       <span className={'text-danger'}>{errors.password}</span>}
                   </FormGroup>
-
+                  {
+                    errorMessage === true &&
+                    <p style={{color: 'red'}}>
+                      ელ-ფოსტა ან პაროლი არასწორია
+                    </p>
+                  }
                   <Button theme="secondary"
                           onClick={handleSubmit}
+
                   >
                     შესვლა
                   </Button>

@@ -12,7 +12,7 @@ import MyModal from "../MyModal/MyModal";
 let Styles = styled.div`
   .wrapper {
     overflow-y: scroll;
-    max-height: 430px;
+    max-height: 400px;
   }
 
   .d-tree-head {

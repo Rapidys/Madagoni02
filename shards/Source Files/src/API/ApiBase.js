@@ -43,6 +43,10 @@ const API = {
   getDocuments(documentStatus) {
     return $ApiBase.post(`/docs/GetDocuments`, documentStatus,)
   },
+  getFilterDocuments(document) {
+    return $ApiBase.post(`/docs/GetDocuments`, document)
+  },
+
   updateDocument(document) {
     return $ApiBase.post(`/docs/UpdateDocument`, document,)
   },
@@ -60,6 +64,10 @@ const API = {
   },
   getCommentsapi(documentId) {
     return $ApiBase.get(`/docComments/GetComments/${documentId}`)
+  },
+  getPositions() {
+    return $ApiBase.get(`/reference/GetReference/Positions`)
+
   },
   getNotification() {
     return $ApiBase.get(`/Notifications/GetNotifications`)

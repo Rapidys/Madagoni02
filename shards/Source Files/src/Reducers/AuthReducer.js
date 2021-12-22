@@ -7,9 +7,11 @@ let initialState = {
   password: '',
   isLoading: true,
   token: null,
+  errorMessage: false,
 }
 const Loading = 'SETLOADING'
 const Token = 'TOKEN'
+const setERROR = 'SET-ERROR'
 let AuthReducer = (state = initialState, action) => {
 
   switch (action.type) {
@@ -49,6 +51,12 @@ let AuthReducer = (state = initialState, action) => {
         token: action.tok
       }
     }
+    case setERROR : {
+      return {
+        ...state,
+        errorMessage: action.error
+      }
+    }
 
 
     default:
@@ -63,7 +71,7 @@ export let Logout = () => ({type: 'LogOut'})
 export let setUser = (user) => ({type: "SET-USER", payload: user})
 export let LoadingAC = (loading) => ({type: Loading, loading})
 export let TokenAC = (tok) => ({type: Token, tok})
-
+export let setErrorAC = (error) => ({type: setERROR, error})
 
 export const login = (email, password) => {
   return (dispatch) => {
@@ -89,6 +97,7 @@ export const login = (email, password) => {
         if (error && error.response.status === 403) {
           dispatch(LoadingAC(false))
           dispatch(setIsAuth(false))
+          dispatch(setErrorAC(true))
         }
 
       })

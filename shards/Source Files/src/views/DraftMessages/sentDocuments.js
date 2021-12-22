@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import DocumentPage from "./Documents/DocumentPage";
+import DocumentPage from "../Documents/DocumentPage";
 import {
   setCurrentPageAC
 } from "../../Reducers/PaginationReducer";
