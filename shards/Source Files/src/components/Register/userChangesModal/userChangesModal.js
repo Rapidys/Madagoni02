@@ -1,6 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import MyModal from "../../MyModal/MyModal";
 import {Button, Form, FormInput} from "shards-react";
+import MySelect from "../../../MySelect/MySelect";
+import {useDispatch, useSelector} from "react-redux";
+import {getPositions} from "../../../Reducers/PositionsReducer";
+import RegisterModalNew from "../registerModalTypes/RegisterModalNew";
+import TreeDeps from "../TreeWIthOnlyDepartments/TreeDeps";
 
 const UserChangesModal = ({
                             userControlOpen,
@@ -9,28 +14,45 @@ const UserChangesModal = ({
                             changeUserName,
                             setUserNewName,
                             userNewName,
-                            positonName,
-                            setPositonName,
-                            changePositionName
+                            changePositionName,
+                            PositionValue,
+                            setPositionValue,
+                            getPositionReferenceId,
+                            userAppointment,
+                            userInfoForAppoinment,
+                            getChosenDep,
+                            PositionReferenceId,
+                            setUserControlOpen,
+                            getNodeEmployes
 
                           }) => {
 
   let [isUserChangeName, setIsUserChangeName] = useState(true)
   let [userPosition, setUserPosition] = useState(false)
-
+  let [appointment, setAppointment] = useState(false)
   let [nameError, setNameError] = useState('')
   let [lastNameError, setLastNameError] = useState('')
-  let [positionError, setPositionError] = useState('')
+  let Positions = useSelector((state => state.positions.positions))
+  let [openTree, setOpenTree] = useState(false)
+  let dispatch = useDispatch()
+  const [chosenAppointmentDep, setChosenAppointmentDep] = useState([])
+  let treeData = useSelector((state => state.Tree.Structure))
+
+
+
+  useEffect(() => {
+    dispatch(getPositions())
+  }, [])
+
+
+  let setChosenAppointments = (value) => {
+    setChosenAppointmentDep([value] )
+  }
 
 
   let blurName = () => {
     if (userNewName.name === '') {
       setNameError('შეიყვანეთ ახალი სახელი')
-    }
-  }
-  let blurPosition = () => {
-    if (positonName === '') {
-      setPositionError('შეიყვანეთ თანამდებობა')
     }
   }
 
@@ -43,11 +65,36 @@ const UserChangesModal = ({
   let userChangeNameInput = () => {
     setIsUserChangeName(v => !v)
     setUserPosition(false)
+    setAppointment(false)
+
   }
   let onUserPositionClose = () => {
     setUserPosition(v => !v)
     setIsUserChangeName(false)
+    setAppointment(false)
   }
+  let onAppointmentClose = () => {
+    setAppointment(v => !v)
+    setIsUserChangeName(false)
+    setUserPosition(false)
+  }
+  let onPositionChange = (e) => {
+    setPositionValue(e.target.value)
+    getPositionReferenceId(e.target.selectedIndex)
+
+  }
+  let closeTree = () => {
+    setOpenTree(v => !v)
+  }
+  let handleMiniDepartmentDree = () => {
+    setOpenTree(true)
+  }
+  let [values, setValues] = useState()
+
+  let getValuesToAppointment = (values) => {
+    setValues(values)
+  }
+
   return (
     <MyModal
       open={userControlOpen}
@@ -63,6 +110,9 @@ const UserChangesModal = ({
         <Button className={'d-flex bg-primary mr-2'}
                 onClick={onUserPositionClose}
         >თანამდებობა</Button>
+        <Button className={'d-flex bg-primary mr-2'}
+                onClick={onAppointmentClose}
+        >გადანიშვნა</Button>
         <Button className={'bg-danger border-0 '}
                 onClick={delUser}
         >წაშლა</Button>
@@ -71,28 +121,60 @@ const UserChangesModal = ({
         userPosition === true &&
 
         <Form>
-          <FormInput
-            type="text"
-            placeholder={'თანამდებობა'}
-            className={'mt-2'}
-            value={positonName}
-            onChange={(e) => {
-              setPositonName(e.target.value)
-            }}
-            onBlur={blurPosition}
-          />
+          <div className={'mt-2 mb-2'}>
+            <MySelect
+              defaultValue={'თანამდებობები'}
+              options={Positions}
+              onChange={onPositionChange}
+              value={PositionValue}
+            />
+          </div>
 
-          <label style={{color: 'red'}}>{positionError}</label>
-          <br/>
           <Button
             className={'bg-warning border-0'}
             onClick={changePositionName}
-            disabled={positonName === '' && true}
 
           >
             შეცვლა
           </Button>
         </Form>
+
+      }
+      {appointment === true
+
+        && <>
+          <RegisterModalNew
+            addUser={userAppointment}
+            valuesToAppointment={getValuesToAppointment}
+            PositionValue={PositionValue}
+            setPositionValue={setPositionValue}
+            getPositionReferenceId={getPositionReferenceId}
+            userInfoForAppoinment={userInfoForAppoinment}
+            handleMiniDepartmentDree={handleMiniDepartmentDree}
+            chosenAppointmentDep = {chosenAppointmentDep}
+            setUserControlOpen = {setUserControlOpen}
+            forAppointment = {true}
+          />
+
+          <MyModal
+            open={openTree}
+            onClose={closeTree}
+            maxWidth={'sm'}
+          >
+
+            <TreeDeps
+              getChosenDep={getChosenDep}
+              userInfoForAppoinment = {userInfoForAppoinment}
+              PositionValue = {PositionValue}
+              PositionReferenceId = {PositionReferenceId}
+              setOpenTree = {setOpenTree}
+              setChosenAppointments = {setChosenAppointments}
+              getNodeEmployes = {getNodeEmployes}
+            />
+
+          </MyModal>
+
+        </>
 
       }
       {isUserChangeName === true

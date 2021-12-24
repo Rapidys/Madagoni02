@@ -1,13 +1,15 @@
 import Tree from "./Tree";
 import styled from 'styled-components'
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import Preloader from "../../Preloader/Preloader";
 import {useDispatch, useSelector} from "react-redux";
-import {TreeData} from "../../Reducers/TreeDataReducer";
+import {TreeData, TreeDataAC} from "../../Reducers/TreeDataReducer";
 import {Button, FormCheckbox} from "shards-react";
 import {useHistory} from "react-router-dom";
 import {setNewUser} from "../../Reducers/registerReducer";
 import MyModal from "../MyModal/MyModal";
+import SuccesfullChanged from "./succesfullChanged";
+import VisiblePositions from "./visiblePositions";
 
 let Styles = styled.div`
   .wrapper {
@@ -62,11 +64,12 @@ const TreeList = (props) => {
   let setPositions = () => {
     setPositionVisibility(v => !v)
   }
+
   useEffect(async () => {
     return await dispatch(TreeData())
   }, [newTree])
 
-  if (props.treeData.length === 0) {
+  if (treeData.length === 0) {
     return <Preloader/>
   }
   let newTreeFinalClose = () => {
@@ -86,10 +89,13 @@ const TreeList = (props) => {
             <div className="mt-3">
               <div className="row mt-3 d-flex  ml-1">
                 <div className="text-left text-dark">
-                  <Tree data={props.treeData}
+                  <Tree data={treeData}
                         handleSetNodeValue={props.handleSetNodeValue}
                         handleSetDepValue={props.handleSetDepValue}
                         positionVisibility={positionVisibility}
+                        setPositions={setPositionVisibility}
+                        setDivisionModal = {props.setDivisionModal}
+
                   />
 
                 </div>
@@ -98,26 +104,14 @@ const TreeList = (props) => {
           </div>
         </div>
 
-        <div className={'checkbox mr-5'}>
-          <FormCheckbox toggle small
-                        checked={positionVisibility}
-                        onChange={setPositions}
-          >
-            თანამდებობები
-          </FormCheckbox>
-        </div>
-        <MyModal
-          open={newTreeFinal}
-          onClose={newTreeFinalClose}
-          maxWidth={'sm'}
-        >
-          <div className={'d-flex align-items-center'}>
-            <i className="fas fa-check-circle ml-3"
-               style={{color: 'green', fontSize: '30px'}}/>
-            <span className={'ml-4'}>წარმატებით შეიცვალა</span>
-          </div>
-
-        </MyModal>
+        <VisiblePositions
+          positionVisibility={positionVisibility}
+          setPositions={setPositions}
+        />
+        <SuccesfullChanged
+          newTreeFinalClose={newTreeFinalClose}
+          newTreeFinal={newTreeFinal}
+        />
       </div>
       {
         RegisterURL === '/register' && <Button

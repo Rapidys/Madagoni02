@@ -18,7 +18,11 @@ const RegisterModal = ({
                          deleteDepOrUser,
                          changeDepName,
                          changedDepNames,
-                         setChangedDepNames
+                         setChangedDepNames,
+                         PositionValue,
+                         setPositionValue,
+                         getPositionReferenceId,
+
                        }) => {
 
   let onSortChange = (e) => {
@@ -43,10 +47,19 @@ const RegisterModal = ({
         onChange={onSortChange}
         value={Type}
       />
-      <RegisterModalNew Type={Type}
-                        addUser={addUser}/>
+      {
+        Type === 'ახალი თანამშრომელი'
+        &&
+        <RegisterModalNew
+          addUser={addUser}
+          PositionValue={PositionValue}
+          setPositionValue={setPositionValue}
+          getPositionReferenceId={getPositionReferenceId}
+          forAppointment = {false}
 
+        />
 
+      }
       <RegisterNewDep
         Type={Type}
         addUser={addUser}

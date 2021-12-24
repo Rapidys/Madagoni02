@@ -1,10 +1,14 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import Tree from "./Tree";
 import styled from "styled-components";
 import {Tooltip} from "@material-ui/core";
 import RegisterModal from "../Register/RegisterModal";
 import {useHistory} from "react-router-dom";
 import UserChangesModal from "../Register/userChangesModal/userChangesModal";
+import {useDispatch, useSelector} from "react-redux";
+import {TreeDataAC} from "../../Reducers/TreeDataReducer";
+import {setDivisionIdAC} from "../../Reducers/filterReducer";
+
 
 let Styles = styled.span`
   .deletedDep {
@@ -29,7 +33,8 @@ let Styles = styled.span`
 const TreeNode = (props) => {
 
   let history = useHistory()
-  let RegisterURL = history.location.pathname
+  let URL = history.location.pathname
+  let treeData = useSelector((state => state.Tree.Structure))
 
   let [depValues, setDepValues] = useState({name: ''})
   let [open, SetOpen] = useState(false)
@@ -40,8 +45,16 @@ const TreeNode = (props) => {
   let [Type, setType] = useState('')
   let [positonName, setPositonName] = useState('')
   const [visibility, setVisibility] = useState(props.node.expand)
+  let [PositionValue, setPositionValue] = useState('')
+  let [PositionReferenceId, setPositionReferenceId] = useState(1)
+  let dispatch = useDispatch()
 
   //axali dokumentis sheqmnis destinate an visitor
+
+  let getPositionReferenceId = (referenceId) => {
+    setPositionReferenceId(referenceId)
+  }
+
 
   const setChosen = useCallback(
     () => {
@@ -78,6 +91,17 @@ const TreeNode = (props) => {
     setUserControlOpen(v => !v)
   }
 
+  // gadanishvna
+
+  let userAppointment = () => {
+    props.node.isActive = false
+    console.log(treeData)
+    dispatch(TreeDataAC(treeData))
+  }
+  useMemo(() => {
+    dispatch(TreeDataAC(treeData))
+  }, [treeData])
+
 // axali iuseris an departamentis chasma xeshi
   let addUser = (values) => {
     if (Type === 'ახალი თანამშრომელი') {
@@ -89,8 +113,8 @@ const TreeNode = (props) => {
         isActive: true,
         departmentId: 0,
         department: null,
-        positionid: 1,
-        position: null
+        positionid: PositionReferenceId,
+        position: PositionValue
       }
       props.node.employes = [...props.node.employes, newUser]
 
@@ -141,11 +165,35 @@ const TreeNode = (props) => {
 
   // tanamdebobis shecvla
   let changePositionName = () => {
-    props.node.position = positonName
+    props.node.position = PositionValue
+    props.node.positionId = PositionReferenceId
     setPositonName('')
     setUserControlOpen(false)
   }
+  let onDisplayNameClick = () => {
+    if (URL === '/register') {
+      addUserInDepartment()
+    }
+    if (URL === '/add-new-post') {
+      setDepartment()
+    }
+    if (URL === '/incomingDocuments') {
+      dispatch(setDivisionIdAC({
+        id: props.node.departmentId,
+        displayName: props.node.displayName
+      }))
+      props.setDivisionModal(false)
+    }
+  }
+  let onUserClick = () => {
+    if (URL === '/register') {
+      userControl()
+    }
+    if (URL === '/add-new-post') {
+      setChosen()
+    }
 
+  }
   const hasChild = props.node.departments ? true : false
   const hasEmployes = props.node.employes ? true : false
   return (
@@ -163,6 +211,11 @@ const TreeNode = (props) => {
         changeDepName={changeDepName}
         changedDepNames={changedDepNames}
         setChangedDepNames={setChangedDepNames}
+        PositionValue={PositionValue}
+        setPositionValue={setPositionValue}
+        getPositionReferenceId={getPositionReferenceId}
+
+
       />
       <UserChangesModal
         userControlOpen={userControlOpen}
@@ -174,6 +227,13 @@ const TreeNode = (props) => {
         positonName={positonName}
         setPositonName={setPositonName}
         changePositionName={changePositionName}
+        PositionValue={PositionValue}
+        setPositionValue={setPositionValue}
+        getPositionReferenceId={getPositionReferenceId}
+        userAppointment={userAppointment}
+        userInfoForAppoinment={props.node}
+        PositionReferenceId={PositionReferenceId}
+        setUserControlOpen={setUserControlOpen}
       />
 
 
@@ -197,12 +257,12 @@ const TreeNode = (props) => {
           {props.node.displayName
             ? <i
               className={props.node.departmentId === 0 ? 'text-success mr-2 mt-1 fas fa-university' : 'mr-2 mt-1 fas fa-university'}
-              onClick={RegisterURL === '/register' ? addUserInDepartment : setDepartment}
+              onClick={onDisplayNameClick}
               style={{cursor: 'pointer'}}
             />
             : <i
               className={props.node.userId === 0 ? "text-success ml-2 mr-2 mt-1 fas fa-user" : "ml-2 mr-2 mt-1 fas fa-user"}
-              onClick={RegisterURL === '/register' ? userControl : setChosen}
+              onClick={onUserClick}
               style={{cursor: 'pointer'}}
             />
           }
@@ -219,7 +279,7 @@ const TreeNode = (props) => {
                 <Styles>
 
                    <span
-                     onClick={RegisterURL === '/register' ? addUserInDepartment : setDepartment}
+                     onClick={onDisplayNameClick}
                      className={props.node.isActive === false ? "deletedDep " : "" &&
                      props.node.departmentId === 0 ? 'text-success' : ''
                      }
@@ -247,7 +307,7 @@ const TreeNode = (props) => {
                          overflowWrap: 'break-word',
                          whiteSpace: 'pre-wrap'
                        }}
-                       onClick={RegisterURL === '/register' ? userControl : setChosen}
+                       onClick={onUserClick}
                        className={props.node.userId === 0 ? 'text-success' : ''}
                      >{props.node.firstName} {props.node.lastName}</span>
               </Tooltip>
@@ -279,6 +339,8 @@ const TreeNode = (props) => {
                   handleSetDepValue={props.handleSetDepValue}
                   handleSetNodeValue={props.handleSetNodeValue}
                   positionVisibility={props.positionVisibility}
+                  setPositionVisibility={props.setPositionVisibility}
+                  setDivisionModal = {props.setDivisionModal}
 
             />
           </ul>

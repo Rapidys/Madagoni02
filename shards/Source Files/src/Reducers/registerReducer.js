@@ -2,9 +2,11 @@ import API from "../API/ApiBase";
 
 let initialState = {
   newUser: {},
+  newTree:[],
 
 }
 let setUser = 'EMAIL'
+let setNewTree = 'NEW-TREE'
 let registerReducer = (state = initialState, action) => {
   switch (action.type) {
     case setUser :
@@ -12,12 +14,18 @@ let registerReducer = (state = initialState, action) => {
         ...state,
         newUser: action.user
       }
+      case setNewTree :
+      return {
+        ...state,
+        newTree: action.newTree
+      }
     default:
       return state
   }
 }
 
 export let setUserAC = (user) => ({type: setUser, user})
+export let setNewTreeAC = (newTree) => ({type: setNewTree, newTree})
 
 
 export let setNewUser = (newUser) => {

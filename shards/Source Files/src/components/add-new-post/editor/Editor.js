@@ -276,8 +276,11 @@ const Editor = (props) => {
 
 export default Editor;
 
+
 Editor.modules = {
+
   toolbar: [
+
     [{header: '1'}, {header: '2'}, {header: [3, 4, 5, 6]}, {font: []}],
     [{size: []}],
     [{align: ''}, {align: 'center'}, {align: 'right'}, {align: 'justify'}],
@@ -285,8 +288,11 @@ Editor.modules = {
     ['link', 'image', 'video'],
     ['clean'],
     ['code-block'],
-  ]
+
+  ],
+
 }
+
 Editor.formats = [
   'header',
   'font',
@@ -301,5 +307,6 @@ Editor.formats = [
   'link',
   'image',
   'video',
-  'code-block'
+  'code-block',
+  'align'
 ]

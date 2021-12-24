@@ -1,21 +1,29 @@
 import React from 'react';
 import {TextField} from "@mui/material";
+import MyModal from "../../../../../components/MyModal/MyModal";
+import TreeList from "../../../../../components/CompaignTree/TreeList";
 
-const DivisionField = ({division,setDivision ,...props}) => {
+const DivisionField = ({
+                         divisionModal,
+                         onCloseDivision,
+                         setDivision,
+                         setDivisionModal,
+                         ...props
+                       }) => {
 
-
-  let onValueChange = (e) => {
-    setDivision(e.target.value)
-  }
 
   return (
-    <TextField id="outlined-basic"
-               label={'დეპარტამენტი'}
-               variant="outlined"
-               value={division}
-               onChange={onValueChange}
-               {...props}
-    />
+    <MyModal
+      open={divisionModal}
+      onClose={onCloseDivision}
+      maxWidth={'sm'}
+
+    >
+      <TreeList
+        setDivisionModal={setDivisionModal}
+
+      />
+    </MyModal>
 
   );
 };

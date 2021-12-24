@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Button,
   Card,
@@ -21,8 +21,19 @@ import {getFilteredDocs} from "../../Reducers/filterReducer";
 import DivisionField from "./documentFilter/searchInput/Fields/DivisionField";
 import ExecutorField from "./documentFilter/searchInput/Fields/executorField";
 import AuthorField from "./documentFilter/searchInput/Fields/authorField";
-import DocTypeField from "./documentFilter/searchInput/Fields/docTypeField";
 import DocStateField from "./documentFilter/searchInput/Fields/docStateField";
+import {
+  getType,
+} from "../../Reducers/addNewPost/selectDocReducer";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField
+} from "@mui/material";
+import MyModal from "../../components/MyModal/MyModal";
+import TreeList from "../../components/CompaignTree/TreeList";
 
 let Styles = styled.div`
   .messWrapper:hover {
@@ -36,6 +47,10 @@ let Styles = styled.div`
 
   .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
     top: -7px;
+  }
+
+  .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+    padding: 9.5px 14px;
   }
 
   @media (max-width: 991px) {
@@ -82,52 +97,47 @@ const DocumentPage = ({pageTitle, pageName, Documents, ...props}) => {
   const [valueTo, setValueTo] = React.useState(''); // datePicker
   const [mobileVersValueFrom, setMobileVersValueFrom] = useState(new Date('2020-08-18T21:11:54'))
   const [mobileVersValueTo, setMobileVersValueTo] = useState('')
-  let [division, setDivision] = useState('')
   let [executor, setExecutor] = useState('')
   let [author, setAuthor] = useState('')
   let [docType, setDocType] = useState('')
   let [stateField, setStateField] = useState('')
   let dispatch = useDispatch()
-
+  let Options = useSelector((state => state.selectDocument.setOptions))
   let currentPage = useSelector(state => state.PaginationData.currentPage)
   let rowsPerPage = useSelector(state => state.PaginationData.rowsPerPage)
+  let [divisionModal, setDivisionModal] = useState(false)
+  let division = useSelector(state => state.filterR.divisionId)
+
+  useEffect(() => {
+    dispatch(getType())
+  }, [])
+
+
   if (loading === true) {
     return <Preloader/>
   }
-
+  let onCloseDivision = () => {
+    setDivisionModal(v => !v)
+  }
   let getValues = () => {
-    // if (docNumberVal === '' && docTitleVal === '') {
+
     let filter = {
-      DocumentNumber: Number(docNumberVal) !== '' ? Number(docNumberVal): null,
+      DocumentNumber: docNumberVal !== '' ? Number(docNumberVal) : null,
       DocumentDateFrom: valueFrom !== '' ? valueFrom : null,
       DocumentDateTo: valueTo !== '' ? valueTo : null,
-      Title: docTitleVal,
+      Title: docTitleVal !== '' ? docTitleVal : null,
+      DocumentTypeId: docType ? docType : null,
+      DivisionId: division.id,
       MotionStatus: 5,
       PageNumber: currentPage,
       RecordsPerPage: rowsPerPage,
     }
     dispatch(getFilteredDocs(filter))
 
-    // } else if (docTitleVal !== '' && docNumberVal === '') {
-    //   let filterByTitle = {
-    //     documentTItle: docTitleVal,
-    //     MotionStatus: 5,
-    //     PageNumber: currentPage,
-    //     RecordsPerPage: rowsPerPage,
-    //   }
-    //   dispatch(getFilteredDocs(filterByTitle))
-    // } else {
-    //   let filterById = {
-    //     DocumentNumber: Number(docNumberVal),
-    //     MotionStatus: 5,
-    //     PageNumber: currentPage,
-    //     RecordsPerPage: rowsPerPage,
-    //   }
-    //   dispatch(getFilteredDocs(filterById))
-    //
-    // }
 
-
+  }
+  let onSortChange = (e) => {
+    setDocType(e.target.value)
   }
 
   return (
@@ -172,23 +182,53 @@ const DocumentPage = ({pageTitle, pageName, Documents, ...props}) => {
 
 
                   </div>
-                  <div className={'d-flex justify-content-between mb-4 '}>
-                    <DocTypeField
-                      setDocType={setDocType}
-                      docType={docType}
+                  <div className={''}>
+
+                    <FormControl fullWidth className={'mb-2'}>
+                      <InputLabel
+                        id="demo-simple-select-label">დოკ.ტიპი</InputLabel>
+
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={docType}
+                        label='docType'
+                        onChange={onSortChange}
+
+                      >
+
+                        {
+                          Options && Options.map(item => {
+                            return <MenuItem
+                              value={item.referenceId}
+                              key={item.referenceId}>{item.displayName}</MenuItem>
+                          })
+                        }
+
+                      </Select>
+                    </FormControl>
+
+                    <TextField type="text" onClick={onCloseDivision}
+                               placeholder={'დეპარტამენტი'}
+                               value={division.displayName}
+                               id="outlined-basic"
+                               label={!division.displayName && 'დეპარტამენტი'}
+                               variant="outlined"
                     />
                     <DivisionField
-                      setDivision={setDivision}
-                      division={division}
+                      divisionModal={divisionModal}
+                      onCloseDivision={onCloseDivision}
+                      setDivisionModal={setDivisionModal}
                     />
-                    <ExecutorField
-                      setExecutor={setExecutor}
-                      executor={executor}
-                    />
-                    <AuthorField
-                      setAuthor={setAuthor}
-                      author={author}
-                    />
+
+                    {/*<ExecutorField*/}
+                    {/*  setExecutor={setExecutor}*/}
+                    {/*  executor={executor}*/}
+                    {/*/>*/}
+                    {/*<AuthorField*/}
+                    {/*  setAuthor={setAuthor}*/}
+                    {/*  author={author}*/}
+                    {/*/>*/}
                   </div>
                   <div>
                     <DocStateField
