@@ -78,6 +78,12 @@ const API = {
   createNewComment(newComment) {
     return $ApiBase.post(`/DocComments/CreateComment`, newComment)
   },
+  updateReference(referenceType, newReference) {
+    return $ApiBase.post(`/reference/UpdateReference/${referenceType}`, newReference)
+  },
+  getReferenceTypes() {
+    return $ApiBase.get(`/reference/GetReferenceTypes`)
+  },
   axiosCreate() {
     return axios.create({
       baseURL: baseUrl,

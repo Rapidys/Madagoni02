@@ -13,7 +13,14 @@ const Tree = (props) => {
                   handleSetDepValue={props.handleSetDepValue}
                   positionVisibility={props.positionVisibility}
                   setPositions = {props.setPositions}
-                  setDivisionModal = {props.setDivisionModal}
+                  setModal={props.setModal}
+                  ClickOnDepartment = {props.ClickOnDepartment}
+                  ClickOnExecutor = {props.ClickOnExecutor}
+                  isAppointment = {props.isAppointment}
+                  setChosenAppointments = {props.setChosenAppointments}
+                  setOpenTree={props.setOpenTree}
+                  userInfoForAppoinment = {props.userInfoForAppoinment}
+                  ClickOnAuthor={props.ClickOnAuthor}
 
         />
 

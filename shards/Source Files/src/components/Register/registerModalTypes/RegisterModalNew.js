@@ -12,10 +12,11 @@ const RegisterModalNew = ({
                             getPositionReferenceId,
                             userInfoForAppoinment,
                             handleMiniDepartmentDree,
-                            valuesToAppointment,
                             chosenAppointmentDep,
                             setUserControlOpen,
-                            forAppointment
+                            forAppointment,
+                            userAppointment
+
                           }) => {
   let dispatch = useDispatch()
 
@@ -37,6 +38,7 @@ const RegisterModalNew = ({
     getPositionReferenceId(e.target.selectedIndex)
 
   }
+
   return (
     <div>
 
@@ -52,8 +54,8 @@ const RegisterModalNew = ({
         validateOnBlur
         onSubmit={(values => {
           addUser(values)
-          valuesToAppointment(values)
           setUserControlOpen(false)
+
         })}
         validationSchema={validationSchema}
       >
@@ -149,12 +151,15 @@ const RegisterModalNew = ({
               დამატება
             </Button>
 
+
           </Form>
         )
         }
       </Formik>
 
-
+      <Button
+        onClick={userAppointment}
+      >test</Button>
     </div>
   );
 };

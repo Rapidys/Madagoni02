@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import SideBarVisitors from "../sideBarModalInfo/sideBarVisitors";
 import SideBarDestinations from "../sideBarModalInfo/sideBarDestinations";
 import styled from "styled-components";
@@ -7,6 +7,8 @@ import {useHistory} from "react-router-dom";
 import ChosenInNewDoc from "./chosenDestinations/chosenInNewDoc";
 import ChosenVisitorNewDoc from "./chosenVisitors/chosenVisitorNewDoc";
 import ChosenVisitorDoc from "./chosenVisitors/chosenVisitorDoc";
+import {TreeData} from "../../../../Reducers/TreeDataReducer";
+import {useDispatch, useSelector} from "react-redux";
 
 
 let Styles = styled.div`
@@ -31,6 +33,14 @@ let Styles = styled.div`
 
 
 const ChosenUsers = (props) => {
+  let newTree = useSelector((state => state.Register.newUser))
+  let dispatch = useDispatch()
+
+  useEffect(async () => {
+    return await dispatch(TreeData())
+  }, [newTree])
+
+
   let history = useHistory()
   let url = history.location.pathname
 

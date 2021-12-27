@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {TextField} from "@mui/material";
 import MyModal from "../../../../../components/MyModal/MyModal";
 import TreeList from "../../../../../components/CompaignTree/TreeList";
+import {useDispatch, useSelector} from "react-redux";
+import {TreeData} from "../../../../../Reducers/TreeDataReducer";
 
 const DivisionField = ({
                          divisionModal,
@@ -11,6 +13,12 @@ const DivisionField = ({
                          ...props
                        }) => {
 
+  let dispatch = useDispatch()
+  let newTree = useSelector((state => state.Register.newUser))
+
+  useEffect(async () => {
+    return await dispatch(TreeData())
+  }, [newTree])
 
   return (
     <MyModal
@@ -20,7 +28,10 @@ const DivisionField = ({
 
     >
       <TreeList
-        setDivisionModal={setDivisionModal}
+        setModal={setDivisionModal}
+        ClickOnExecutor={false}
+        ClickOnDepartment={true}
+        isAppointment={true}
 
       />
     </MyModal>

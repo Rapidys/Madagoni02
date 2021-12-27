@@ -105,6 +105,7 @@ const SideBarVisitors = (props) => {
                   <TreeList
                     handleSetNodeValue={handleSetNodeVisitor}
                     treeData={treeData}
+                    isAppointment={false}
 
 
                   />

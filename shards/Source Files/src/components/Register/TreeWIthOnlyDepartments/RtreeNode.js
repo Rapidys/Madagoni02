@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import TreeR from "./TreeR";
-import {TreeDataAC} from "../../../Reducers/TreeDataReducer";
 import {useDispatch, useSelector} from "react-redux";
 
 const RTreeNode = (props) => {

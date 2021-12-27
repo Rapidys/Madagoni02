@@ -22,6 +22,7 @@ const RegisterModal = ({
                          PositionValue,
                          setPositionValue,
                          getPositionReferenceId,
+                         userAppointment
 
                        }) => {
 
@@ -56,6 +57,7 @@ const RegisterModal = ({
           setPositionValue={setPositionValue}
           getPositionReferenceId={getPositionReferenceId}
           forAppointment = {false}
+          userAppointment = {userAppointment}
 
         />
 

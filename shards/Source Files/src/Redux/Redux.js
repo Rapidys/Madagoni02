@@ -26,6 +26,8 @@ import MyFilesReducer from "../Reducers/MyFilesReducer";
 import signDocumentReducer from "../Reducers/signDocumentReducer";
 import filterReducer from "../Reducers/filterReducer";
 import PositionsReducer from "../Reducers/PositionsReducer";
+import referenceTypesReducer from "../Reducers/referenceType";
+import updateReferenceReducer from "../Reducers/updateReferenceReducer";
 
 
 let Reducers = combineReducers({
@@ -53,6 +55,9 @@ let Reducers = combineReducers({
   signDocument: signDocumentReducer,
   filterR: filterReducer,
   positions: PositionsReducer,
+  getReferenceTypes: referenceTypesReducer,
+  GetDocReducer : GetDocReducer,
+  updateReference : updateReferenceReducer,
 })
 
 let store = createStore(Reducers, applyMiddleware(thunk))

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Card, CardBody, Container} from "shards-react";
 import styled from "styled-components";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import TreeList from "../CompaignTree/TreeList";
+import {TreeData} from "../../Reducers/TreeDataReducer";
 
 
 let Styles = styled.div`
@@ -24,6 +25,12 @@ let Styles = styled.div`
 
 const Register = () => {
   let treeData = useSelector((state => state.Tree.Structure))
+  let dispatch = useDispatch()
+  let newTree = useSelector((state => state.Register.newUser))
+
+  useEffect(() => {
+    dispatch(TreeData())
+  }, [newTree])
 
 
   return (
@@ -33,8 +40,8 @@ const Register = () => {
 
           <CardBody className={'card '}>
 
-            <TreeList treeData={treeData}
-
+            <TreeList
+              isAppointment={false}
 
             />
 

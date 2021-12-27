@@ -34,6 +34,11 @@ import {
 } from "@mui/material";
 import MyModal from "../../components/MyModal/MyModal";
 import TreeList from "../../components/CompaignTree/TreeList";
+import Division from "./division";
+import DocType from "./docType";
+import Executor from "./executor";
+import DatePickers from "./datePickers";
+import SearchCard from "./searchCard";
 
 let Styles = styled.div`
   .messWrapper:hover {
@@ -91,22 +96,9 @@ let Styles = styled.div`
 
 const DocumentPage = ({pageTitle, pageName, Documents, ...props}) => {
   let loading = useSelector(state => state.GetDoc.isLoading)
-  let [docNumberVal, setDocNumberVal] = useState('')
-  let [docTitleVal, setDocTitleVal] = useState('')
-  const [valueFrom, setValueFrom] = React.useState(''); // datePicker
-  const [valueTo, setValueTo] = React.useState(''); // datePicker
-  const [mobileVersValueFrom, setMobileVersValueFrom] = useState(new Date('2020-08-18T21:11:54'))
-  const [mobileVersValueTo, setMobileVersValueTo] = useState('')
-  let [executor, setExecutor] = useState('')
-  let [author, setAuthor] = useState('')
-  let [docType, setDocType] = useState('')
-  let [stateField, setStateField] = useState('')
+
   let dispatch = useDispatch()
-  let Options = useSelector((state => state.selectDocument.setOptions))
-  let currentPage = useSelector(state => state.PaginationData.currentPage)
-  let rowsPerPage = useSelector(state => state.PaginationData.rowsPerPage)
-  let [divisionModal, setDivisionModal] = useState(false)
-  let division = useSelector(state => state.filterR.divisionId)
+
 
   useEffect(() => {
     dispatch(getType())
@@ -116,29 +108,9 @@ const DocumentPage = ({pageTitle, pageName, Documents, ...props}) => {
   if (loading === true) {
     return <Preloader/>
   }
-  let onCloseDivision = () => {
-    setDivisionModal(v => !v)
-  }
-  let getValues = () => {
-
-    let filter = {
-      DocumentNumber: docNumberVal !== '' ? Number(docNumberVal) : null,
-      DocumentDateFrom: valueFrom !== '' ? valueFrom : null,
-      DocumentDateTo: valueTo !== '' ? valueTo : null,
-      Title: docTitleVal !== '' ? docTitleVal : null,
-      DocumentTypeId: docType ? docType : null,
-      DivisionId: division.id,
-      MotionStatus: 5,
-      PageNumber: currentPage,
-      RecordsPerPage: rowsPerPage,
-    }
-    dispatch(getFilteredDocs(filter))
 
 
-  }
-  let onSortChange = (e) => {
-    setDocType(e.target.value)
-  }
+
 
   return (
     <Styles>
@@ -150,100 +122,7 @@ const DocumentPage = ({pageTitle, pageName, Documents, ...props}) => {
               <CardHeader className="border-bottom">
                 <h6 className="m-0 text-black">{pageTitle}</h6>
               </CardHeader>
-              <Card>
-                <div className={'m-3'}>
-                  <div
-                    className={'d-flex mb-4 justify-content-between wrapper'}>
-                    <DocNumberField
-                      docNumberVal={docNumberVal}
-                      setDocNumberVal={setDocNumberVal}
-                      className={'docNumberField'}
-                    />
-                    <div>
-                      <DatePickerFrom
-                        setValueFrom={setValueFrom}
-                        mobileVersValue={mobileVersValueFrom}
-                        setMobileVersValue={setMobileVersValueFrom}
-                      />
-                    </div>
-
-                    <div className={'toDatePicker'}>
-                      <DatePickerTo
-                        mobileVersValueTo={mobileVersValueTo}
-                        setMobileVersValueTo={setMobileVersValueTo}
-                        setValueTo={setValueTo}
-                      />
-                    </div>
-                    <DocTitleField
-                      docTitleVal={docTitleVal}
-                      setDocTitleVal={setDocTitleVal}
-                      className={'docTitleField'}
-                    />
-
-
-                  </div>
-                  <div className={''}>
-
-                    <FormControl fullWidth className={'mb-2'}>
-                      <InputLabel
-                        id="demo-simple-select-label">დოკ.ტიპი</InputLabel>
-
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={docType}
-                        label='docType'
-                        onChange={onSortChange}
-
-                      >
-
-                        {
-                          Options && Options.map(item => {
-                            return <MenuItem
-                              value={item.referenceId}
-                              key={item.referenceId}>{item.displayName}</MenuItem>
-                          })
-                        }
-
-                      </Select>
-                    </FormControl>
-
-                    <TextField type="text" onClick={onCloseDivision}
-                               placeholder={'დეპარტამენტი'}
-                               value={division.displayName}
-                               id="outlined-basic"
-                               label={!division.displayName && 'დეპარტამენტი'}
-                               variant="outlined"
-                    />
-                    <DivisionField
-                      divisionModal={divisionModal}
-                      onCloseDivision={onCloseDivision}
-                      setDivisionModal={setDivisionModal}
-                    />
-
-                    {/*<ExecutorField*/}
-                    {/*  setExecutor={setExecutor}*/}
-                    {/*  executor={executor}*/}
-                    {/*/>*/}
-                    {/*<AuthorField*/}
-                    {/*  setAuthor={setAuthor}*/}
-                    {/*  author={author}*/}
-                    {/*/>*/}
-                  </div>
-                  <div>
-                    <DocStateField
-                      setStateField={setStateField}
-                      stateField={stateField}
-                    />
-                  </div>
-                </div>
-                <div className={'pr-3'}>
-                  <Button className={'float-right mb-4'}
-                          onClick={getValues}
-                  >ძებნა</Button>
-                </div>
-
-              </Card>
+              <SearchCard/>
               <DocumentBody pageName={pageName}
                             Documents={Documents}
 

@@ -168,6 +168,8 @@ const SideBarDestinations = (props) => {
                       setTreeDatas={props.setTreeDatas}
                       handleSetNodeValue={handleSetNodeValue}
                       handleSetDepValue={handleSetDepValue}
+                      isAppointment={false}
+
                     />
 
                   </Col>

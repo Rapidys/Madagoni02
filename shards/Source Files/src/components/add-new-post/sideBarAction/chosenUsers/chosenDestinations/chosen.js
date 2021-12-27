@@ -6,6 +6,7 @@ const Chosen = (props) => {
 
     <Col>
       {props.chosenDestination && props.chosenDestination.map((u, index) => {
+        debugger
         return <Col className={"mt-2"}
                     key={index}>
           <div className={'d-flex flex-column'}>

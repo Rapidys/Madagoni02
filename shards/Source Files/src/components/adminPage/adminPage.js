@@ -26,8 +26,8 @@ const AdminPage = () => {
       to: "/register"
     },
     {
-      title: "სხვა",
-      to: "/register"
+      title: "სარჩევების რედაქტირება",
+      to: "/EditingTableOfContents"
     },
   ])
   return (

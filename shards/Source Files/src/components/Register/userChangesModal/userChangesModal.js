@@ -5,7 +5,7 @@ import MySelect from "../../../MySelect/MySelect";
 import {useDispatch, useSelector} from "react-redux";
 import {getPositions} from "../../../Reducers/PositionsReducer";
 import RegisterModalNew from "../registerModalTypes/RegisterModalNew";
-import TreeDeps from "../TreeWIthOnlyDepartments/TreeDeps";
+import TreeList from "../../CompaignTree/TreeList";
 
 const UserChangesModal = ({
                             userControlOpen,
@@ -20,10 +20,7 @@ const UserChangesModal = ({
                             getPositionReferenceId,
                             userAppointment,
                             userInfoForAppoinment,
-                            getChosenDep,
-                            PositionReferenceId,
                             setUserControlOpen,
-                            getNodeEmployes
 
                           }) => {
 
@@ -36,8 +33,6 @@ const UserChangesModal = ({
   let [openTree, setOpenTree] = useState(false)
   let dispatch = useDispatch()
   const [chosenAppointmentDep, setChosenAppointmentDep] = useState([])
-  let treeData = useSelector((state => state.Tree.Structure))
-
 
 
   useEffect(() => {
@@ -46,7 +41,7 @@ const UserChangesModal = ({
 
 
   let setChosenAppointments = (value) => {
-    setChosenAppointmentDep([value] )
+    setChosenAppointmentDep([value])
   }
 
 
@@ -89,11 +84,7 @@ const UserChangesModal = ({
   let handleMiniDepartmentDree = () => {
     setOpenTree(true)
   }
-  let [values, setValues] = useState()
 
-  let getValuesToAppointment = (values) => {
-    setValues(values)
-  }
 
   return (
     <MyModal
@@ -145,15 +136,16 @@ const UserChangesModal = ({
         && <>
           <RegisterModalNew
             addUser={userAppointment}
-            valuesToAppointment={getValuesToAppointment}
             PositionValue={PositionValue}
             setPositionValue={setPositionValue}
             getPositionReferenceId={getPositionReferenceId}
             userInfoForAppoinment={userInfoForAppoinment}
             handleMiniDepartmentDree={handleMiniDepartmentDree}
-            chosenAppointmentDep = {chosenAppointmentDep}
-            setUserControlOpen = {setUserControlOpen}
-            forAppointment = {true}
+            chosenAppointmentDep={chosenAppointmentDep}
+            setUserControlOpen={setUserControlOpen}
+            forAppointment={true}
+            userAppointment = {userAppointment}
+
           />
 
           <MyModal
@@ -161,17 +153,14 @@ const UserChangesModal = ({
             onClose={closeTree}
             maxWidth={'sm'}
           >
-
-            <TreeDeps
-              getChosenDep={getChosenDep}
-              userInfoForAppoinment = {userInfoForAppoinment}
-              PositionValue = {PositionValue}
-              PositionReferenceId = {PositionReferenceId}
-              setOpenTree = {setOpenTree}
+            <TreeList
+              isAppointment = {true}
               setChosenAppointments = {setChosenAppointments}
-              getNodeEmployes = {getNodeEmployes}
-            />
+              setOpenTree={setOpenTree}
+              userInfoForAppoinment = {userInfoForAppoinment}
+              userAppointment={userAppointment}
 
+            />
           </MyModal>
 
         </>

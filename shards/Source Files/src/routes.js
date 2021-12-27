@@ -22,6 +22,8 @@ import Files from "./components/Files/newFile/File";
 import Register from "./components/Register/Register";
 import MyFiles from "./components/Files/MyFiles/MyFiles";
 import ChosenFile from "./components/Files/chosenFile/chosenFile";
+import ReferencesPage
+  from "./components/adminPage/editingTableOfContents/ReferencesPage";
 
 export let PrivacyRoutes = [
   {
@@ -148,6 +150,11 @@ export let PrivacyRoutes = [
     path: "/File/:id",
     layout: DefaultLayout,
     component: ChosenFile
+  },
+  {
+    path: "/EditingTableOfContents",
+    layout: DefaultLayout,
+    component: ReferencesPage
   },
 ]
 

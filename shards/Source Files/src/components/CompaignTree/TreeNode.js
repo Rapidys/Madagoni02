@@ -6,8 +6,17 @@ import RegisterModal from "../Register/RegisterModal";
 import {useHistory} from "react-router-dom";
 import UserChangesModal from "../Register/userChangesModal/userChangesModal";
 import {useDispatch, useSelector} from "react-redux";
-import {TreeDataAC} from "../../Reducers/TreeDataReducer";
-import {setDivisionIdAC} from "../../Reducers/filterReducer";
+import {
+  setNewStructureAC,
+  TreeData,
+  TreeDataAC
+} from "../../Reducers/TreeDataReducer";
+import {
+  setAuthorIdAC,
+  setDivisionIdAC,
+  setExecutorIdAC
+} from "../../Reducers/filterReducer";
+import {setNewUser} from "../../Reducers/registerReducer";
 
 
 let Styles = styled.span`
@@ -47,6 +56,7 @@ const TreeNode = (props) => {
   const [visibility, setVisibility] = useState(props.node.expand)
   let [PositionValue, setPositionValue] = useState('')
   let [PositionReferenceId, setPositionReferenceId] = useState(1)
+  let [NewUserAppointment, setNewUserAppointment] = useState([])
   let dispatch = useDispatch()
 
   //axali dokumentis sheqmnis destinate an visitor
@@ -96,11 +106,9 @@ const TreeNode = (props) => {
   let userAppointment = () => {
     props.node.isActive = false
     console.log(treeData)
-    dispatch(TreeDataAC(treeData))
+    // dispatch(TreeDataAC(treeData))
   }
-  useMemo(() => {
-    dispatch(TreeDataAC(treeData))
-  }, [treeData])
+
 
 // axali iuseris an departamentis chasma xeshi
   let addUser = (values) => {
@@ -171,26 +179,59 @@ const TreeNode = (props) => {
     setUserControlOpen(false)
   }
   let onDisplayNameClick = () => {
-    if (URL === '/register') {
+    if (URL === '/register' && props.isAppointment === false) {
       addUserInDepartment()
     }
     if (URL === '/add-new-post') {
       setDepartment()
     }
-    if (URL === '/incomingDocuments') {
+    if (props.ClickOnDepartment && props.ClickOnDepartment === true) {
       dispatch(setDivisionIdAC({
         id: props.node.departmentId,
         displayName: props.node.displayName
       }))
-      props.setDivisionModal(false)
+      props.setModal(false)
+    }
+    if (props.isAppointment === true) {
+      let newUser = {
+        userId: 0,
+        firstName: props.userInfoForAppoinment && props.userInfoForAppoinment.firstName,
+        lastName: props.userInfoForAppoinment && props.userInfoForAppoinment.lastName,
+        email: props.userInfoForAppoinment && props.userInfoForAppoinment.email,
+        isActive: true,
+        departmentId: 0,
+        department: null,
+        positionid: PositionReferenceId,
+        position: PositionValue
+      }
+
+      props.setChosenAppointments && props.setChosenAppointments(props.node.displayName)
+      props.node.employes = [...props.node.employes, newUser]
+      props.setOpenTree && props.setOpenTree(false)
+
+
     }
   }
   let onUserClick = () => {
-    if (URL === '/register') {
+    if (URL === '/register' && props.isAppointment === false) {
       userControl()
     }
     if (URL === '/add-new-post') {
       setChosen()
+    }
+    if (props.ClickOnExecutor === true) {
+      dispatch(setExecutorIdAC({
+        id: props.node.userId,
+        displayName: props.node.firstName + ' ' + props.node.lastName
+      }))
+      props.setModal(false)
+    }
+    if (props.ClickOnAuthor === true) {
+      dispatch(setAuthorIdAC({
+        id: props.node.userId,
+        displayName: props.node.firstName + ' ' + props.node.lastName
+      }))
+      props.setModal(false)
     }
 
   }
@@ -215,7 +256,6 @@ const TreeNode = (props) => {
         setPositionValue={setPositionValue}
         getPositionReferenceId={getPositionReferenceId}
 
-
       />
       <UserChangesModal
         userControlOpen={userControlOpen}
@@ -230,10 +270,11 @@ const TreeNode = (props) => {
         PositionValue={PositionValue}
         setPositionValue={setPositionValue}
         getPositionReferenceId={getPositionReferenceId}
-        userAppointment={userAppointment}
-        userInfoForAppoinment={props.node}
         PositionReferenceId={PositionReferenceId}
         setUserControlOpen={setUserControlOpen}
+        userInfoForAppoinment={props.node}
+        userAppointment={userAppointment}
+
       />
 
 
@@ -318,14 +359,18 @@ const TreeNode = (props) => {
           }
         </div>
       </div>
-      {hasEmployes && visibility && props.node.employes.map((empl, index) => {
+      {props.isAppointment === false && hasEmployes && visibility && props.node.employes.map((empl, index) => {
         return <div className={"d-tree-content"} key={index}>
           <ul className={"d-flex d-tree-container flex-column"}>
             <Tree data={empl}
                   handleSetDepValue={props.handleSetDepValue}
                   handleSetNodeValue={props.handleSetNodeValue}
                   positionVisibility={props.positionVisibility}
-
+                  ClickOnExecutor={props.ClickOnExecutor}
+                  ClickOnAuthor={props.ClickOnAuthor}
+                  setModal={props.setModal}
+                  isAppointment={props.isAppointment}
+                  setChosenAppointments={props.setChosenAppointments}
             />
           </ul>
         </div>
@@ -340,7 +385,12 @@ const TreeNode = (props) => {
                   handleSetNodeValue={props.handleSetNodeValue}
                   positionVisibility={props.positionVisibility}
                   setPositionVisibility={props.setPositionVisibility}
-                  setDivisionModal = {props.setDivisionModal}
+                  setModal={props.setModal}
+                  ClickOnDepartment={props.ClickOnDepartment}
+                  isAppointment={props.isAppointment}
+                  setChosenAppointments={props.setChosenAppointments}
+                  setOpenTree={props.setOpenTree}
+                  userInfoForAppoinment={props.userInfoForAppoinment}
 
             />
           </ul>

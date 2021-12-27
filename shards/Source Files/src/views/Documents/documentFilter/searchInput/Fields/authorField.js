@@ -1,21 +1,40 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {TextField} from "@mui/material";
+import MyModal from "../../../../../components/MyModal/MyModal";
+import TreeList from "../../../../../components/CompaignTree/TreeList";
+import {useDispatch, useSelector} from "react-redux";
+import {TreeData} from "../../../../../Reducers/TreeDataReducer";
 
-const AuthorField = ({author, setAuthor, ...props}) => {
+const AuthorField = ({
+                       AuthorModal,
+                       onCloseAuthor,
+                       setAuthorModal,
+                       ...props
+                     }) => {
+  let dispatch = useDispatch()
+  let newTree = useSelector((state => state.Register.newUser))
 
+  useEffect(async () => {
+    return await dispatch(TreeData())
+  }, [newTree])
 
-  let onValueChange = (e) => {
-    setAuthor(e.target.value)
-  }
 
   return (
-    <TextField id="outlined-basic"
-               label={'ავტორი'}
-               variant="outlined"
-               value={author}
-               onChange={onValueChange}
-               {...props}
-    />
+    <MyModal
+      open={AuthorModal}
+      onClose={onCloseAuthor}
+      maxWidth={'sm'}
+
+    >
+      <TreeList
+        setModal={setAuthorModal}
+        ClickOnExecutor={false}
+        ClickOnDepartment={false}
+        isAppointment={false}
+        ClickOnAuthor={true}
+
+      />
+    </MyModal>
 
   );
 };

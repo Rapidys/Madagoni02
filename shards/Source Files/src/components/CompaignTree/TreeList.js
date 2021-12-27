@@ -3,7 +3,11 @@ import styled from 'styled-components'
 import React, {useEffect, useMemo, useState} from "react";
 import Preloader from "../../Preloader/Preloader";
 import {useDispatch, useSelector} from "react-redux";
-import {TreeData, TreeDataAC} from "../../Reducers/TreeDataReducer";
+import {
+  setNewStructureAC,
+  TreeData,
+  TreeDataAC
+} from "../../Reducers/TreeDataReducer";
 import {Button, FormCheckbox} from "shards-react";
 import {useHistory} from "react-router-dom";
 import {setNewUser} from "../../Reducers/registerReducer";
@@ -57,17 +61,19 @@ const TreeList = (props) => {
   let history = useHistory()
   let RegisterURL = history.location.pathname
   let treeData = useSelector((state => state.Tree.Structure))
+  let NewtreeData = useSelector((state => state.Tree.newStructure))
   let [newTreeFinal, setNewTreeFinal] = useState(false)
   let dispatch = useDispatch()
-  let newTree = useSelector((state => state.Register.newUser))
   const [positionVisibility, setPositionVisibility] = useState(false)
   let setPositions = () => {
     setPositionVisibility(v => !v)
   }
+  useEffect(() => {
+    if (RegisterURL === '/register') {
+      return dispatch(TreeDataAC(treeData))
+    }
+  }, [treeData])
 
-  useEffect(async () => {
-    return await dispatch(TreeData())
-  }, [newTree])
 
   if (treeData.length === 0) {
     return <Preloader/>
@@ -80,6 +86,8 @@ const TreeList = (props) => {
     dispatch(setNewUser(treeData))
 
   }
+
+
   return (
     <Styles>
       <div className={'d-flex justify-content-between wrapper'}>
@@ -94,7 +102,14 @@ const TreeList = (props) => {
                         handleSetDepValue={props.handleSetDepValue}
                         positionVisibility={positionVisibility}
                         setPositions={setPositionVisibility}
-                        setDivisionModal = {props.setDivisionModal}
+                        setModal={props.setModal}
+                        ClickOnDepartment={props.ClickOnDepartment}
+                        ClickOnExecutor={props.ClickOnExecutor}
+                        isAppointment={props.isAppointment}
+                        setChosenAppointments={props.setChosenAppointments}
+                        setOpenTree={props.setOpenTree}
+                        userInfoForAppoinment={props.userInfoForAppoinment}
+                        ClickOnAuthor={props.ClickOnAuthor}
 
                   />
 
