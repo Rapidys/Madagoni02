@@ -18,6 +18,7 @@ const IncomingDocuments = () => {
   let currentPage = useSelector(state => state.PaginationData.currentPage)
   let rowsPerPage = useSelector(state => state.PaginationData.rowsPerPage)
   let totalCount = useSelector(state => state.PaginationData.totalPages)
+  let filtered = useSelector((state => state.filterR.filteredDocument))
 
 
   let dispatch = useDispatch()
@@ -29,6 +30,7 @@ const IncomingDocuments = () => {
       MotionStatus: 5,
       PageNumber: currentPage,
       RecordsPerPage: rowsPerPage,
+      ...filtered
     }))
   }, [currentPage, rowsPerPage])
 

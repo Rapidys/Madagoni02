@@ -15,8 +15,11 @@ const Executor = ({executor}) => {
                  placeholder={'დეპარტამენტი'}
                  id="outlined-basic"
                  variant="outlined"
-                 value={executor.displayName}
+                 value={executor.displayName || ''}
                  label={!executor.displayName && 'შემსრულებელი'}
+                 sx ={{width:'100%'}}
+                 size="small"
+
       />
 
       <ExecutorField

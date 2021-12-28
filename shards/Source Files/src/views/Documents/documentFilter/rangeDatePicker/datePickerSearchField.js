@@ -8,20 +8,15 @@ import {
   TextField,
 } from "@mui/material";
 
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 
-export default function DatePickerTo({
-                                       setValueTo,
-                                       mobileVersValueTo,
-                                       setMobileVersValueTo
-                                     }) {
-
+export default function DatePickerSearch({setValue,setMobileVersValue,mobileVersValue,till}) {
   let [isMobile, setIsMobile] = useState(false)
 
 
   let onMobileDateChange = (e) => {
-    setMobileVersValueTo(e)
+    setMobileVersValue(e)
   }
 
 
@@ -33,24 +28,27 @@ export default function DatePickerTo({
           isMobile
 
             ? <MobileDatePicker
-              label="მდე"
+              label={till}
               inputFormat="MM/dd/yyyy"
-              value={mobileVersValueTo}
+              value={mobileVersValue}
               onChange={onMobileDateChange}
               renderInput={(params) => <TextField {...params} />}
             />
             :
             <TextField
               id="date"
-              label="მდე"
+              label={till}
               type="date"
               inputformat="MM/dd/yyyy"
               onChange={(newValue) => {
-                setValueTo(newValue.target.value);
+                setValue(newValue.target.value);
               }}
               InputLabelProps={{
                 shrink: true,
               }}
+              sx={{height:'20px'}}
+              size="small"
+
             />
 
 

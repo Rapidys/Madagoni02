@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {TextField} from "@mui/material";
 
 const DocTitleField = ({docTitleVal, setDocTitleVal, ...props}) => {
@@ -15,6 +15,9 @@ const DocTitleField = ({docTitleVal, setDocTitleVal, ...props}) => {
                value={docTitleVal}
                onChange={onValueChange}
                {...props}
+               sx={{width: '100%'}}
+               size="small"
+
     />
 
   );

@@ -33,6 +33,8 @@ const Register = () => {
   }, [newTree])
 
 
+
+
   return (
     <Styles>
       <Container className={'loginWrapper'}>
@@ -42,7 +44,6 @@ const Register = () => {
 
             <TreeList
               isAppointment={false}
-
             />
 
 

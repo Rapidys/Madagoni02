@@ -17,8 +17,11 @@ const Author = ({Author}) => {
                  placeholder={'დეპარტამენტი'}
                  id="outlined-basic"
                  variant="outlined"
-                 value={Author.displayName}
+                 value={Author.displayName || ''}
                  label={!Author.displayName && 'ავტორი'}
+                 sx ={{width:'100%'}}
+                 size="small"
+
       />
 
       <AuthorField

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {TextField} from "@mui/material";
 
 const DocNumberField = ({docNumberVal, setDocNumberVal,...props}) => {
@@ -15,6 +15,8 @@ const DocNumberField = ({docNumberVal, setDocNumberVal,...props}) => {
                value={docNumberVal}
                onChange={onValueChange}
                {...props}
+               size="small"
+
     />
 
   );

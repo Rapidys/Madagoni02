@@ -23,13 +23,14 @@ const SentDocuments = () => {
   let currentPage = useSelector(state => state.PaginationData.currentPage)
   let rowsPerPage = useSelector(state => state.PaginationData.rowsPerPage)
   let totalCount = useSelector(state => state.PaginationData.totalPages)
-
+  let filtered = useSelector((state => state.filterR.filteredDocument))
   useEffect(() => {
     dispatch(motionStatusAC(2))
     dispatch(getDocs({
       MotionStatus: 2,
       PageNumber: currentPage,
       RecordsPerPage: rowsPerPage,
+      ...filtered,
     }))
   }, [rowsPerPage, currentPage])
 

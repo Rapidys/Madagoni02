@@ -14,10 +14,13 @@ const Division = ({division}) => {
     <>
       <TextField type="text" onClick={onCloseDivision}
                  placeholder={'დეპარტამენტი'}
-                 value={division.displayName}
+                 value={division.displayName || ''}
                  id="outlined-basic"
                  label={!division.displayName && 'დეპარტამენტი'}
                  variant="outlined"
+                 sx ={{width:'100%'}}
+                 size="small"
+
       />
 
       <DivisionField

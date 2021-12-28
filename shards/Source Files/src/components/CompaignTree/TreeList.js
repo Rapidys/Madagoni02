@@ -61,7 +61,6 @@ const TreeList = (props) => {
   let history = useHistory()
   let RegisterURL = history.location.pathname
   let treeData = useSelector((state => state.Tree.Structure))
-  let NewtreeData = useSelector((state => state.Tree.newStructure))
   let [newTreeFinal, setNewTreeFinal] = useState(false)
   let dispatch = useDispatch()
   const [positionVisibility, setPositionVisibility] = useState(false)
@@ -111,6 +110,7 @@ const TreeList = (props) => {
                         userInfoForAppoinment={props.userInfoForAppoinment}
                         ClickOnAuthor={props.ClickOnAuthor}
 
+
                   />
 
                 </div>
@@ -129,7 +129,7 @@ const TreeList = (props) => {
         />
       </div>
       {
-        RegisterURL === '/register' && <Button
+        props.saveChanges !== false && RegisterURL === '/register' && <Button
           onClick={setNewTree}
           className={'mt-5 ml-5 mb-5'}
 

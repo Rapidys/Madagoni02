@@ -119,7 +119,10 @@ const DocumentBody = (props) => {
     setShowMenu(false)
   })
 
-
+  if (props.Documents.length === 0) {
+    return <h4 style={{textAlign: 'center'}} className={'mt-4'}>დოკუმენტები ვერ
+      მოიძებნა...</h4>
+  }
   return (
     <Styles>
       <CardBody className="p-4 pb-3">
@@ -143,6 +146,7 @@ const DocumentBody = (props) => {
           </tr>
           </thead>
           <tbody>
+
           {props.Documents.map((Mess, index) => {
             return (
               <tr
@@ -183,6 +187,7 @@ const DocumentBody = (props) => {
 
             )
           })}
+
           </tbody>
 
         </table>

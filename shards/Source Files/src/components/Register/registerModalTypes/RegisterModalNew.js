@@ -5,6 +5,7 @@ import * as yup from "yup";
 import MySelect from "../../../MySelect/MySelect";
 import {useDispatch, useSelector} from "react-redux";
 import {getPositions, setPositionsAC} from "../../../Reducers/PositionsReducer";
+import {TreeDataAC} from "../../../Reducers/TreeDataReducer";
 
 const RegisterModalNew = ({
                             addUser, PositionValue,
@@ -15,8 +16,6 @@ const RegisterModalNew = ({
                             chosenAppointmentDep,
                             setUserControlOpen,
                             forAppointment,
-                            userAppointment
-
                           }) => {
   let dispatch = useDispatch()
 
@@ -38,6 +37,7 @@ const RegisterModalNew = ({
     getPositionReferenceId(e.target.selectedIndex)
 
   }
+  let treeData = useSelector((state => state.Tree.Structure))
 
   return (
     <div>
@@ -55,7 +55,6 @@ const RegisterModalNew = ({
         onSubmit={(values => {
           addUser(values)
           setUserControlOpen(false)
-
         })}
         validationSchema={validationSchema}
       >
@@ -157,9 +156,6 @@ const RegisterModalNew = ({
         }
       </Formik>
 
-      <Button
-        onClick={userAppointment}
-      >test</Button>
     </div>
   );
 };

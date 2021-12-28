@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getPositions} from "../../../Reducers/PositionsReducer";
 import RegisterModalNew from "../registerModalTypes/RegisterModalNew";
 import TreeList from "../../CompaignTree/TreeList";
+import {TreeData} from "../../../Reducers/TreeDataReducer";
 
 const UserChangesModal = ({
                             userControlOpen,
@@ -21,6 +22,7 @@ const UserChangesModal = ({
                             userAppointment,
                             userInfoForAppoinment,
                             setUserControlOpen,
+
 
                           }) => {
 
@@ -144,7 +146,7 @@ const UserChangesModal = ({
             chosenAppointmentDep={chosenAppointmentDep}
             setUserControlOpen={setUserControlOpen}
             forAppointment={true}
-            userAppointment = {userAppointment}
+            userAppointment={userAppointment}
 
           />
 
@@ -154,11 +156,13 @@ const UserChangesModal = ({
             maxWidth={'sm'}
           >
             <TreeList
-              isAppointment = {true}
-              setChosenAppointments = {setChosenAppointments}
+              isAppointment={true}
+              setChosenAppointments={setChosenAppointments}
               setOpenTree={setOpenTree}
-              userInfoForAppoinment = {userInfoForAppoinment}
+              userInfoForAppoinment={userInfoForAppoinment}
               userAppointment={userAppointment}
+              saveChanges={false}
+
 
             />
           </MyModal>

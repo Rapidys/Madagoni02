@@ -11,7 +11,7 @@ const DocType = ({setDocType,docType}) => {
   }
 
   return (
-    <FormControl fullWidth className={'mb-2'}>
+    <FormControl fullWidth size="small">
       <InputLabel
         id="demo-simple-select-label">დოკ.ტიპი</InputLabel>
 

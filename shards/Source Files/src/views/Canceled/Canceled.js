@@ -20,6 +20,7 @@ const CanceledDocuments = () => {
   let currentPage = useSelector((state => state.PaginationData.currentPage))
   let rowsPerPage = useSelector((state => state.PaginationData.rowsPerPage))
   let totalCount = useSelector((state => state.PaginationData.totalPages))
+  let filtered = useSelector((state => state.filterR.filteredDocument))
 
 
   let dispatch = useDispatch()
@@ -29,6 +30,7 @@ const CanceledDocuments = () => {
       MotionStatus: 7,  // ეს აიდი არის ხელმოწერილების
       PageNumber: currentPage,
       RecordsPerPage: rowsPerPage,
+      ...filtered,
     }))
 
 
