@@ -21,6 +21,10 @@ const Tree = (props) => {
                   setOpenTree={props.setOpenTree}
                   userInfoForAppoinment = {props.userInfoForAppoinment}
                   ClickOnAuthor={props.ClickOnAuthor}
+                  setUserControlOpen = {props.setUserControlOpen}
+                  appointmentInformation = {props.appointmentInformation}
+                  PositionValue = {props.PositionValue}
+                  PositionReferenceId = {props.PositionReferenceId}
 
         />
 

@@ -25,9 +25,10 @@ const CanceledDocuments = () => {
 
   let dispatch = useDispatch()
   useEffect(() => {
+
     dispatch(motionStatusAC(4))
     dispatch(getDocs({
-      MotionStatus: 7,  // ეს აიდი არის ხელმოწერილების
+      MotionStatus: 7,
       PageNumber: currentPage,
       RecordsPerPage: rowsPerPage,
       ...filtered,

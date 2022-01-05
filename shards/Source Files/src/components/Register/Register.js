@@ -3,7 +3,7 @@ import {Card, CardBody, Container} from "shards-react";
 import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
 import TreeList from "../CompaignTree/TreeList";
-import {TreeData} from "../../Reducers/TreeDataReducer";
+import {TreeData, TreeDataAC} from "../../Reducers/TreeDataReducer";
 
 
 let Styles = styled.div`
@@ -31,8 +31,9 @@ const Register = () => {
   useEffect(() => {
     dispatch(TreeData())
   }, [newTree])
-
-
+  useEffect(() => {
+    dispatch(TreeDataAC(treeData))
+  }, [treeData])
 
 
   return (

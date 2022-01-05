@@ -1,12 +1,13 @@
 import API from "../API/ApiBase";
 import {GetDocumentAC} from "./getDocReducer";
+import {setToTalPages} from "./PaginationReducer";
 
 let initialState = {
   filteredDocument: [],
   divisionId: {},
   executorId: {},
   authorId: {},
-  filterLoading: false
+  filterLoading: false,
 }
 let setDivisionId = 'SET-DIVISION-ID'
 let setExecutorId = 'SET-EXECUTOR-ID'
@@ -40,6 +41,7 @@ let filterReducer = (state = initialState, action) => {
         ...state,
         filterLoading: action.loading
       }
+
     default:
       return state
   }
@@ -61,6 +63,7 @@ export let getFilteredDocs = (filter) => {
     try {
       API.getFilterDocuments(filter).then(response => {
         dispatch(GetDocumentAC(response.data.documentList))
+        dispatch(setToTalPages(response.data.documentList.length))
         dispatch(setFilteredDocAC(filter))
         dispatch(filterLoadingAC(false))
       })

@@ -15,6 +15,7 @@ import {
 } from "../../Reducers/getDocReducer";
 import {setCurrentPageAC} from "../../Reducers/PaginationReducer";
 import {setVisibleBtnAC} from "../../Reducers/Comments/CommentsReducer";
+import {setFilteredDocAC} from "../../Reducers/filterReducer";
 
 
 const DraftDocuments = () => {
@@ -26,6 +27,10 @@ const DraftDocuments = () => {
 
 
   let dispatch = useDispatch()
+
+
+
+
   useEffect(() => {
 
     dispatch(motionStatusAC(1))

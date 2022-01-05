@@ -15,23 +15,29 @@ import {
 import {isSendedAC} from "../../Reducers/addNewPost/addNewPostReducer";
 import DocCreateModal
   from "../../components/add-new-post/editor/BtnModals/docCreateModal";
+import {useHistory} from "react-router-dom";
+import {setFilteredDocAC} from "../../Reducers/filterReducer";
 
 
 const SentDocuments = () => {
   let dispatch = useDispatch()
-
+  let url = useHistory()
   let currentPage = useSelector(state => state.PaginationData.currentPage)
   let rowsPerPage = useSelector(state => state.PaginationData.rowsPerPage)
   let totalCount = useSelector(state => state.PaginationData.totalPages)
   let filtered = useSelector((state => state.filterR.filteredDocument))
+
+
   useEffect(() => {
     dispatch(motionStatusAC(2))
+
     dispatch(getDocs({
       MotionStatus: 2,
       PageNumber: currentPage,
       RecordsPerPage: rowsPerPage,
-      ...filtered,
+      ...filtered
     }))
+    // if(url.location.pathname === '/')
   }, [rowsPerPage, currentPage])
 
   useEffect(() => {

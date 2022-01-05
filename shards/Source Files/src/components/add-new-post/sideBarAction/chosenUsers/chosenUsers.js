@@ -108,6 +108,7 @@ const ChosenUsers = (props) => {
           chosenDestination={props.chosenDestination}
           setChosenDestination={props.setChosenDestination}
         />
+
       </div>
 
 

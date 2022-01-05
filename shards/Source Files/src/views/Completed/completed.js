@@ -14,6 +14,7 @@ import {
   setCancelAC,
   setFinishDocAC, setIsFinishedAC
 } from "../../Reducers/getDocReducer";
+import {setFilteredDocAC} from "../../Reducers/filterReducer";
 
 
 const CompletedDocuments = () => {
@@ -25,7 +26,12 @@ const CompletedDocuments = () => {
 
 
   let dispatch = useDispatch()
+
+
+
+
   useEffect(() => {
+
     dispatch(motionStatusAC(6))
     dispatch(getDocs({
       MotionStatus: 6,

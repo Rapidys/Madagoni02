@@ -8,7 +8,6 @@ import {
   chosenIsLoadingAC
 } from "../Reducers/chosenDocumentReducer";
 import {setIsAuth} from "../Reducers/AuthReducer";
-import {setIsUpdatedAC} from "../Reducers/updateDocumentReducer";
 
 
 export let getMessagePage = (params) => {

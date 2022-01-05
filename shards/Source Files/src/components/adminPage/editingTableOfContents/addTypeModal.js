@@ -1,17 +1,20 @@
 import React, {useState} from 'react';
 import MyModal from "../../MyModal/MyModal";
 import {Button, FormInput} from "shards-react";
+import {setReference} from "../../../Reducers/updateReferenceReducer";
+import {useDispatch} from "react-redux";
 
 const AddTypeModal = ({
                         addTypeModalOpen,
                         closeAddTypeModal,
                         options,
                         setAddTypeModalOpen,
-                        setOptions
+                        setOptions,
+                        referenceTypeUrl
                       }) => {
 
   let [TypeName, setTypeName] = useState('')
-
+  let dispatch = useDispatch()
   let addNewType = () => {
     let newType = {
       referenceId: 0,
@@ -19,6 +22,7 @@ const AddTypeModal = ({
       isActive: true,
     }
     options = [...options, newType]
+    dispatch(setReference(referenceTypeUrl, newType))
     setOptions(options)
     setTypeName('')
     setAddTypeModalOpen(false)

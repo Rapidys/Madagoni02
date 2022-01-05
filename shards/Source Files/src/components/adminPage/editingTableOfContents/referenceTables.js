@@ -1,10 +1,10 @@
 import React from 'react';
 import Preloader from "../../../Preloader/Preloader";
 
-const ReferenceTables = ({options, edit}) => {
+const ReferenceTables = ({options, edit,isLoadingTypes}) => {
 
 
-  if (!options.length) {
+  if (isLoadingTypes === true) {
     return <Preloader/>
   }
 
@@ -38,7 +38,7 @@ const ReferenceTables = ({options, edit}) => {
           <td>{items.displayName}</td>
 
           <td>
-            {items.isActive ? 'true' : 'false'}
+            {items.isActive ? 'აქტიური' : 'არა აქტიური'}
           </td>
         </tr>
       })}

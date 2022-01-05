@@ -3,10 +3,11 @@ import {CardBody} from "shards-react";
 import {useHistory} from "react-router-dom/cjs/react-router-dom";
 import RightClickMenu from "../../RightClick/RightClickMenu";
 import {uniqueIdAC} from "../../Reducers/chosenDocumentReducer";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import styled from "styled-components";
 import {setCounter} from "../../Reducers/folderCountersReducer";
 import fire from '../../assets/fire1.gif'
+import Preloader from "../../Preloader/Preloader";
 
 let Styles = styled.div`
 
@@ -98,6 +99,7 @@ let Styles = styled.div`
 const DocumentBody = (props) => {
 
   let router = useHistory()
+  let isLoading = useSelector(state => state.filterR.filterLoading)
 
 
   const [x, setX] = useState(0)
@@ -123,6 +125,10 @@ const DocumentBody = (props) => {
     return <h4 style={{textAlign: 'center'}} className={'mt-4'}>დოკუმენტები ვერ
       მოიძებნა...</h4>
   }
+  if (isLoading === true) {
+    return <Preloader/>
+  }
+
   return (
     <Styles>
       <CardBody className="p-4 pb-3">
@@ -168,7 +174,7 @@ const DocumentBody = (props) => {
                 <td className={"resTtd"}>
                   {new Intl.DateTimeFormat("en-GB", {
                     year: "numeric",
-                    month: "long",
+                    month: "numeric",
                     day: "2-digit"
                   }).format(new Date(Mess.documentDate))}
                 </td>

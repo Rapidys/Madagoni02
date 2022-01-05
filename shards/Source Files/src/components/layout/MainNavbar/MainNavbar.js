@@ -5,6 +5,7 @@ import {Container, Navbar} from "shards-react";
 import NavbarSearch from "./NavbarSearch";
 import NavbarNav from "./NavbarNav/NavbarNav";
 import NavbarToggle from "./NavbarToggle";
+import * as jwt from "node/punycode";
 
 const MainNavbar = ({stickyTop}) => {
   const classes = classNames(
@@ -12,6 +13,10 @@ const MainNavbar = ({stickyTop}) => {
     "bg-white",
     stickyTop && "sticky-top"
   );
+
+
+  let token = localStorage.getItem('token')
+
 
   return (
     <div className={classes}>

@@ -2,8 +2,16 @@ import React, {useState} from 'react';
 import MyModal from "../../MyModal/MyModal";
 import MySelect from "../../../MySelect/MySelect";
 import {Button, FormInput} from "shards-react";
+import {setReference} from "../../../Reducers/updateReferenceReducer";
+import {useDispatch} from "react-redux";
 
-const ChangeReferenceModal = ({setEditModal, editModal, items, options}) => {
+const ChangeReferenceModal = ({
+                                setEditModal,
+                                editModal,
+                                items,
+                                referenceTypeUrl
+                              }) => {
+  let dispatch = useDispatch()
 
   let onCloseEditModal = () => {
     setEditModal(v => !v)
@@ -23,11 +31,14 @@ const ChangeReferenceModal = ({setEditModal, editModal, items, options}) => {
   }
   let deleteType = () => {
     items.isActive = false
+    dispatch(setReference(referenceTypeUrl, items))
     setEditModal(false)
 
   }
   let changeTypeName = () => {
     items.displayName = newNameOfType
+    dispatch(setReference(referenceTypeUrl, items))
+    setNewNameOfType('')
     setEditModal(false)
 
   }
@@ -36,6 +47,7 @@ const ChangeReferenceModal = ({setEditModal, editModal, items, options}) => {
       maxWidth={'sm'}
       open={editModal}
       onClose={onCloseEditModal}
+      title = {optionValue !== 'სახელის შეცვლა' ? 'სარჩევის წაშლა' : 'სახელის შეცვლა'}
     >
       <MySelect
         options={changeOptions}

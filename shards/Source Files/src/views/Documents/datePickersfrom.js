@@ -1,12 +1,13 @@
 import React from 'react';
-import DatePickerSearch from "./documentFilter/rangeDatePicker/datePickerSearchField";
+import DatePickerSearch
+  from "./documentFilter/rangeDatePicker/datePickerSearchField";
 
 const DatePickersfrom = ({
-                       setValueFrom,
-                       mobileVersValueFrom,
-                       setMobileVersValueFrom,
-
-                     }) => {
+                           setValueFrom,
+                           mobileVersValueFrom,
+                           setMobileVersValueFrom,
+                           valueFrom
+                         }) => {
   return (
     <>
       <div>
@@ -14,8 +15,8 @@ const DatePickersfrom = ({
           setValue={setValueFrom}
           mobileVersValue={mobileVersValueFrom}
           setMobileVersValue={setMobileVersValueFrom}
-          till = {'დან'}
-
+          till={'დან'}
+          value={valueFrom}
         />
       </div>
 

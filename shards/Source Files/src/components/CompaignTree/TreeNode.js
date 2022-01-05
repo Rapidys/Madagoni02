@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import Tree from "./Tree";
 import styled from "styled-components";
 import {Tooltip} from "@material-ui/core";
@@ -11,8 +11,8 @@ import {
   setDivisionIdAC,
   setExecutorIdAC
 } from "../../Reducers/filterReducer";
+import {setNewUser} from "../../Reducers/registerReducer";
 import {TreeDataAC} from "../../Reducers/TreeDataReducer";
-import {setNewTreeAC} from "../../Reducers/registerReducer";
 
 
 let Styles = styled.span`
@@ -50,9 +50,10 @@ const TreeNode = (props) => {
   let [Type, setType] = useState('')
   let [positonName, setPositonName] = useState('')
   const [visibility, setVisibility] = useState(props.node.expand)
-  let [PositionValue, setPositionValue] = useState('')
-  let [PositionReferenceId, setPositionReferenceId] = useState(1)
-  let [apointmentEmployes, setApointmentEmployes] = useState('')
+  let [PositionValue, setPositionValue] = useState(props.node.position || '')
+  let [PositionReferenceId, setPositionReferenceId] = useState(props.node.positionid || null)
+  let [applyAppointmentChanges, setApplyAppointmentChanges] = useState(false)
+
   let dispatch = useDispatch()
 
   //axali dokumentis sheqmnis destinate an visitor
@@ -98,15 +99,12 @@ const TreeNode = (props) => {
   }
 
   // gadanishvna
-  let valueFromProps = (values) => {
-    setApointmentEmployes(values)
-  }
+
 
   let userAppointment = () => {
-
     props.node.isActive = false
-    // props.appointmentUser = [...props.appointmentUser, newUser]
-    // console.log(treeData)
+    dispatch(TreeDataAC(treeData))
+
   }
 
 
@@ -173,7 +171,7 @@ const TreeNode = (props) => {
   // tanamdebobis shecvla
   let changePositionName = () => {
     props.node.position = PositionValue
-    props.node.positionId = PositionReferenceId
+    props.node.positionid = PositionReferenceId
     setPositonName('')
     setUserControlOpen(false)
   }
@@ -192,22 +190,25 @@ const TreeNode = (props) => {
       props.setModal(false)
     }
     if (props.isAppointment === true) {
+
       let newUser = {
         userId: 0,
-        firstName: props.userInfoForAppoinment && props.userInfoForAppoinment.firstName,
-        lastName: props.userInfoForAppoinment && props.userInfoForAppoinment.lastName,
-        email: props.userInfoForAppoinment && props.userInfoForAppoinment.email,
+        firstName: props.appointmentInformation && props.appointmentInformation.name,
+        lastName: props.appointmentInformation && props.appointmentInformation.lastName,
+        email: props.appointmentInformation && props.appointmentInformation.email,
         isActive: true,
         departmentId: 0,
         department: null,
-        positionid: PositionReferenceId,
-        position: PositionValue
+        positionid: props.PositionReferenceId,
+        position: props.PositionValue
       }
-      props.node.employes = [...props.node.employes, newUser]
+
       props.setChosenAppointments && props.setChosenAppointments(props.node.displayName)
       props.setOpenTree && props.setOpenTree(false)
-      dispatch(setNewTreeAC(treeData))
-      // props.getAppointment(props.node.employes)
+      props.setUserControlOpen && props.setUserControlOpen(false)
+      props.node.employes = [...props.node.employes, newUser]
+      dispatch(setNewUser(treeData))
+
     }
   }
   let onUserClick = () => {
@@ -253,7 +254,6 @@ const TreeNode = (props) => {
         PositionValue={PositionValue}
         setPositionValue={setPositionValue}
         getPositionReferenceId={getPositionReferenceId}
-
       />
       <UserChangesModal
         userControlOpen={userControlOpen}
@@ -272,6 +272,9 @@ const TreeNode = (props) => {
         setUserControlOpen={setUserControlOpen}
         userInfoForAppoinment={props.node}
         userAppointment={userAppointment}
+        applyAppointmentChanges={applyAppointmentChanges}
+        setApplyAppointmentChanges={setApplyAppointmentChanges}
+        onDisplayNameClick={onDisplayNameClick}
 
       />
 
@@ -369,8 +372,11 @@ const TreeNode = (props) => {
                   setModal={props.setModal}
                   isAppointment={props.isAppointment}
                   setChosenAppointments={props.setChosenAppointments}
-                  getAppointment={props.getAppointment}
-                  appointmentUser={props.appointmentUser}
+                  setApplyAppointmentChanges={props.setApplyAppointmentChanges}
+                  setUserControlOpen={props.setUserControlOpen}
+                  appointmentInformation={props.appointmentInformation}
+                  PositionValue={props.PositionValue}
+                  PositionReferenceId={props.PositionReferenceId}
             />
           </ul>
         </div>
@@ -391,8 +397,12 @@ const TreeNode = (props) => {
                   setChosenAppointments={props.setChosenAppointments}
                   setOpenTree={props.setOpenTree}
                   userInfoForAppoinment={props.userInfoForAppoinment}
-                  getAppointment={props.getAppointment}
-                  appointmentUser={props.appointmentUser}
+                  setApplyAppointmentChanges={props.setApplyAppointmentChanges}
+                  setUserControlOpen={props.setUserControlOpen}
+                  appointmentInformation={props.appointmentInformation}
+                  PositionValue={props.PositionValue}
+                  PositionReferenceId={props.PositionReferenceId}
+
             />
           </ul>
         </div>

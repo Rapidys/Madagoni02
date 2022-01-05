@@ -30,7 +30,7 @@ const DivisionField = ({
         setModal={setDivisionModal}
         ClickOnExecutor={false}
         ClickOnDepartment={true}
-        isAppointment={true}
+        isAppointment={false}
 
       />
     </MyModal>

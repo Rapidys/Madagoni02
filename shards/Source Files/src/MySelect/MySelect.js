@@ -2,7 +2,14 @@ import React from 'react';
 import {Container, FormSelect} from "shards-react";
 
 
-const MySelect = ({defaultValue, onChange, options, value, ...props}) => {
+const MySelect = ({
+                    defaultValue,
+                    onChange,
+                    options,
+                    value,
+                    setReferId,
+                    ...props
+                  }) => {
 
 
   return (
@@ -12,9 +19,10 @@ const MySelect = ({defaultValue, onChange, options, value, ...props}) => {
         onChange={(e) => onChange(e)}
         {...props}
       >
-        <option value='' disabled >{defaultValue && defaultValue}</option>
+        <option value='' disabled>{defaultValue && defaultValue}</option>
         {options && options.map((option, index) => {
-          return <option value={option.value} key={index} id = {option.referenceId}
+          return <option value={option.displayName} key={index}
+                         id={index}
           >
             {option.displayName}
           </option>

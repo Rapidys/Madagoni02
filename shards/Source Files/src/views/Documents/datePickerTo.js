@@ -1,19 +1,18 @@
 import React from 'react';
-import DatePickerSearch from "./documentFilter/rangeDatePicker/datePickerSearchField";
+import DatePickerSearch
+  from "./documentFilter/rangeDatePicker/datePickerSearchField";
 
 const DatePickerTo = ({
-                        mobileVersValueTo,
-                        setMobileVersValueTo,
                         setValueTo,
+                        valueTo
                       }) => {
     return (
 
       <div className={'toDatePicker'}>
         <DatePickerSearch
-          mobileVersValueTo={mobileVersValueTo}
-          setMobileVersValueTo={setMobileVersValueTo}
           setValue={setValueTo}
           till={'მდე'}
+          value={valueTo}
         />
       </div>
     );

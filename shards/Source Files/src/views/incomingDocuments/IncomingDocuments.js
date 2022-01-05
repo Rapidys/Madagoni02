@@ -10,7 +10,7 @@ import {
 import {motionStatusAC} from "../../Reducers/MotionStatusReducer";
 import {setVisibleBtnAC} from "../../Reducers/Comments/CommentsReducer";
 import {approveBtnAC, setCancelAC} from "../../Reducers/getDocReducer";
-
+import {setFilteredDocAC} from "../../Reducers/filterReducer";
 
 
 const IncomingDocuments = () => {
@@ -23,9 +23,10 @@ const IncomingDocuments = () => {
 
   let dispatch = useDispatch()
 
-
   useEffect(() => {
+
     dispatch(motionStatusAC(5))
+
     dispatch(getDocs({
       MotionStatus: 5,
       PageNumber: currentPage,
@@ -33,6 +34,7 @@ const IncomingDocuments = () => {
       ...filtered
     }))
   }, [currentPage, rowsPerPage])
+
 
   let incomings = useSelector(state => state.GetDoc.documents)
 

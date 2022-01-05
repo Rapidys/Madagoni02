@@ -36,28 +36,30 @@ const ReferencesPage = () => {
     dispatch(getReferenceTypes())
   }, [])
   let referenceTypes = useSelector((state => state.getReferenceTypes.referenceTypes))
+  let updatedReference = useSelector((state => state.updateReference.updatedReference))
   let [referenceValue, setReferenceValue] = useState('')
   let [addTypeModalOpen, setAddTypeModalOpen] = useState(false)
   let [editModal, setEditModal] = useState(false)
   let [referenceTypeUrl, setReferenceTypeUrl] = useState('')
+  let [isLoadingTypes,setIsLoadingTypes] = useState(false)
+  let [newOption, setNewOption] = useState([])
   let onChangeReference = (e) => {
     setReferenceValue(e.target.value)
   }
   let [options, setOptions] = useState([])
   useEffect(() => {
-    API.FinishDocumentSelectTypes().then((response) => {
-      if (response) {
-        dispatch(setFinishOptionsAC(response.data))
-        setOptions(response.data)
-        setReferenceTypeUrl('CompletionResults')
-      }
-    })
+    setIsLoadingTypes(true)
+    if(!options.length){
+      setIsLoadingTypes(false)
+    }
     if (referenceValue === 'დასრულების ტიპები') {
       API.FinishDocumentSelectTypes().then((response) => {
         if (response) {
           dispatch(setFinishOptionsAC(response.data))
           setOptions(response.data)
           setReferenceTypeUrl('CompletionResults')
+          setIsLoadingTypes(false)
+
         }
       })
     }
@@ -65,15 +67,19 @@ const ReferencesPage = () => {
       API.getDocTypes().then(response => {
         setOptions(response.data)
         setReferenceTypeUrl('DocumentTypes')
+        setIsLoadingTypes(false)
+
       })
     }
     if (referenceValue === 'თანამდებობები') {
       API.getPositions().then(response => {
         setOptions(response.data)
         setReferenceTypeUrl('positions')
+        setIsLoadingTypes(false)
+
       })
     }
-  }, [referenceValue])
+  }, [referenceValue, updatedReference])
 
   let [items, setItems] = useState(null)
 
@@ -86,7 +92,7 @@ const ReferencesPage = () => {
     setAddTypeModalOpen(v => !v)
   }
   let saveChanges = () => {
-    dispatch(setReference(referenceTypeUrl, options))
+    dispatch(setReference(referenceTypeUrl, newOption))
   }
   return (
     <Styles>
@@ -109,6 +115,7 @@ const ReferencesPage = () => {
             options={options}
             setAddTypeModalOpen={setAddTypeModalOpen}
             setOptions={setOptions}
+            referenceTypeUrl={referenceTypeUrl}
           />
           <Button
             onClick={closeAddTypeModal}
@@ -120,17 +127,16 @@ const ReferencesPage = () => {
             options={options}
             setEditModal={setEditModal}
             edit={edit}
+            isLoadingTypes = {isLoadingTypes}
 
           />
 
-          <Button className={'mt-4 bg-warning border-0 ml-2'}
-                  onClick={saveChanges}
-          >შენახვა</Button>
+
           <ChangeReferenceModal
             editModal={editModal}
             setEditModal={setEditModal}
             items={items}
-            options={options}
+            referenceTypeUrl = {referenceTypeUrl}
           />
         </Col>
       </Card>

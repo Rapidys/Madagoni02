@@ -66,7 +66,7 @@ const ChosenDocument = () => {
             setDocumentTitle={setDocumentTitle}
             documentBody={documentBody}
             documentType={documentType}
-            draftBtn={MotionStatus === 0 ? 'lg-ml-3 xs-ml-0 border - 1' : 'd-none'}
+            draftBtn={MotionStatus === 0 ? 'lg-ml-3 xs-ml-0 border - 1 float-right' : 'd-none'}
             docId={`დოკუმენტის ნომერი :${chosen.documentId} `}
             Date={`${chosen.documentDate && chosen.documentDate.slice(0, 10)}`}
             isDisabledVisitor={false}

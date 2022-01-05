@@ -9,7 +9,13 @@ import {
 } from "../../Reducers/PaginationReducer";
 import {motionStatusAC} from "../../Reducers/MotionStatusReducer";
 import {setVisibleBtnAC} from "../../Reducers/Comments/CommentsReducer";
-import {setAddBtnAC, setFinishDocAC} from "../../Reducers/getDocReducer";
+import {
+  GetDocumentAC,
+  setAddBtnAC,
+  setFinishDocAC
+} from "../../Reducers/getDocReducer";
+import {useLocation} from "react-router-dom";
+import {setFilteredDocAC} from "../../Reducers/filterReducer";
 
 
 const SignatureDocuments = () => {
@@ -18,19 +24,25 @@ const SignatureDocuments = () => {
   let rowsPerPage = useSelector(state => state.PaginationData.rowsPerPage)
   let totalCount = useSelector(state => state.PaginationData.totalPages)
   let filtered = useSelector((state => state.filterR.filteredDocument))
-
+  let MotionStatus = useSelector((state => state.MotionStatus.motionStatus))
 
   let dispatch = useDispatch()
+
+
+
   useEffect(() => {
     dispatch(motionStatusAC(3))
+    dispatch(setFilteredDocAC([]))
+
     dispatch(getDocs({
       MotionStatus: 3,
       PageNumber: currentPage,
       RecordsPerPage: rowsPerPage,
       ...filtered
     }))
-
-
+    if (MotionStatus !== 3) {
+      dispatch(GetDocumentAC([]))
+    }
   }, [currentPage, rowsPerPage])
 
   useEffect(() => {

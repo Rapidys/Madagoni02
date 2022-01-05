@@ -11,12 +11,16 @@ import {
 import {useEffect, useState} from "react";
 
 
-export default function DatePickerSearch({setValue,setMobileVersValue,mobileVersValue,till}) {
+export default function DatePickerSearch({
+                                           setValue,
+                                           till,
+                                           value,
+                                         }) {
   let [isMobile, setIsMobile] = useState(false)
 
 
   let onMobileDateChange = (e) => {
-    setMobileVersValue(e)
+    setValue(e)
   }
 
 
@@ -29,9 +33,10 @@ export default function DatePickerSearch({setValue,setMobileVersValue,mobileVers
 
             ? <MobileDatePicker
               label={till}
-              inputFormat="MM/dd/yyyy"
-              value={mobileVersValue}
-              onChange={onMobileDateChange}
+              onChange={(newValue) => {
+                setValue(newValue);
+                console.log(newValue)
+              }}
               renderInput={(params) => <TextField {...params} />}
             />
             :
@@ -40,13 +45,14 @@ export default function DatePickerSearch({setValue,setMobileVersValue,mobileVers
               label={till}
               type="date"
               inputformat="MM/dd/yyyy"
+              value={value}
               onChange={(newValue) => {
                 setValue(newValue.target.value);
               }}
               InputLabelProps={{
                 shrink: true,
               }}
-              sx={{height:'20px'}}
+              sx={{width: '100%', color: 'red'}}
               size="small"
 
             />

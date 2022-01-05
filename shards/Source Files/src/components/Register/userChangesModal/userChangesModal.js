@@ -6,7 +6,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {getPositions} from "../../../Reducers/PositionsReducer";
 import RegisterModalNew from "../registerModalTypes/RegisterModalNew";
 import TreeList from "../../CompaignTree/TreeList";
-import {TreeData} from "../../../Reducers/TreeDataReducer";
 
 const UserChangesModal = ({
                             userControlOpen,
@@ -22,7 +21,7 @@ const UserChangesModal = ({
                             userAppointment,
                             userInfoForAppoinment,
                             setUserControlOpen,
-
+                            PositionReferenceId
 
                           }) => {
 
@@ -31,10 +30,12 @@ const UserChangesModal = ({
   let [appointment, setAppointment] = useState(false)
   let [nameError, setNameError] = useState('')
   let [lastNameError, setLastNameError] = useState('')
+  let [appointmentInformation, setAppointmentInformation] = useState({})
   let Positions = useSelector((state => state.positions.positions))
   let [openTree, setOpenTree] = useState(false)
   let dispatch = useDispatch()
   const [chosenAppointmentDep, setChosenAppointmentDep] = useState([])
+  let [positionId, setPositionId] = useState(null)
 
 
   useEffect(() => {
@@ -75,11 +76,14 @@ const UserChangesModal = ({
     setIsUserChangeName(false)
     setUserPosition(false)
   }
+
   let onPositionChange = (e) => {
+    let idx = Positions[e.target.selectedIndex - 1]
     setPositionValue(e.target.value)
-    getPositionReferenceId(e.target.selectedIndex)
+    getPositionReferenceId(idx.referenceId)
 
   }
+
   let closeTree = () => {
     setOpenTree(v => !v)
   }
@@ -120,6 +124,7 @@ const UserChangesModal = ({
               options={Positions}
               onChange={onPositionChange}
               value={PositionValue}
+              id={positionId}
             />
           </div>
 
@@ -133,6 +138,8 @@ const UserChangesModal = ({
         </Form>
 
       }
+
+
       {appointment === true
 
         && <>
@@ -147,8 +154,10 @@ const UserChangesModal = ({
             setUserControlOpen={setUserControlOpen}
             forAppointment={true}
             userAppointment={userAppointment}
-
+            setAppointmentInformation={setAppointmentInformation}
+            PositionReferenceId={PositionReferenceId}
           />
+
 
           <MyModal
             open={openTree}
@@ -162,8 +171,10 @@ const UserChangesModal = ({
               userInfoForAppoinment={userInfoForAppoinment}
               userAppointment={userAppointment}
               saveChanges={false}
-
-
+              setUserControlOpen={setUserControlOpen}
+              appointmentInformation={appointmentInformation}
+              PositionValue={PositionValue}
+              PositionReferenceId={PositionReferenceId}
             />
           </MyModal>
 

@@ -42,7 +42,7 @@ const NewPostSection = () => {
       setChosenDestination={setChosenDestination}
       documentType={'დოკუმენტის ტიპი'}
       approve={'d-none'}
-      draftBtn={'border - 1'}
+      draftBtn={'border - 1 float-right'}
       addBtn={'border - 1'}
       isDisabledVisitor={false}
       isDisabledDestinate={false}

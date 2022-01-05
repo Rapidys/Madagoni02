@@ -16,7 +16,7 @@ import {
 } from "../../../Reducers/addNewPost/addNewPostReducer";
 import {Redirect, useHistory, useParams} from "react-router-dom";
 import {
-  setBlockedDocument, setIsBlockedAC,
+  setBlockedDocument,
   setRealoadDOCAC,
   setSignDocument
 } from "../../../Reducers/signDocumentReducer";
@@ -31,6 +31,8 @@ import {
 import MyModal from "../../MyModal/MyModal";
 import {setAddBtnAC, setIsFinishedAC} from "../../../Reducers/getDocReducer";
 import API from "../../../API/ApiBase";
+import GoBack from "../../../views/chosenDocument/MessagesPage/goBack";
+
 
 
 const Editor = (props) => {
@@ -60,6 +62,7 @@ const Editor = (props) => {
   let [resendAddresant, setResendAddresant] = useState(false)
   let [successResended, setSuccessResended] = useState(false)
   let error = useSelector((state => state.addNewPost.error))
+  let MotionStatus = useSelector((state => state.MotionStatus.motionStatus))
 
   let dispatch = useDispatch()
 
@@ -172,6 +175,10 @@ const Editor = (props) => {
   if (isBlocked === true) {
     return <Redirect to={'/canceled'}/>
   }
+  // let backToDocumentList = () => {
+  //   alert('asdsad')
+  // }
+
   return (
     <Card small className="mb-3">
       <CardBody>
@@ -207,6 +214,9 @@ const Editor = (props) => {
 
           </MyModal>
         </Form>
+        <GoBack/>
+
+
         <SideBarDestinations
           open={resendAddresant}
           handleClose={resendDocModal}
@@ -216,11 +226,11 @@ const Editor = (props) => {
           ? <Button
             disabled={!Motions.MotionDest.length && true}
             onClick={addNewPost}
-            className={getDoc.addBtn !== true ? 'd-none' : 'border - 1'}
+            className={getDoc.addBtn !== true ? 'd-none' : 'border - 1  float-right'}
           >გაგზავნა</Button>
           : <Button
             onClick={resendDocModal}
-            className={getDoc.addBtn !== true ? 'd-none' : 'border - 1'}
+            className={getDoc.addBtn !== true ? 'd-none' : 'border - 1 float-right'}
           >გადაგზავნა</Button>
         }
 
@@ -232,14 +242,14 @@ const Editor = (props) => {
         >დრაფტად შენახვა</Button>
 
         <Button
-          className={getDoc.approveBtn !== true ? 'd-none' : 'border - 1'}
+          className={getDoc.approveBtn !== true ? 'd-none' : 'border - 1 float-right'}
           onClick={setSignature}
         >
           ხელმოწერა
         </Button>
 
         <Button
-          className={getDoc.cancel !== true ? 'd-none' : 'border - 1'}
+          className={getDoc.cancel !== true ? 'd-none' : 'border - 1 float-right'}
           onClick={rejectDocument}
         >გაუქმება</Button>
 
@@ -250,7 +260,7 @@ const Editor = (props) => {
 
 
         <Button
-          className={getDoc.finishDocument !== true ? 'd-none' : 'border - 1'}
+          className={getDoc.finishDocument !== true ? 'd-none' : 'border - 1 float-right'}
           onClick={finishModal}
         >
           დავასრულე

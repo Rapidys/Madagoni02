@@ -3,7 +3,7 @@ import {Dialog, DialogContent, DialogTitle} from "@material-ui/core";
 import {ModalBody} from "shards-react";
 
 
-const MyModal = ({open, onClose, maxWidth, children, title}) => {
+const MyModal = ({open, onClose, maxWidth, children, title,...props}) => {
 
   return (
     <Dialog
@@ -11,6 +11,7 @@ const MyModal = ({open, onClose, maxWidth, children, title}) => {
       onClose={onClose}
       fullWidth={true}
       maxWidth={maxWidth}
+      {...props}
     >
       <div className={'d-flex justify-content-between'}>
         <DialogTitle>{title}</DialogTitle>

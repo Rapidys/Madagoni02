@@ -16,6 +16,8 @@ const RegisterModalNew = ({
                             chosenAppointmentDep,
                             setUserControlOpen,
                             forAppointment,
+                            setAppointmentInformation,
+                            PositionReferenceId
                           }) => {
   let dispatch = useDispatch()
 
@@ -23,7 +25,6 @@ const RegisterModalNew = ({
     dispatch(getPositions())
   }, [])
   let Positions = useSelector((state => state.positions.positions))
-
 
   let validationSchema = yup.object().shape({
     name: yup.string().required('შეიყვანეთ სახელი'),
@@ -35,7 +36,6 @@ const RegisterModalNew = ({
   let onPositionChange = (e) => {
     setPositionValue(e.target.value)
     getPositionReferenceId(e.target.selectedIndex)
-
   }
   let treeData = useSelector((state => state.Tree.Structure))
 
@@ -48,13 +48,19 @@ const RegisterModalNew = ({
           lastName: userInfoForAppoinment ? userInfoForAppoinment.lastName : '',
           email: userInfoForAppoinment ? userInfoForAppoinment.email : '',
           mobile: userInfoForAppoinment ? userInfoForAppoinment.mobile : '',
-          position: userInfoForAppoinment ? userInfoForAppoinment.position : ''
+          position: userInfoForAppoinment ? userInfoForAppoinment.position : '',
+          positionid: userInfoForAppoinment ? userInfoForAppoinment.positionid : '',
 
         }}
         validateOnBlur
         onSubmit={(values => {
           addUser(values)
           setUserControlOpen(false)
+          if (forAppointment === true) {
+            handleMiniDepartmentDree(true)
+            setUserControlOpen(true)
+            setAppointmentInformation(values)
+          }
         })}
         validationSchema={validationSchema}
       >
@@ -105,7 +111,7 @@ const RegisterModalNew = ({
               type="number" placeholder={'მობ.ნომერი'}
               name='mobile'
               id='#mobile'
-              value={values.mobile && values.mobile}
+              value={values.mobile || ''}
               onBlur={handleBlur}
               onChange={handleChange}
               className={'mt-2'}
@@ -121,19 +127,10 @@ const RegisterModalNew = ({
                 onChange={onPositionChange}
                 value={PositionValue}
 
+
               />
 
             </div>
-            {
-              forAppointment === true
-              && <div className={'mt-2'}>
-                <Button className={'bg-warning border-0 w-100'}
-                        onClick={handleMiniDepartmentDree}
-                >დეპარტამენტის არჩევა</Button>
-
-              </div>
-
-            }
 
 
             <div className={'mt-2'}>
