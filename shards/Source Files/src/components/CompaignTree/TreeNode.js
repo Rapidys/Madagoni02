@@ -3,7 +3,7 @@ import Tree from "./Tree";
 import styled from "styled-components";
 import {Tooltip} from "@material-ui/core";
 import RegisterModal from "../Register/RegisterModal";
-import {useHistory} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 import UserChangesModal from "../Register/userChangesModal/userChangesModal";
 import {useDispatch, useSelector} from "react-redux";
 import {
@@ -40,7 +40,7 @@ const TreeNode = (props) => {
   let history = useHistory()
   let URL = history.location.pathname
   let treeData = useSelector((state => state.Tree.Structure))
-
+  let params = useParams()
   let [depValues, setDepValues] = useState({name: ''})
   let [open, SetOpen] = useState(false)
   let onClose = (e) => SetOpen(e => !e)
@@ -215,7 +215,7 @@ const TreeNode = (props) => {
     if (URL === '/register' && props.isAppointment === false) {
       userControl()
     }
-    if (URL === '/add-new-post') {
+    if (URL === '/add-new-post' || `/incomingDocument/${params}`) {
       setChosen()
     }
     if (props.ClickOnExecutor === true) {

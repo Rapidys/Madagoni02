@@ -26,12 +26,11 @@ const ChosenDocument = () => {
   }, [pageId])
 
 
-
   const [documentTitle, setDocumentTitle] = useState('')
   const [documentBody, setDocumentBody] = useState('')
   const [chosenDestination, setchosenDestination] = useState([])
   const [chosenVisitor, setchosenVisitor] = useState([])
-
+  const [defaultText, setDefaultText] = useState('something')
 
   useMemo(() => {
     setchosenDestination([])
@@ -41,7 +40,7 @@ const ChosenDocument = () => {
   let [documentType, setDocumentType] = useState()
   useMemo(() => {
     setDocumentTitle(chosen.documentTitle || '')
-    setDocumentBody(chosen.documentBody)
+    setDocumentBody(chosen.documentBody + ('&nbsp') + defaultText)
     setDocumentType(chosen.documentType)
     MotionTypeFiltering(chosen, chosenDestination, chosenVisitor)
   }, [chosen])

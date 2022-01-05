@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Dispatcher, Constants } from "../../../Redux/HeaderMenu";
+import {Dispatcher, Constants} from "../../../Redux/HeaderMenu";
 
 class NavbarToggle extends React.Component {
   constructor(props) {
@@ -16,10 +16,12 @@ class NavbarToggle extends React.Component {
   }
 
   render() {
+
     return (
       <nav className="nav">
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-        <a href="#" onClick={this.handleClick} className="nav-link nav-link-icon toggle-sidebar d-sm-inline d-md-none d-lg-none text-center">
+        <a href="#" onClick={this.handleClick}
+           className="nav-link nav-link-icon toggle-sidebar d-sm-inline d-md-none d-lg-none text-center">
           <i className="material-icons">&#xE5D2;</i>
         </a>
       </nav>

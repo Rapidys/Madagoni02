@@ -14,107 +14,113 @@ import {
   FormTextarea,
   Button
 } from "shards-react";
+import jwtDecode from "jwt-decode";
 
-const UserAccountDetails = ({title}) => (
-  <Card small className="mb-4">
-    <CardHeader className="border-bottom">
-      <h6 className="m-0">დეტალები</h6>
-    </CardHeader>
-    <ListGroup flush>
-      <ListGroupItem className="p-3">
-        <Row>
-          <Col>
-            <Form>
-              <Row form>
-                {/* First Name */}
-                <Col md="6" className="form-group">
-                  <label htmlFor="feFirstName">სახელი</label>
-                  <FormInput
-                    id="feFirstName"
-                    placeholder="First Name"
-                    value="Sierra"
-                    onChange={() => {
-                    }}
-                  />
-                </Col>
-                {/* Last Name */}
-                <Col md="6" className="form-group">
-                  <label htmlFor="feLastName">გვარი</label>
-                  <FormInput
-                    id="feLastName"
-                    placeholder="Last Name"
-                    value="Brooks"
-                    onChange={() => {
-                    }}
-                  />
-                </Col>
-              </Row>
-              <Row form>
-                {/* Email */}
-                <Col md="6" className="form-group">
-                  <label htmlFor="feEmail">ე-მაილი</label>
-                  <FormInput
-                    type="email"
-                    id="feEmail"
-                    placeholder="Email Address"
-                    value="sierra@example.com"
-                    onChange={() => {
-                    }}
-                    autoComplete="email"
-                  />
-                </Col>
-                {/* Password */}
-                <Col md="6" className="form-group">
-                  <label htmlFor="fePassword">პაროლი</label>
-                  <FormInput
-                    type="password"
-                    id="fePassword"
-                    placeholder="Password"
-                    value="EX@MPL#P@$$w0RD"
-                    onChange={() => {
-                    }}
-                    autoComplete="current-password"
-                  />
-                </Col>
-              </Row>
-              <FormGroup>
-                <label htmlFor="feAddress">მისამართი</label>
-                <FormInput
-                  id="feAddress"
-                  placeholder="Address"
-                  value="1234 Main St."
-                  onChange={() => {
-                  }}
-                />
-              </FormGroup>
-              <Row form>
-                {/* City */}
-                <Col md="6" className="form-group">
-                  <label htmlFor="feCity">ქალაქი</label>
-                  <FormInput
-                    id="feCity"
-                    placeholder="City"
-                    onChange={() => {
-                    }}
-                  />
-                </Col>
+const UserAccountDetails = ({title}) => {
+    let token = localStorage.getItem('token')
+    let decoded = jwtDecode(token);
+    return (
+      <Card small className="mb-4">
+        <CardHeader className="border-bottom">
+          <h6 className="m-0">დეტალები</h6>
+        </CardHeader>
+        <ListGroup flush>
+          <ListGroupItem className="p-3">
+            <Row>
+              <Col>
+                <Form>
+                  <Row form>
+                    {/* First Name */}
+                    <Col md="6" className="form-group">
+                      <label htmlFor="feFirstName">სახელი</label>
+                      <FormInput
+                        id="feFirstName"
+                        placeholder="First Name"
+                        value={decoded.Email.slice(0, 4)}
+                        onChange={() => {
+                        }}
+                      />
+                    </Col>
+                    {/* Last Name */}
+                    <Col md="6" className="form-group">
+                      <label htmlFor="feLastName">გვარი</label>
+                      <FormInput
+                        id="feLastName"
+                        placeholder="Last Name"
+                        value={decoded.Email.slice(5, 12)}
+                        onChange={() => {
+                        }}
+                      />
+                    </Col>
+                  </Row>
+                  <Row form>
+                    {/* Email */}
+                    <Col md="6" className="form-group">
+                      <label htmlFor="feEmail">ე-მაილი</label>
+                      <FormInput
+                        type="email"
+                        id="feEmail"
+                        placeholder="Email Address"
+                        value="sierra@example.com"
+                        onChange={() => {
+                        }}
+                        autoComplete="email"
+                      />
+                    </Col>
+                    {/* Password */}
+                    <Col md="6" className="form-group">
+                      <label htmlFor="fePassword">პაროლი</label>
+                      <FormInput
+                        type="password"
+                        id="fePassword"
+                        placeholder="Password"
+                        value="EX@MPL#P@$$w0RD"
+                        onChange={() => {
+                        }}
+                        autoComplete="current-password"
+                      />
+                    </Col>
+                  </Row>
+                  <FormGroup>
+                    <label htmlFor="feAddress">მისამართი</label>
+                    <FormInput
+                      id="feAddress"
+                      placeholder="Address"
+                      value="1234 Main St."
+                      onChange={() => {
+                      }}
+                    />
+                  </FormGroup>
+                  <Row form>
+                    {/* City */}
+                    <Col md="6" className="form-group">
+                      <label htmlFor="feCity">ქალაქი</label>
+                      <FormInput
+                        id="feCity"
+                        placeholder="City"
+                        onChange={() => {
+                        }}
+                      />
+                    </Col>
 
-              </Row>
-              <Row form>
-                {/* Description */}
-                <Col md="12" className="form-group">
-                  <label htmlFor="feDescription">აღწერა</label>
-                  <FormTextarea id="feDescription" rows="5"/>
-                </Col>
-              </Row>
-              <Button theme="accent">განახლება</Button>
-            </Form>
-          </Col>
-        </Row>
-      </ListGroupItem>
-    </ListGroup>
-  </Card>
-);
+                  </Row>
+                  <Row form>
+                    {/* Description */}
+                    <Col md="12" className="form-group">
+                      <label htmlFor="feDescription">აღწერა</label>
+                      <FormTextarea id="feDescription" rows="5"/>
+                    </Col>
+                  </Row>
+                  <Button theme="accent">განახლება</Button>
+                </Form>
+              </Col>
+            </Row>
+          </ListGroupItem>
+        </ListGroup>
+      </Card>
+    )
+  }
+;
 
 UserAccountDetails.propTypes = {
   /**

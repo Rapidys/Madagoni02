@@ -9,10 +9,13 @@ import {
 } from "shards-react";
 import {useSelector} from "react-redux";
 import defaultImg from '../../assets/user.png'
+import jwtDecode from "jwt-decode";
 
 const UserDetails = () => {
 
   let user = useSelector(state => state.Auth.currentUser)
+  let token = localStorage.getItem('token')
+  let decoded = jwtDecode(token);
 
   return (
     <Card small className="mb-4 pt-3">
@@ -26,7 +29,7 @@ const UserDetails = () => {
             width="110"
           />
         </div>
-        <h4 className="mb-0">{user.name}</h4>
+        <h4 className="mb-0">{decoded.Email}</h4>
         <span className="text-muted d-block mb-2">{user.jobTitle}</span>
         <Button pill outline size="sm" className="mb-2">
           <i className="material-icons mr-1">person_add</i> Follow

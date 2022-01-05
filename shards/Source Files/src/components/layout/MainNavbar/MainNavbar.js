@@ -1,11 +1,10 @@
 import React from "react";
 import classNames from "classnames";
 import {Container, Navbar} from "shards-react";
-
 import NavbarSearch from "./NavbarSearch";
 import NavbarNav from "./NavbarNav/NavbarNav";
 import NavbarToggle from "./NavbarToggle";
-import * as jwt from "node/punycode";
+import jwtDecode from "jwt-decode";
 
 const MainNavbar = ({stickyTop}) => {
   const classes = classNames(
@@ -16,6 +15,7 @@ const MainNavbar = ({stickyTop}) => {
 
 
   let token = localStorage.getItem('token')
+  let decoded = jwtDecode(token);
 
 
   return (
@@ -25,6 +25,7 @@ const MainNavbar = ({stickyTop}) => {
           <NavbarSearch/>
 
           <div>
+            <h6 className={'align-self-center mb-0 mr-2'}>{decoded.Email}</h6>
             <NavbarNav/>
             <NavbarToggle/>
           </div>

@@ -149,6 +149,8 @@ const DocumentBody = (props) => {
             <th scope="col" className="resTtd border-0">
               ავტორი
             </th>
+            <th scope="col" className="resTtd border-0">
+            </th>
           </tr>
           </thead>
           <tbody>

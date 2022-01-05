@@ -20,8 +20,8 @@ import {setDocumentColor} from "../Reducers/setDocumentColorReducer";
 const RightClickMenu = ({x, y, showMenu}) => {
   const style = () => {
     return {
-      width: 100,
-      height: 150,
+      width: 80,
+      height: 130,
       borderRadius: 10,
       background: '#6c757d',
       color: 'black',
@@ -72,7 +72,13 @@ const RightClickMenu = ({x, y, showMenu}) => {
       documentColorId: 3,
     }))
   }
-
+  const changeToNonColor = () => {
+    document.getElementById(getId).style.backgroundColor = 'white';
+    dispatch(setDocumentColor({
+      documentId: getId,
+      documentColorId: 0,
+    }))
+  }
   return (
 
     <div style={style()}>
@@ -80,17 +86,19 @@ const RightClickMenu = ({x, y, showMenu}) => {
            className={"align-items-center bg-danger"}
            onClick={changeToRed}
       >
-        <span className={"mt-5"}> Red</span>
       </div>
       <div style={styles.div} className={"bg-warning"}
            onClick={changeToYellow}
       >
-        <span>Yellow</span>
       </div>
       <div style={styles.div} className={"bg-success"}
            onClick={changeToGreen}
       >
-        <span>green</span>
+
+      </div>
+      <div style={styles.div} className={"bg-white"}
+           onClick={changeToNonColor}
+      >გაუქმ
       </div>
     </div>
 

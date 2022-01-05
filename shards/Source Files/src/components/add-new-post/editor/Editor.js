@@ -32,8 +32,16 @@ import MyModal from "../../MyModal/MyModal";
 import {setAddBtnAC, setIsFinishedAC} from "../../../Reducers/getDocReducer";
 import API from "../../../API/ApiBase";
 import GoBack from "../../../views/chosenDocument/MessagesPage/goBack";
+import styled from "styled-components";
 
 
+let Styles = styled.div`
+  .editorWrapp p:last-child {
+    margin-top: 200px;
+    float: right;
+  }
+
+`
 
 const Editor = (props) => {
 
@@ -175,9 +183,7 @@ const Editor = (props) => {
   if (isBlocked === true) {
     return <Redirect to={'/canceled'}/>
   }
-  // let backToDocumentList = () => {
-  //   alert('asdsad')
-  // }
+
 
   return (
     <Card small className="mb-3">
@@ -189,15 +195,18 @@ const Editor = (props) => {
                      onChange={handleTitle}
 
           />
-          <ReactQuill
-            readOnly={props.readOnly}
-            className="add-new-post__editor mb-1"
-            modules={Editor.modules}
-            formats={Editor.formats}
-            onChange={handleBody}
-            value={props.documentBody || ''}
+          <Styles>
+            <ReactQuill
+              readOnly={props.readOnly}
+              className="add-new-post__editor mb-1 editorWrapp"
+              modules={Editor.modules}
+              formats={Editor.formats}
+              onChange={handleBody}
+              value={props.documentBody || ''}
 
-          />
+            />
+          </Styles>
+
           <MyModal
             open={successResended}
             onClose={onSuccessResend}
@@ -214,69 +223,76 @@ const Editor = (props) => {
 
           </MyModal>
         </Form>
-        <GoBack/>
+        <div className={'mt-3'}>
+          {
+            url !== '/add-new-post'
+            && <GoBack/>
+
+          }
 
 
-        <SideBarDestinations
-          open={resendAddresant}
-          handleClose={resendDocModal}
-          resendDocument={resendDocument}
-        />
-        {url === '/add-new-post'
-          ? <Button
+          <SideBarDestinations
+            open={resendAddresant}
+            handleClose={resendDocModal}
+            resendDocument={resendDocument}
+          />
+          {url === '/add-new-post'
+            ? <Button
+              disabled={!Motions.MotionDest.length && true}
+              onClick={addNewPost}
+              className={getDoc.addBtn !== true ? 'd-none' : 'border - 1  float-right'}
+            >გაგზავნა</Button>
+            : <Button
+              onClick={resendDocModal}
+              className={getDoc.addBtn !== true ? 'd-none' : 'border - 1 float-right'}
+            >გადაგზავნა</Button>
+          }
+
+          {/*"ml-lg-2 ml-sm-0 border - 1"*/}
+          <Button
             disabled={!Motions.MotionDest.length && true}
-            onClick={addNewPost}
-            className={getDoc.addBtn !== true ? 'd-none' : 'border - 1  float-right'}
-          >გაგზავნა</Button>
-          : <Button
-            onClick={resendDocModal}
-            className={getDoc.addBtn !== true ? 'd-none' : 'border - 1 float-right'}
-          >გადაგზავნა</Button>
-        }
+            onClick={handleDraft}
+            className={props.draftBtn}
+          >დრაფტად შენახვა</Button>
 
-        {/*"ml-lg-2 ml-sm-0 border - 1"*/}
-        <Button
-          disabled={!Motions.MotionDest.length && true}
-          onClick={handleDraft}
-          className={props.draftBtn}
-        >დრაფტად შენახვა</Button>
+          <Button
+            className={getDoc.approveBtn !== true ? 'd-none' : 'border - 1 float-right'}
+            onClick={setSignature}
+          >
+            ხელმოწერა
+          </Button>
 
-        <Button
-          className={getDoc.approveBtn !== true ? 'd-none' : 'border - 1 float-right'}
-          onClick={setSignature}
-        >
-          ხელმოწერა
-        </Button>
+          <Button
+            className={getDoc.cancel !== true ? 'd-none' : 'border - 1 float-right'}
+            onClick={rejectDocument}
+          >გაუქმება</Button>
 
-        <Button
-          className={getDoc.cancel !== true ? 'd-none' : 'border - 1 float-right'}
-          onClick={rejectDocument}
-        >გაუქმება</Button>
-
-        <SignDocumentModal
-          openSign={openSign}
-          closeSign={onCloseSignature}
-        />
+          <SignDocumentModal
+            openSign={openSign}
+            closeSign={onCloseSignature}
+          />
 
 
-        <Button
-          className={getDoc.finishDocument !== true ? 'd-none' : 'border - 1 float-right'}
-          onClick={finishModal}
-        >
-          დავასრულე
-        </Button>
-        <FinishButtonModal finishCategories={finishCategories}
-                           finishModal={finishModal}
-                           setFinishCategories={setFinishCategories}
-        />
+          <Button
+            className={getDoc.finishDocument !== true ? 'd-none' : 'border - 1 float-right'}
+            onClick={finishModal}
+          >
+            დავასრულე
+          </Button>
+          <FinishButtonModal finishCategories={finishCategories}
+                             finishModal={finishModal}
+                             setFinishCategories={setFinishCategories}
+          />
 
 
-        {
-          error === true &&
-          <p className={'text-danger'}>
-            შეყვანილი მონაცემები არ არის საკმარისი
-          </p>
-        }
+          {
+            error === true &&
+            <p className={'text-danger'}>
+              შეყვანილი მონაცემები არ არის საკმარისი
+            </p>
+          }
+        </div>
+
 
       </CardBody>
     </Card>

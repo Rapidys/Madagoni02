@@ -17,7 +17,10 @@ import {
 const NewPostSection = () => {
   let dispatch = useDispatch()
   const [documentTitle, setDocumentTitle] = useState('')
-  const [documentBody, setDocumentBody] = useState('')
+  const [defaultText, setDefaultText] = useState('something')
+
+  const [documentBody, setDocumentBody] = useState('<p></p>+<p>defaultText</p>')
+
   useEffect(() => {
     dispatch(getType())
     dispatch(setVisibleBtnAC(false)) //hidden comment btn in addNewPostComponents

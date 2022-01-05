@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import styled from "styled-components";
 import {useHistory} from "react-router-dom";
+import {Tooltip} from "@material-ui/core";
 
 let Styles = styled.span`
   .backIcon {
@@ -19,9 +20,17 @@ let GoBack = () => {
 
   return (
     <Styles>
-      <i className="fas fa-arrow-circle-left float-left backIcon"
-         onClick={history.goBack}
-      />
+
+      <Tooltip
+        title={<span style={{
+          color: 'white',
+          fontSize: '16px'
+        }}>უკან</span>}
+        arrow>
+        <i className="fas fa-arrow-circle-left float-left backIcon"
+           onClick={history.goBack}
+        />
+      </Tooltip>
     </Styles>
   );
 }
