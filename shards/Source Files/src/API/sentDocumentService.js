@@ -8,6 +8,7 @@ import {
   chosenIsLoadingAC
 } from "../Reducers/chosenDocumentReducer";
 import {setIsAuth} from "../Reducers/AuthReducer";
+import {filterLoadingAC} from "../Reducers/filterReducer";
 
 
 export let getMessagePage = (params) => {
@@ -39,6 +40,8 @@ export let getDocs = (documentStatus) => {
           if (!response) {
             return dispatch(setIsAuth(false))
           }
+          dispatch(GetDocumentAC([]))
+
           dispatch(GetDocumentAC(response.data.documentList))
           dispatch(setToTalPages(response.data.totalCount))
         })

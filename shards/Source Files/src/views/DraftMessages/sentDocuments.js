@@ -8,37 +8,34 @@ import {motionStatusAC} from "../../Reducers/MotionStatusReducer";
 import {setVisibleBtnAC} from "../../Reducers/Comments/CommentsReducer";
 import {getDocs} from "../../API/sentDocumentService";
 import {
-  approveBtnAC,
-  setCancelAC,
+  approveBtnAC, GetDocumentAC,
+  setCancelAC, setDocLoadingAC,
   setFinishDocAC
 } from "../../Reducers/getDocReducer";
 import {isSendedAC} from "../../Reducers/addNewPost/addNewPostReducer";
 import DocCreateModal
   from "../../components/add-new-post/editor/BtnModals/docCreateModal";
 import {useHistory} from "react-router-dom";
-import {setFilteredDocAC} from "../../Reducers/filterReducer";
 
 
 const SentDocuments = () => {
   let dispatch = useDispatch()
-  let url = useHistory()
-  let currentPage = useSelector(state => state.PaginationData.currentPage)
+  let currentPage = useSelector((state => state.PaginationData.currentPage))
   let rowsPerPage = useSelector(state => state.PaginationData.rowsPerPage)
   let totalCount = useSelector(state => state.PaginationData.totalPages)
   let filtered = useSelector((state => state.filterR.filteredDocument))
 
+  let location = useHistory()
 
   useEffect(() => {
     dispatch(motionStatusAC(2))
-
     dispatch(getDocs({
       MotionStatus: 2,
       PageNumber: currentPage,
       RecordsPerPage: rowsPerPage,
       ...filtered
     }))
-    // if(url.location.pathname === '/')
-  }, [rowsPerPage, currentPage])
+  }, [rowsPerPage, currentPage, location])
 
   useEffect(() => {
     dispatch(setCurrentPageAC(1));
@@ -50,6 +47,7 @@ const SentDocuments = () => {
     if (isSended === true) {
       setOpen(true)
     }
+
   }, [])
 
   let sentDocs = useSelector(state => state.GetDoc.documents)

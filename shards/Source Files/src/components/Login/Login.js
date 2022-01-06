@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {login, setErrorAC} from "../../Reducers/AuthReducer";
 import {Formik} from "formik";
 import * as yup from 'yup'
+import {Link} from "react-router-dom";
 
 let Styles = styled.div`
 
@@ -20,7 +21,6 @@ let Styles = styled.div`
 `
 
 const Login = () => {
-
 
 
   let validationSchema = yup.object().shape({
@@ -98,6 +98,9 @@ const Login = () => {
                   >
                     შესვლა
                   </Button>
+                  <Link to='/RecoverPassword' className={'ml-2'}>
+                    პაროლის აღდგენა
+                  </Link>
                 </Form>
               )
 

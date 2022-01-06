@@ -1,21 +1,21 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {setDocumentColor} from "../Reducers/setDocumentColorReducer";
-//
-// let Styles = styled.div`
-//   .colorBtnRed {
-//     background: #ccffcc;
-//     color: black;
-//   }
-//
-//   .colorBtnYellow {
-//     background: #fff2cc;
-//   }
-//
-//   .colorBtnGreen {
-//     background: #ffcccc;
-//   }
-// `
+import styled from 'styled-components'
+let Styles = styled.div`
+  .colorBtnRed {
+    background: #ccffcc;
+    color: black;
+  }
+
+  .colorBtnYellow {
+    background: #fff2cc;
+  }
+
+  .colorBtnGreen {
+    background: #ffcccc;
+  }
+`
 
 const RightClickMenu = ({x, y, showMenu}) => {
   const style = () => {
@@ -80,27 +80,29 @@ const RightClickMenu = ({x, y, showMenu}) => {
     }))
   }
   return (
-
-    <div style={style()}>
-      <div style={styles.div}
-           className={"align-items-center bg-danger"}
-           onClick={changeToRed}
-      >
-      </div>
-      <div style={styles.div} className={"bg-warning"}
-           onClick={changeToYellow}
-      >
-      </div>
-      <div style={styles.div} className={"bg-success"}
-           onClick={changeToGreen}
-      >
-
-      </div>
-      <div style={styles.div} className={"bg-white"}
-           onClick={changeToNonColor}
-      >გაუქმ
-      </div>
+<Styles>
+  <div style={style()}>
+    <div style={styles.div}
+         className={"align-items-center colorBtnGreen"}
+         onClick={changeToRed}
+    >
     </div>
+    <div style={styles.div} className={"colorBtnYellow"}
+         onClick={changeToYellow}
+    >
+    </div>
+    <div style={styles.div} className={"colorBtnRed"}
+         onClick={changeToGreen}
+    >
+
+    </div>
+    <div style={styles.div} className={"bg-white"}
+         onClick={changeToNonColor}
+    >გაუქმ
+    </div>
+  </div>
+
+</Styles>
 
 
   );

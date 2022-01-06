@@ -15,6 +15,8 @@ const Pagination = (props) => {
     dispatch(setCurrentPageAC(1));
   };
 
+
+
   let [isTooSmallDisplay, setIsTooSmallDisplay] = useState(false)
   const matchesMax = useMediaQuery('(max-width:330px)');
   const matchesMin = useMediaQuery('(min-width:330px)');

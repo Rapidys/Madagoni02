@@ -17,9 +17,8 @@ import {
 const NewPostSection = () => {
   let dispatch = useDispatch()
   const [documentTitle, setDocumentTitle] = useState('')
-  const [defaultText, setDefaultText] = useState('something')
 
-  const [documentBody, setDocumentBody] = useState('<p></p>+<p>defaultText</p>')
+  const [documentBody, setDocumentBody] = useState('')
 
   useEffect(() => {
     dispatch(getType())

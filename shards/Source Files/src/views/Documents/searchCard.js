@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Card} from "shards-react";
-import {getFilteredDocs} from "../../Reducers/filterReducer";
+import {getFilteredDocs, setFilteredDocAC,} from "../../Reducers/filterReducer";
 import {useDispatch, useSelector} from "react-redux";
-import {Container, Grid} from "@mui/material";
+import {Container, } from "@mui/material";
 import SearchGrid from "./searchForm/searchGrid";
 import {useMediaQuery} from "@material-ui/core";
 import SearchAcordionOnSmallResolution from "./searchAcordionOnSmallResolution";
+import {getDocs} from "../../API/sentDocumentService";
 
 const SearchCard = () => {
     let [docNumberVal, setDocNumberVal] = useState('')
@@ -26,6 +27,8 @@ const SearchCard = () => {
     let executor = useSelector(state => state.filterR.executorId)
     let author = useSelector(state => state.filterR.authorId)
     let MotionStatus = useSelector((state => state.MotionStatus.motionStatus))
+
+
     let getValues = () => {
 
       let filter = {
@@ -43,8 +46,8 @@ const SearchCard = () => {
         PageNumber: currentPage,
         RecordsPerPage: rowsPerPage,
       }
-      dispatch(getFilteredDocs(filter))
-
+      dispatch(getDocs(filter))
+      dispatch(setFilteredDocAC(filter))
 
     }
 
@@ -95,8 +98,8 @@ const SearchCard = () => {
                   dueDateValue={dueDateValue}
                   setDueDateValue={setDueDateValue}
                   isSmallResolution={isSmallResolution}
-                  valueFrom = {valueFrom}
-                  valueTo = {valueTo}
+                  valueFrom={valueFrom}
+                  valueTo={valueTo}
                 />
 
                 <div>
@@ -120,7 +123,7 @@ const SearchCard = () => {
                 <SearchAcordionOnSmallResolution
                   smallResSearchModal={smallResSearchModal}
                   setSmallResSearchModal={setSmallResSearchModal}
-                  title = {'ძებნა'}
+                  title={'ძებნა'}
                 >
                   <SearchGrid
                     docNumberVal={docNumberVal}

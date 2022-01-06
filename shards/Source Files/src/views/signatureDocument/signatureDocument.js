@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import DocumentPage from "../Documents/DocumentPage";
 import {
   getDocs,
@@ -10,12 +10,11 @@ import {
 import {motionStatusAC} from "../../Reducers/MotionStatusReducer";
 import {setVisibleBtnAC} from "../../Reducers/Comments/CommentsReducer";
 import {
-  GetDocumentAC,
   setAddBtnAC,
   setFinishDocAC
 } from "../../Reducers/getDocReducer";
-import {useLocation} from "react-router-dom";
 import {setFilteredDocAC} from "../../Reducers/filterReducer";
+import {useLocation} from "react-router-dom";
 
 
 const SignatureDocuments = () => {
@@ -28,22 +27,21 @@ const SignatureDocuments = () => {
 
   let dispatch = useDispatch()
 
-
+  let location = useLocation()
+  useEffect(() => {
+    dispatch(setFilteredDocAC([]))
+  }, [])
 
   useEffect(() => {
     dispatch(motionStatusAC(3))
-    dispatch(setFilteredDocAC([]))
-
     dispatch(getDocs({
       MotionStatus: 3,
       PageNumber: currentPage,
       RecordsPerPage: rowsPerPage,
       ...filtered
     }))
-    if (MotionStatus !== 3) {
-      dispatch(GetDocumentAC([]))
-    }
-  }, [currentPage, rowsPerPage])
+  }, [currentPage, rowsPerPage, location])
+
 
   useEffect(() => {
     dispatch(setCurrentPageAC(1));

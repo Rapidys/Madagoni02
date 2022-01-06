@@ -7,14 +7,15 @@ import {useDispatch, useSelector} from "react-redux";
 import {
   setCurrentPageAC
 } from "../../Reducers/PaginationReducer";
-import {motionStatusAC} from "../../Reducers/MotionStatusReducer";
 import {setVisibleBtnAC} from "../../Reducers/Comments/CommentsReducer";
 import {
   approveBtnAC, setAddBtnAC,
   setCancelAC,
   setFinishDocAC, setIsFinishedAC
 } from "../../Reducers/getDocReducer";
+import {useLocation} from "react-router-dom";
 import {setFilteredDocAC} from "../../Reducers/filterReducer";
+
 
 
 const CompletedDocuments = () => {
@@ -25,14 +26,13 @@ const CompletedDocuments = () => {
   let filtered = useSelector((state => state.filterR.filteredDocument))
 
 
+
   let dispatch = useDispatch()
 
-
-
+  let location = useLocation()
 
   useEffect(() => {
 
-    dispatch(motionStatusAC(6))
     dispatch(getDocs({
       MotionStatus: 6,
       PageNumber: currentPage,
@@ -41,7 +41,7 @@ const CompletedDocuments = () => {
     }))
 
 
-  }, [currentPage, rowsPerPage])
+  }, [currentPage, rowsPerPage, location])
 
   useEffect(() => {
     dispatch(setCurrentPageAC(1));

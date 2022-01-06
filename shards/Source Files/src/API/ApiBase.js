@@ -13,6 +13,9 @@ const API = {
       }
     )
   },
+  passwordRecovery(email) {
+    return $ApiBase.post('/auth/PasswordRecovery', email)
+  },
   newPostAPI(newPost) {
     return $ApiBase.post('/docs/create', newPost)
   },

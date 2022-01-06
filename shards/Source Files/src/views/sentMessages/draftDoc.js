@@ -15,7 +15,7 @@ import {
 } from "../../Reducers/getDocReducer";
 import {setCurrentPageAC} from "../../Reducers/PaginationReducer";
 import {setVisibleBtnAC} from "../../Reducers/Comments/CommentsReducer";
-import {setFilteredDocAC} from "../../Reducers/filterReducer";
+import {useHistory} from "react-router-dom";
 
 
 const DraftDocuments = () => {
@@ -29,7 +29,7 @@ const DraftDocuments = () => {
   let dispatch = useDispatch()
 
 
-
+  let location = useHistory()
 
   useEffect(() => {
 
@@ -38,9 +38,11 @@ const DraftDocuments = () => {
       MotionStatus: 1,
       PageNumber: currentPage,
       RecordsPerPage: rowsPerPage,
-      ...filtered,
+      ...filtered
     }))
-  }, [currentPage, rowsPerPage])
+
+  }, [currentPage, rowsPerPage, location])
+
   useEffect(() => {
     dispatch(setCurrentPageAC(1));
     dispatch(setVisibleBtnAC(true))

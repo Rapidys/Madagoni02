@@ -27,7 +27,6 @@ let Styles = styled.div`
 `
 
 const DocumentPage = ({pageTitle, pageName, Documents, ...props}) => {
-  let loading = useSelector(state => state.GetDoc.isLoading)
 
   let dispatch = useDispatch()
 
@@ -35,11 +34,6 @@ const DocumentPage = ({pageTitle, pageName, Documents, ...props}) => {
   useEffect(() => {
     dispatch(getType())
   }, [])
-
-
-  if (loading === true) {
-    return <Preloader/>
-  }
 
 
 

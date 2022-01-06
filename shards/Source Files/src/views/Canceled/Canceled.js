@@ -13,6 +13,7 @@ import {
   setFinishDocAC
 } from "../../Reducers/getDocReducer";
 import {setIsBlockedAC} from "../../Reducers/signDocumentReducer";
+import {useLocation} from "react-router-dom";
 
 
 const CanceledDocuments = () => {
@@ -22,11 +23,11 @@ const CanceledDocuments = () => {
   let totalCount = useSelector((state => state.PaginationData.totalPages))
   let filtered = useSelector((state => state.filterR.filteredDocument))
 
+  let location = useLocation()
 
   let dispatch = useDispatch()
   useEffect(() => {
-
-    dispatch(motionStatusAC(4))
+    dispatch(motionStatusAC(7))
     dispatch(getDocs({
       MotionStatus: 7,
       PageNumber: currentPage,
@@ -35,7 +36,7 @@ const CanceledDocuments = () => {
     }))
 
 
-  }, [currentPage, rowsPerPage])
+  }, [currentPage, rowsPerPage,location])
 
   useEffect(() => {
     dispatch(setCurrentPageAC(1));
@@ -45,6 +46,7 @@ const CanceledDocuments = () => {
     dispatch(approveBtnAC(false))
     dispatch(setCancelAC(false))
     dispatch(setIsBlockedAC(false))
+
   }, [])
 
   let visirable = useSelector(state => state.GetDoc.documents)

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {Button, CardBody} from "shards-react";
 import styled from "styled-components";
 import Column from "./Column";
@@ -26,22 +26,41 @@ let Styles = styled.div`
 const MakeFiles = () => {
 
 
-  let [Col, setCol] = useState([1])
+  let [value, setValue] = useState('')
+
+  let [Col, setCol] = useState([{value: value}])
   let [Row, setRow] = useState([])
 
+  let letters = "BCDEFGHIJKLMNOPQRSTUVWXYZ";
+
   let add = () => {
-    setCol([...Col, 1])
+    setCol([...Col, {value: value}])
   }
 
   let addDown = () => {
-    setRow([...Row, 1])
+    setRow([...Row, {value: value}])
+
   }
   let Delete = () => {
-    setCol([1])
+    setCol([{value: '',}])
     setRow([])
   }
   let Rows = Row.map((item, index) => {
-    return <Column Col={Col} key={index}/>
+
+    return <div className={'d-flex'}>
+           <span className={'mr-3'}
+                 style={{width: '10px', heigth: '10px'}}>{letters[index]}</span>
+      <Column Col={Col} key={index + 100}/>
+    </div>
+
+  })
+  let indexation = Col.map((item, index) => {
+
+    return <div className={'d-flex'}>
+           <span style={{marginRight: '95px'}}
+           >{index + 1}</span>
+    </div>
+
   })
 
   return (
@@ -49,8 +68,22 @@ const MakeFiles = () => {
       <CardBody>
 
         <table>
+          <thead>
+          <tr className={'d-flex ml-5 '}>
+            {indexation}
+          </tr>
+          </thead>
           <tbody>
-          <Column Col={Col}/>
+
+
+          <span className={'d-flex'}>
+                <span className={'mr-3'} style={{
+                  width: '10px',
+                  heigth: '10px'
+                }}>A</span>
+
+            <Column Col={Col}/>
+          </span>
           {Rows}
           </tbody>
         </table>
@@ -74,6 +107,9 @@ const MakeFiles = () => {
           >
             წაშლა
           </Button>
+          <Button onClick={() => {
+            console.log(Col, Row)
+          }}>test</Button>
         </div>
 
 

@@ -190,22 +190,35 @@ const Editor = (props) => {
       <CardBody>
         <Form className="add-new-post">
           <FormInput size="lg" className="mb-3" readOnly={props.titleReadOnly}
-                     placeholder="Your Post Title"
+                     placeholder="დოკუმენტის სათაური"
                      value={props.documentTitle}
                      onChange={handleTitle}
 
           />
-          <Styles>
-            <ReactQuill
-              readOnly={props.readOnly}
-              className="add-new-post__editor mb-1 editorWrapp"
-              modules={Editor.modules}
-              formats={Editor.formats}
-              onChange={handleBody}
-              value={props.documentBody || ''}
+          {
+            url !== '/add-new-post'
+              ? <Styles>
+                <ReactQuill
+                  readOnly={props.readOnly}
+                  className="add-new-post__editor mb-1 editorWrapp"
+                  modules={Editor.modules}
+                  formats={Editor.formats}
+                  onChange={handleBody}
+                  value={props.documentBody || ''}
 
-            />
-          </Styles>
+                />
+              </Styles>
+              : <ReactQuill
+                readOnly={props.readOnly}
+                className="add-new-post__editor mb-1 editorWrapp"
+                modules={Editor.modules}
+                formats={Editor.formats}
+                onChange={handleBody}
+                value={props.documentBody || ''}
+
+              />
+          }
+
 
           <MyModal
             open={successResended}

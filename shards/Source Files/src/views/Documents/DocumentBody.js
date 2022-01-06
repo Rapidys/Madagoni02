@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {CardBody} from "shards-react";
 import {useHistory} from "react-router-dom/cjs/react-router-dom";
 import RightClickMenu from "../../RightClick/RightClickMenu";
@@ -100,7 +100,7 @@ const DocumentBody = (props) => {
 
   let router = useHistory()
   let isLoading = useSelector(state => state.filterR.filterLoading)
-
+  let loading = useSelector(state => state.GetDoc.isLoading)
 
   const [x, setX] = useState(0)
   const [y, setY] = useState(0)
@@ -125,11 +125,13 @@ const DocumentBody = (props) => {
     return <h4 style={{textAlign: 'center'}} className={'mt-4'}>დოკუმენტები ვერ
       მოიძებნა...</h4>
   }
-  if (isLoading === true) {
+
+  if (loading === true) {
     return <Preloader/>
   }
 
   return (
+
     <Styles>
       <CardBody className="p-4 pb-3">
         <RightClickMenu showMenu={showMenu} x={x} y={y}/>
@@ -174,10 +176,11 @@ const DocumentBody = (props) => {
               >
                 <td className={"resTtd"}>{Mess.documentId}</td>
                 <td className={"resTtd"}>
-                  {new Intl.DateTimeFormat("en-GB", {
-                    year: "numeric",
+                  {new Intl.DateTimeFormat("en-US", {
                     month: "numeric",
-                    day: "2-digit"
+                    day: "2-digit",
+                    year: "numeric",
+
                   }).format(new Date(Mess.documentDate))}
                 </td>
                 <td className={"resTtd"}>{Mess.documentTitle}</td>

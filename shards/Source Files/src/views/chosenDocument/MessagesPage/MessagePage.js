@@ -30,7 +30,7 @@ const ChosenDocument = () => {
   const [documentBody, setDocumentBody] = useState('')
   const [chosenDestination, setchosenDestination] = useState([])
   const [chosenVisitor, setchosenVisitor] = useState([])
-  const [defaultText, setDefaultText] = useState('something')
+  const [defaultText, setDefaultText] = useState('default user Text')
 
   useMemo(() => {
     setchosenDestination([])
@@ -67,7 +67,7 @@ const ChosenDocument = () => {
             documentType={documentType}
             draftBtn={MotionStatus === 0 ? 'lg-ml-3 xs-ml-0 border - 1 float-right' : 'd-none'}
             docId={`დოკუმენტის ნომერი :${chosen.documentId} `}
-            Date={`${chosen.documentDate && chosen.documentDate.slice(0, 10)}`}
+            Date={`${chosen.documentDate}`}
             isDisabledVisitor={false}
             isDisabledDestinate={false}
             readOnly={false}

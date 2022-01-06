@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Button,
   Collapse,
@@ -6,6 +6,8 @@ import {
 import SelectDocumentType from "./selectDocumentType";
 import AttachedFiles from "./attachedFiles/attachedFiles";
 import styled from "styled-components";
+import {useHistory} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 let Styles = styled.div`
   .alignIt {
@@ -15,6 +17,7 @@ let Styles = styled.div`
 `
 
 const Accordeons = (props) => {
+  let chosen = useSelector(state => state.chosenDocument.currentMessagePage)
 
 
   let [mainInfo, setMainInfo] = useState(true)
@@ -24,7 +27,8 @@ const Accordeons = (props) => {
     setAttachedFiles((c) => !c);
 
   }
-
+  let history = useHistory()
+  let url = history.location.pathname
 
   return (
     <Styles>
@@ -37,7 +41,15 @@ const Accordeons = (props) => {
             <div className="p-1 mt-3 border rounded">
 
               <div className={'p-2'}>
-                <div className={"mt-3 alignIt"}>{props.Date && props.Date}</div>
+                <div className={"mt-3 alignIt"}>
+                  {props.Date && props.Date}
+                  {/*{new Intl.DateTimeFormat("en-US", {*/}
+                  {/*  month: "numeric",*/}
+                  {/*  day: "2-digit",*/}
+                  {/*  year: "numeric",*/}
+
+                  {/*}).format(new Date())}*/}
+                </div>
                 <div
                   className={"mt-3 alignIt"}>{props.docId && props.docId}</div>
               </div>
