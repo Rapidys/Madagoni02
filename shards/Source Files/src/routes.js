@@ -25,6 +25,7 @@ import ChosenFile from "./components/Files/chosenFile/chosenFile";
 import ReferencesPage
   from "./components/adminPage/editingTableOfContents/ReferencesPage";
 import RecoverPassword from "./components/RecoverPassword/RecoverPassword";
+import ChangePassword from "./components/RecoverPassword/changePassword";
 
 export let PrivacyRoutes = [
   {
@@ -167,5 +168,9 @@ export let PublicRoutes = [
   {
     path: "/RecoverPassword",
     component: RecoverPassword
+  },
+  {
+    path: "/ChangePassword/:id",
+    component: ChangePassword
   }
 ]

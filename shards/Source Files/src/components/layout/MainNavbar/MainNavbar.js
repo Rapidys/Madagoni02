@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useEffect} from "react";
 import classNames from "classnames";
 import {Container, Navbar} from "shards-react";
 import NavbarSearch from "./NavbarSearch";
 import NavbarNav from "./NavbarNav/NavbarNav";
 import NavbarToggle from "./NavbarToggle";
-import jwtDecode from "jwt-decode";
+import {useDispatch} from "react-redux";
+import {GetProfileInfo} from "../../../Reducers/ProfileInfoReducer";
 
 const MainNavbar = ({stickyTop}) => {
   const classes = classNames(
@@ -13,10 +14,11 @@ const MainNavbar = ({stickyTop}) => {
     stickyTop && "sticky-top"
   );
 
+  let dispatch = useDispatch()
 
-  let token = localStorage.getItem('token')
-  let decoded = jwtDecode(token);
-
+  useEffect(() => {
+    dispatch(GetProfileInfo())
+  }, [])
 
   return (
     <div className={classes}>
@@ -25,7 +27,6 @@ const MainNavbar = ({stickyTop}) => {
           <NavbarSearch/>
 
           <div>
-            <h6 className={'align-self-center mb-0 mr-2'}>{decoded.Email}</h6>
             <NavbarNav/>
             <NavbarToggle/>
           </div>

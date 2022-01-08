@@ -7,6 +7,9 @@ import {
   FormTextarea
 } from "shards-react";
 import {TextField} from "@mui/material";
+import MyModal from "../../../components/MyModal/MyModal";
+import DinamycallyChartModa
+  from "../dinamicallyChartModaljs/dinamycallyChartModa";
 
 const NewPostFields = ({
                          setTitle,
@@ -31,6 +34,16 @@ const NewPostFields = ({
   }
   return (
     <>
+      <h6>პოსტის შექმნა</h6>
+      <Button className={'w-100 mb-3'}
+              onClick={onChartDataClose}
+      >
+        დიაგრამის შექმნა
+      </Button>
+      <DinamycallyChartModa
+        openChartData={openChartData}
+        onChartDataClose={onChartDataClose}
+      />
       <FormGroup>
         <FormInput
           placeholder="სათაური"
@@ -68,23 +81,8 @@ const NewPostFields = ({
           </div>
         </div>
       </FormGroup>
-      <Button className={'w-100 mb-3'}
-              onClick={onChartDataClose}
-      >
-        დიაგრამის დამატება
-      </Button>
-      <Collapse open={openChartData}>
 
-        <FormGroup>
-          <FormInput
-            placeholder="სათაური"
-            type={'text'}
-            value={title}
-            onChange={onTitleChange}
-          />
 
-        </FormGroup>
-      </Collapse>
       <FormGroup>
 
         <TextField

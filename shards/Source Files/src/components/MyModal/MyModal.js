@@ -1,6 +1,11 @@
 import React from 'react';
-import {Dialog, DialogContent, DialogTitle} from "@material-ui/core";
-import {ModalBody} from "shards-react";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle
+} from "@material-ui/core";
+import {Button, ModalBody} from "shards-react";
 
 
 const MyModal = ({open, onClose, maxWidth, children, title,...props}) => {
@@ -23,6 +28,7 @@ const MyModal = ({open, onClose, maxWidth, children, title,...props}) => {
           {children}
         </ModalBody>
       </DialogContent>
+
     </Dialog>
   );
 };

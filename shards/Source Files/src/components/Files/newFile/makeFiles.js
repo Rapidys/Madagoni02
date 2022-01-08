@@ -30,8 +30,7 @@ const MakeFiles = () => {
 
   let [Col, setCol] = useState([{value: value}])
   let [Row, setRow] = useState([])
-
-  let letters = "BCDEFGHIJKLMNOPQRSTUVWXYZ";
+  let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
   let add = () => {
     setCol([...Col, {value: value}])
@@ -39,48 +38,48 @@ const MakeFiles = () => {
 
   let addDown = () => {
     setRow([...Row, {value: value}])
-
   }
   let Delete = () => {
     setCol([{value: '',}])
     setRow([])
-  }
-  let Rows = Row.map((item, index) => {
 
+  }
+
+  let Rows = Row.map((item, index) => {
     return <div className={'d-flex'}>
-           <span className={'mr-3'}
-                 style={{width: '10px', heigth: '10px'}}>{letters[index]}</span>
+           {/*<span className={'mr-3'}*/}
+           {/*      style={{width: '10px', heigth: '10px'}}>{index + 1}</span>*/}
       <Column Col={Col} key={index + 100}/>
     </div>
 
   })
-  let indexation = Col.map((item, index) => {
 
-    return <div className={'d-flex'}>
-           <span style={{marginRight: '95px'}}
-           >{index + 1}</span>
-    </div>
-
-  })
+  //
+  // let indexation = Col.map((item, index) => {
+  //   return <div className={'d-flex'}>
+  //          <span style={{marginRight: '95px'}}
+  //          >{letters[index]}</span>
+  //   </div>
+  // })
 
   return (
     <Styles>
       <CardBody>
 
         <table>
-          <thead>
-          <tr className={'d-flex ml-5 '}>
-            {indexation}
-          </tr>
-          </thead>
+          {/*<thead>*/}
+          {/*<tr className={'d-flex ml-5 '}>*/}
+          {/*  {indexation}*/}
+          {/*</tr>*/}
+          {/*</thead>*/}
           <tbody>
 
 
           <span className={'d-flex'}>
-                <span className={'mr-3'} style={{
-                  width: '10px',
-                  heigth: '10px'
-                }}>A</span>
+                {/*<span className={'mr-3'} style={{*/}
+                {/*  width: '10px',*/}
+                {/*  heigth: '10px'*/}
+                {/*}}>1</span>*/}
 
             <Column Col={Col}/>
           </span>

@@ -1,3 +1,5 @@
+import API from "../../API/ApiBase";
+
 let initialState = {
   PostsListOne: [
     {
@@ -53,7 +55,31 @@ let initialState = {
 let setPosts = 'SET-BLOG-POSTS'
 
 let BlogPostsReducer = (state = initialState, action) => {
-  return state
+  switch (action.type) {
+    case setPosts:
+      return {
+        ...state,
+        PostsListOne: action.post
+      }
+    default:
+      return state
+  }
 }
 
+export let setPostAC = (post) => ({type: setPosts, post})
+
 export default BlogPostsReducer
+
+
+export let getPosts = (post) => {
+  return dispatch => {
+    try {
+      debugger
+      API.getPosts(post).then(response => {
+        dispatch(setPostAC(response.data))
+      })
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}

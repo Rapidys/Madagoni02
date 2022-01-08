@@ -6,6 +6,8 @@ import {login, setErrorAC} from "../../Reducers/AuthReducer";
 import {Formik} from "formik";
 import * as yup from 'yup'
 import {Link} from "react-router-dom";
+import MyModal from "../MyModal/MyModal";
+import {isChangedAC} from "../../Reducers/changePasswordReducer";
 
 let Styles = styled.div`
 
@@ -30,13 +32,23 @@ const Login = () => {
 
 
   let errorMessage = useSelector((state => state.Auth.errorMessage))
+  let isChangedPass = useSelector((state => state.changePassword.isChanged))
   let dispatch = useDispatch()
-
+  let onClose = () => {
+    dispatch(isChangedAC(false))
+  }
   return (
     <Styles>
       <div className={'test'}>
         <Card className="loginWrapper mt-5">
-
+          <MyModal
+            open={isChangedPass}
+            onClose={onClose}
+            maxWidth={'sm'}
+            title={''}
+          >
+            წარმატებით შეიცვალა !!
+          </MyModal>
           <CardBody>
             <Formik
               initialValues={{

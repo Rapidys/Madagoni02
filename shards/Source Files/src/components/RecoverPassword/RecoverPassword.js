@@ -7,6 +7,7 @@ import {useDispatch} from "react-redux";
 import {Link} from "react-router-dom";
 import API from "../../API/ApiBase";
 import MyModal from "../MyModal/MyModal";
+import Preloader from "../../Preloader/Preloader";
 
 let Styles = styled.div`
 
@@ -23,11 +24,10 @@ let Styles = styled.div`
 const RecoverPassword = () => {
   let validationSchema = yup.object().shape({
     email: yup.string().email('შეიყვანეთ ელ-ფოსტა').required('შეიყვანეთ ელ-ფოსტა'),
-    // password: yup.string().typeError('უნდა იყოს ციფრები').required('შეიყვანეთ პაროლი'),
-    // confirmPassword: yup.string().oneOf([yup.ref('password')], 'პაროლები არ ემთხვევა')
   })
 
   let [isSendedPassword, setIsSendedPassword] = useState(false)
+  let [isLoading, setIsLoading] = useState(false)
 
   let dispatch = useDispatch()
   let onClose = () => {
@@ -41,10 +41,10 @@ const RecoverPassword = () => {
             open={isSendedPassword}
             onClose={onClose}
             maxWidth={'sm'}
-            title={'პაროლის აღდგენამ წარმატებით ჩაიარა'}
           >
-            ახალი პაროლი იხილეთ მეილზე
+            შეამოწმეთ ელ-ფოსტა
           </MyModal>
+          {isLoading && <Preloader/>}
           <CardBody>
             <Formik
               initialValues={{
@@ -53,9 +53,10 @@ const RecoverPassword = () => {
               validateOnBlur
               validationSchema={validationSchema}
               onSubmit={(values) => {
-                console.log(values)
-                API.passwordRecovery(values.email).then(response => {
+                setIsLoading(true)
+                API.passwordRecovery(values).then(response => {
                   setIsSendedPassword(true)
+                  setIsLoading(false)
                 })
               }}
 
@@ -83,34 +84,6 @@ const RecoverPassword = () => {
                   </FormGroup>
                   {touched.email && errors.email &&
                     <span className={'text-danger'}>{errors.email}</span>}
-                  {/*<FormGroup>*/}
-                  {/*  <label htmlFor="#password">პაროლი</label>*/}
-                  {/*  <FormInput type="password"*/}
-                  {/*             id="#password"*/}
-                  {/*             placeholder="პაროლი"*/}
-                  {/*             name='password'*/}
-                  {/*             value={values.password}*/}
-                  {/*             onChange={handleChange}*/}
-                  {/*             onBlur={handleBlur}*/}
-                  {/*  />*/}
-                  {/*  {touched.password && errors.password &&*/}
-                  {/*    <span className={'text-danger'}>{errors.password}</span>}*/}
-                  {/*</FormGroup>*/}
-
-                  {/*<FormGroup>*/}
-                  {/*  <label htmlFor="#confirmPassword">გაიმეორეთ პაროლი</label>*/}
-                  {/*  <FormInput type="password"*/}
-                  {/*             id="#confirmPassword"*/}
-                  {/*             placeholder="გაიმეორეთ პაროლი"*/}
-                  {/*             name='confirmPassword'*/}
-                  {/*             value={values.confirmPassword}*/}
-                  {/*             onChange={handleChange}*/}
-                  {/*             onBlur={handleBlur}*/}
-                  {/*  />*/}
-                  {/*  {touched.confirmPassword && errors.confirmPassword &&*/}
-                  {/*    <span*/}
-                  {/*      className={'text-danger'}>{errors.confirmPassword}</span>}*/}
-                  {/*</FormGroup>*/}
                   <div className={'mt-3'}
                   >
                     <Button theme="secondary"

@@ -14,9 +14,11 @@ import {Link} from "react-router-dom";
 import styled from "styled-components";
 
 let Styles = styled.span`
-  .dropDownLinks {
+  *{
     cursor: pointer;
+
   }
+
 `
 
 let UserActions = (props) => {
@@ -26,6 +28,7 @@ let UserActions = (props) => {
   let toggleUserActions = () => {
     setVisible((c) => !c);
   }
+  let ProfileInfo = useSelector((state => state.ProfileInfo.ProfileInfo))
 
   let userImg = useSelector(state => state.userInfo.img)
   return (
@@ -37,6 +40,7 @@ let UserActions = (props) => {
             src={userImg}
             alt="User Avatar"
           />
+          <span>{ProfileInfo.firstName}</span>
         </Styles>
 
         <span className="d-none d-md-inline-block">{props.login}</span>

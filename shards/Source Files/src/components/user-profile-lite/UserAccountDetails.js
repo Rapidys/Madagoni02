@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import PropTypes from "prop-types";
 import {
   Card,
@@ -15,10 +15,12 @@ import {
   Button
 } from "shards-react";
 import jwtDecode from "jwt-decode";
+import {GetProfileInfo} from "../../Reducers/ProfileInfoReducer";
+import {useDispatch, useSelector} from "react-redux";
 
-const UserAccountDetails = ({title}) => {
-    let token = localStorage.getItem('token')
-    let decoded = jwtDecode(token);
+const UserAccountDetails = ({ProfileInfo}) => {
+
+
     return (
       <Card small className="mb-4">
         <CardHeader className="border-bottom">
@@ -36,9 +38,9 @@ const UserAccountDetails = ({title}) => {
                       <FormInput
                         id="feFirstName"
                         placeholder="First Name"
-                        value={decoded.Email.slice(0, 4)}
-                        onChange={() => {
-                        }}
+                        value={ProfileInfo.firstName || ''}
+                        readOnly={true}
+
                       />
                     </Col>
                     {/* Last Name */}
@@ -47,9 +49,10 @@ const UserAccountDetails = ({title}) => {
                       <FormInput
                         id="feLastName"
                         placeholder="Last Name"
-                        value={decoded.Email.slice(5, 12)}
-                        onChange={() => {
-                        }}
+                        value={ProfileInfo.lastName || ''}
+                        readOnly={true}
+
+
                       />
                     </Col>
                   </Row>
@@ -61,10 +64,11 @@ const UserAccountDetails = ({title}) => {
                         type="email"
                         id="feEmail"
                         placeholder="Email Address"
-                        value="sierra@example.com"
-                        onChange={() => {
-                        }}
+                        value={ProfileInfo.email || ''}
                         autoComplete="email"
+                        readOnly={true}
+
+
                       />
                     </Col>
                     {/* Password */}
@@ -75,41 +79,17 @@ const UserAccountDetails = ({title}) => {
                         id="fePassword"
                         placeholder="Password"
                         value="EX@MPL#P@$$w0RD"
-                        onChange={() => {
-                        }}
                         autoComplete="current-password"
-                      />
-                    </Col>
-                  </Row>
-                  <FormGroup>
-                    <label htmlFor="feAddress">მისამართი</label>
-                    <FormInput
-                      id="feAddress"
-                      placeholder="Address"
-                      value="1234 Main St."
-                      onChange={() => {
-                      }}
-                    />
-                  </FormGroup>
-                  <Row form>
-                    {/* City */}
-                    <Col md="6" className="form-group">
-                      <label htmlFor="feCity">ქალაქი</label>
-                      <FormInput
-                        id="feCity"
-                        placeholder="City"
-                        onChange={() => {
-                        }}
-                      />
-                    </Col>
+                        readOnly={true}
 
+                      />
+                    </Col>
                   </Row>
+
+
                   <Row form>
                     {/* Description */}
-                    <Col md="12" className="form-group">
-                      <label htmlFor="feDescription">აღწერა</label>
-                      <FormTextarea id="feDescription" rows="5"/>
-                    </Col>
+
                   </Row>
                   <Button theme="accent">განახლება</Button>
                 </Form>

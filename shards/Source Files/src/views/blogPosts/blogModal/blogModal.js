@@ -3,12 +3,10 @@ import MyModal from "../../../components/MyModal/MyModal";
 import {
   Button,
   Form,
-  FormGroup,
 
 } from "shards-react";
-import MySelect from "../../../MySelect/MySelect";
 import NewPostFields from "./newPostFields";
-import PrimaryChart from "../../../components/blog/Chart/PrimaryChart";
+import API from "../../../API/ApiBase";
 
 
 const BlogModal = ({newPostModal, onNewPostClose}) => {
@@ -18,18 +16,23 @@ const BlogModal = ({newPostModal, onNewPostClose}) => {
   let [body, setBody] = useState('')
   let [fileName, setFileName] = useState('')
   let [stringImg, setStringImg] = useState(null)
-  let [postTypeValue, setPostTypeValue] = useState('')
+  let [isPostSended, setIsPostSended] = useState(false)
+
   let addPost = () => {
     let newPost = {
       postId: 0,
       stringPhoto: stringImg,
       title: title,
       Body: body,
-      authorId: 0,
       ValidUntil: ValidUntil,
       IsActive: true,
+
+
     }
-    console.log(newPost)
+    API.CreatePost(newPost).then(response => {
+      setIsPostSended(true)
+      console.log('working')
+    })
   }
 
 
@@ -44,9 +47,7 @@ const BlogModal = ({newPostModal, onNewPostClose}) => {
     }
   }
 
-  let onPostTypeChange = (e) => {
-    setPostTypeValue(e.target.value)
-  }
+
   return (
     <MyModal
       open={newPostModal}
@@ -55,20 +56,6 @@ const BlogModal = ({newPostModal, onNewPostClose}) => {
     >
 
       <Form className="m-auto">
-        <FormGroup>
-
-          <MySelect
-            defaultValue={'ტიპი'}
-            onChange={onPostTypeChange}
-            value={postTypeValue}
-            options={[
-              {id: 1, displayName: 'სამსახურეობრივი'},
-              {id: 2, displayName: 'დასვენებები'},
-              {id: 3, displayName: 'მოგზაურობა'},
-              {id: 4, displayName: 'დიაგრამა'},
-            ]}
-          />
-        </FormGroup>
 
         <NewPostFields
           title={title}

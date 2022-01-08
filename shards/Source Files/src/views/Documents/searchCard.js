@@ -116,7 +116,7 @@ const SearchCard = () => {
                     setSmallResSearchModal(true)
                   }}
 
-                  className={'w-100 bg-danger text-white border-0 text-align-left'}
+                  className={'w-100 bg-primary text-white border-0 text-align-left'}
                 >ძიება</Button>
 
 

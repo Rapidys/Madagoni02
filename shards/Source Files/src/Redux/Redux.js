@@ -28,6 +28,8 @@ import filterReducer from "../Reducers/filterReducer";
 import PositionsReducer from "../Reducers/PositionsReducer";
 import referenceTypesReducer from "../Reducers/referenceType";
 import updateReferenceReducer from "../Reducers/updateReferenceReducer";
+import changePasswordReducer from "../Reducers/changePasswordReducer";
+import ProfileInfoReducer from "../Reducers/ProfileInfoReducer";
 
 
 let Reducers = combineReducers({
@@ -56,8 +58,10 @@ let Reducers = combineReducers({
   filterR: filterReducer,
   positions: PositionsReducer,
   getReferenceTypes: referenceTypesReducer,
-  GetDocReducer : GetDocReducer,
-  updateReference : updateReferenceReducer,
+  GetDocReducer: GetDocReducer,
+  updateReference: updateReferenceReducer,
+  changePassword: changePasswordReducer,
+  ProfileInfo: ProfileInfoReducer
 })
 
 let store = createStore(Reducers, applyMiddleware(thunk))

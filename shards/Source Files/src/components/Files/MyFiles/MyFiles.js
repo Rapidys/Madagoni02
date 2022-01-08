@@ -14,8 +14,6 @@ let Styles = styled.div`
   .File:hover {
     background: grey;
   }
-
-
 `
 
 const MyFiles = () => {
@@ -31,7 +29,7 @@ const MyFiles = () => {
 
   useEffect(() => {
     dispatch(getFiles(rowsPerPage, currentPage))
-  }, [currentPage,rowsPerPage])
+  }, [currentPage, rowsPerPage])
   return (
 
     <Styles>

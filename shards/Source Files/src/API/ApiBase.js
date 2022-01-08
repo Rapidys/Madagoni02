@@ -13,11 +13,23 @@ const API = {
       }
     )
   },
-  passwordRecovery(email) {
-    return $ApiBase.post('/auth/PasswordRecovery', email)
+  passwordRecovery(data) {
+    return $ApiBase.post('/auth/PasswordRecovery', data)
+  },
+  passwordChange(data) {
+    return $ApiBase.post('/auth/PasswordChange', data)
+  },
+  ProfileInfo() {
+    return $ApiBase.get('/Profile/GetProfileInfo')
+  },
+  getPosts(post) {
+    return $ApiBase.get('/Posts/GetPosts' , post)
   },
   newPostAPI(newPost) {
     return $ApiBase.post('/docs/create', newPost)
+  },
+  CreatePost(newPost) {
+    return $ApiBase.post('/Posts/CreatePost', newPost)
   },
   registerUser(newUser) {
     return $ApiBase.post('/admin/UpdateStructure', newUser)
