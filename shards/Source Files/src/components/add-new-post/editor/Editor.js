@@ -33,6 +33,7 @@ import {setAddBtnAC, setIsFinishedAC} from "../../../Reducers/getDocReducer";
 import API from "../../../API/ApiBase";
 import GoBack from "../../../views/chosenDocument/MessagesPage/goBack";
 import styled from "styled-components";
+import ReactEditor from "../../ReactQuill/ReactEditor";
 
 
 let Styles = styled.div`
@@ -198,21 +199,17 @@ const Editor = (props) => {
           {
             url !== '/add-new-post'
               ? <Styles>
-                <ReactQuill
+                <ReactEditor
                   readOnly={props.readOnly}
                   className="add-new-post__editor mb-1 editorWrapp"
-                  modules={Editor.modules}
-                  formats={Editor.formats}
                   onChange={handleBody}
                   value={props.documentBody || ''}
 
                 />
               </Styles>
-              : <ReactQuill
+              : <ReactEditor
                 readOnly={props.readOnly}
                 className="add-new-post__editor mb-1 editorWrapp"
-                modules={Editor.modules}
-                formats={Editor.formats}
                 onChange={handleBody}
                 value={props.documentBody || ''}
 
@@ -316,36 +313,3 @@ const Editor = (props) => {
 export default Editor;
 
 
-Editor.modules = {
-
-  toolbar: [
-
-    [{header: '1'}, {header: '2'}, {header: [3, 4, 5, 6]}, {font: []}],
-    [{size: []}],
-    [{align: ''}, {align: 'center'}, {align: 'right'}, {align: 'justify'}],
-    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-    ['link', 'image', 'video'],
-    ['clean'],
-    ['code-block'],
-
-  ],
-
-}
-
-Editor.formats = [
-  'header',
-  'font',
-  'size',
-  'bold',
-  'italic',
-  'underline',
-  'strike',
-  'blockquote',
-  'list',
-  'bullet',
-  'link',
-  'image',
-  'video',
-  'code-block',
-  'align'
-]

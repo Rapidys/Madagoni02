@@ -1,11 +1,19 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PageTitle from "../components/common/PageTitle";
 import {Container, Row} from "shards-react";
 import PrimaryChart from "../components/blog/Chart/PrimaryChart";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {GetChart} from "../Reducers/ChartReducer";
+import {useParams} from "react-router-dom";
 
-const BlogOverview = () => {
+const ChartPage = () => {
   let dispatch = useDispatch()
+  let params = useParams()
+
+  useEffect(() => {
+    dispatch(GetChart(params.id))
+  }, [params.id])
+  const chartData = useSelector((state => state.ChartData.chosenChart))
 
   return (
     <Container fluid className="main-content-container px-4">
@@ -17,9 +25,9 @@ const BlogOverview = () => {
                    className="text-sm-left mb-3 ml-1"/>
       </Row>
 
-       Small Stats Blocks
+
       <Row>
-        <PrimaryChart/>
+        <PrimaryChart chartData={chartData}/>
       </Row>
 
 
@@ -27,4 +35,4 @@ const BlogOverview = () => {
 };
 
 
-export default BlogOverview;
+export default ChartPage;

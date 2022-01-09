@@ -25,7 +25,7 @@ const ChartPages = (props) => {
   const chartData = useSelector((state => state.ChartData.Charts))
   useEffect(() => {
     dispatch(GetCharts(currentPage, rowsPerPage))
-  }, [])
+  },[])
   let history = useHistory()
   return (
 

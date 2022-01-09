@@ -132,7 +132,6 @@ const RegisterModalNew = ({
 
             </div>
 
-
             <div className={'mt-2'}>
               {chosenAppointmentDep &&
                 <span>არჩეულია დეპარტამენტი : <p

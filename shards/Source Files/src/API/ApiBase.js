@@ -105,6 +105,9 @@ const API = {
   getCharts(id, rowsPerPage) {
     return $ApiBase.get(`/Posts/GetCharts/${id}/${rowsPerPage}`)
   },
+  getChart(id) {
+    return $ApiBase.get(`/Posts/GetChart/${id}`)
+  },
   setProfileImage(stringPhoto) {
     return $ApiBase.post(`/Profile/SetProfileImage`, stringPhoto)
   },

@@ -1,8 +1,8 @@
-import React  from 'react';
+import React from 'react';
 import {Bar} from 'react-chartjs-2'
 import {Card, CardBody} from "shards-react";
 
-const PrimaryChart = () => {
+const PrimaryChart = ({chartData}) => {
   return (
     <div className={"w-100 mb-5 p-3"}>
       <Card>
@@ -11,11 +11,13 @@ const PrimaryChart = () => {
             height={300}
 
             data={{
-              labels: ['თბილისი', 'რუსთავი', 'ბათუმი', 'ზუგდიდი', 'გურია', 'მცხეთა'],
+              labels: chartData.chartData && chartData.chartData.map(item => item.chartTitle),
               datasets: [
+
                 {
-                  label: '# of votes',
-                  data: [12, 19, 3, 7, 5, 22],
+                  label: '# ქულა / %',
+                  data: chartData.chartData && chartData.chartData.map(item => item.chartData),
+
                   backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',

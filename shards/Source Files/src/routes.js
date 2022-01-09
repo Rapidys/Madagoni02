@@ -27,6 +27,7 @@ import ReferencesPage
 import RecoverPassword from "./components/RecoverPassword/RecoverPassword";
 import ChangePassword from "./components/RecoverPassword/changePassword";
 import ChartPages from "./components/blog/chartPages/chartPages";
+import ChartPage from "./views/BlogOverview";
 
 export let PrivacyRoutes = [
   {
@@ -163,7 +164,7 @@ export let PrivacyRoutes = [
   {
     path: "/Chart/:id",
     layout: DefaultLayout,
-    component: BlogOverview,
+    component: ChartPage,
 
   },
 ]

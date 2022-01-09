@@ -3,20 +3,26 @@ import MyModal from "../../../components/MyModal/MyModal";
 import {
   Button,
   Form,
-
 } from "shards-react";
 import NewPostFields from "./newPostFields";
 import API from "../../../API/ApiBase";
+import {getPosts} from "../../../Reducers/posts/blogPostsReducer";
+import {useDispatch} from "react-redux";
 
 
-const BlogModal = ({newPostModal, onNewPostClose}) => {
+const BlogModal = ({
+                     newPostModal,
+                     onNewPostClose,
+                     setNewPostModal,
+                     setSuccessfullyPosted
+                   }) => {
 
   let [title, setTitle] = useState('')
   let [ValidUntil, setValidUntil] = useState('')
   let [body, setBody] = useState('')
   let [fileName, setFileName] = useState('')
   let [stringImg, setStringImg] = useState(null)
-  let [isPostSended, setIsPostSended] = useState(false)
+  let dispatch = useDispatch()
 
   let addPost = () => {
     let newPost = {
@@ -26,13 +32,22 @@ const BlogModal = ({newPostModal, onNewPostClose}) => {
       Body: body,
       ValidUntil: ValidUntil,
       IsActive: true,
-
-
     }
     API.CreatePost(newPost).then(response => {
-      setIsPostSended(true)
-      console.log('working')
+      setNewPostModal(false)
+      setSuccessfullyPosted(true)
+      dispatch(getPosts({
+        AdminMode: false,
+        RecordsPerPage: 5,
+        PageNumber: 1
+      }))
+      setTitle('')
+      setBody('')
+      setFileName('')
+      setStringImg(null)
+      setValidUntil('')
     })
+
   }
 
 
@@ -68,7 +83,7 @@ const BlogModal = ({newPostModal, onNewPostClose}) => {
           setValidUntil={setValidUntil}
         />
 
-        <Button theme="secondary"
+        <Button className={'btn-primary'}
                 onClick={addPost}
         >
           შექმნა

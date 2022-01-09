@@ -1,15 +1,20 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
-  Button,
-  Collapse,
   FormGroup,
   FormInput,
-  FormTextarea
 } from "shards-react";
 import {TextField} from "@mui/material";
-import MyModal from "../../../components/MyModal/MyModal";
-import DinamycallyChartModa
-  from "../dinamicallyChartModaljs/dinamycallyChartModa";
+import ReactQuill from "react-quill";
+import styled from 'styled-components'
+
+let Styles = styled.div`
+  .ql-editor {
+    min-height: 200px !important;
+    max-height: 300px;
+    overflow: hidden;
+    overflow-y: scroll;
+  }
+`
 
 const NewPostFields = ({
                          setTitle,
@@ -22,28 +27,19 @@ const NewPostFields = ({
                          title
                        }) => {
 
+
   let onTitleChange = (e) => {
     setTitle(e.target.value)
   }
   let onBodyChange = (e) => {
-    setBody(e.target.value)
+    setBody(e)
   }
-  let [openChartData, setOpenChartData] = useState(false)
-  let onChartDataClose = () => {
-    setOpenChartData(v => !v)
-  }
+
   return (
-    <>
+    <Styles>
       <h6>პოსტის შექმნა</h6>
-      <Button className={'w-100 mb-3'}
-              onClick={onChartDataClose}
-      >
-        დიაგრამის შექმნა
-      </Button>
-      <DinamycallyChartModa
-        openChartData={openChartData}
-        onChartDataClose={onChartDataClose}
-      />
+
+
       <FormGroup>
         <FormInput
           placeholder="სათაური"
@@ -53,11 +49,10 @@ const NewPostFields = ({
         />
       </FormGroup>
       <FormGroup>
-        <FormTextarea type="text"
-                      id="#description"
-                      placeholder="შინაარსი"
-                      value={body}
-                      onChange={onBodyChange}
+        <ReactQuill
+          value={body}
+          onChange={onBodyChange}
+          placeholder={'აღწერა'}
         />
       </FormGroup>
       <FormGroup>
@@ -102,7 +97,7 @@ const NewPostFields = ({
 
         />
       </FormGroup>
-    </>
+    </Styles>
   );
 };
 
