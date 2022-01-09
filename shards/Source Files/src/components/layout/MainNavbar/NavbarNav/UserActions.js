@@ -12,9 +12,10 @@ import {connect, useSelector} from "react-redux";
 import {Logout} from "../../../../Reducers/AuthReducer";
 import {Link} from "react-router-dom";
 import styled from "styled-components";
+import userDefault from '../../../../assets/user.png'
 
 let Styles = styled.span`
-  *{
+  * {
     cursor: pointer;
 
   }
@@ -30,14 +31,13 @@ let UserActions = (props) => {
   }
   let ProfileInfo = useSelector((state => state.ProfileInfo.ProfileInfo))
 
-  let userImg = useSelector(state => state.userInfo.img)
   return (
     <NavItem tag={Dropdown} caret toggle={toggleUserActions}>
       <DropdownToggle caret tag={NavLink} className="text-nowrap px-3">
         <Styles>
           <img
             className="user-avatar rounded-circle mr-2 dropDownLinks"
-            src={userImg}
+            src={ProfileInfo.stringPhoto ? ProfileInfo.stringPhoto : userDefault}
             alt="User Avatar"
           />
           <span>{ProfileInfo.firstName}</span>

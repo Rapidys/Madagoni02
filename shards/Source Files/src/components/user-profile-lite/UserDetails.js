@@ -5,12 +5,14 @@ import {
   Button,
   FormGroup
 } from "shards-react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import styled from "styled-components";
 import ReactCrop from "react-image-crop";
 import MyModal from "../MyModal/MyModal";
 import 'react-image-crop/dist/ReactCrop.css';
 import userDefault from '../../assets/user.png'
+import API from "../../API/ApiBase";
+import {GetProfileInfo} from "../../Reducers/ProfileInfoReducer";
 
 let Styles = styled.div`
   .wrapper {
@@ -73,6 +75,7 @@ const UserDetails = ({ProfileInfo}) => {
   const [image, setImage] = useState(null)
   const [result, setResult] = useState(null)
   const [crop, setCrop] = useState({aspect: 1 / 1});
+  let dispatch = useDispatch()
   let onClose = () => {
     setOpen(v => !v)
   }
@@ -104,8 +107,13 @@ const UserDetails = ({ProfileInfo}) => {
     setResult(base64Img)
   }
 
+  let [isImg, setIsImg] = useState(false)
   let uploadImg = () => {
-    console.log(result)
+    API.setProfileImage({stringPhoto: result}).then(response => {
+      setIsImg(true)
+      setOpen(false)
+      dispatch(GetProfileInfo())
+    })
   }
 
   return (
@@ -114,7 +122,7 @@ const UserDetails = ({ProfileInfo}) => {
         <div className="mb-3 mx-auto">
           <img
             className="rounded-circle"
-            src={result ? result : userDefault}
+            src={ProfileInfo.stringPhoto ? ProfileInfo.stringPhoto : userDefault}
             alt={user.name}
             style={{width: '130px', height: '130px'}}
           />
@@ -124,6 +132,8 @@ const UserDetails = ({ProfileInfo}) => {
         <span className="text-muted d-block mb-2">{ProfileInfo.position}</span>
         <Button
           onClick={onClose}
+          style={{cursor: 'pointer'}}
+
         >
           ფოტოს ატვირთვა
         </Button>
@@ -183,7 +193,9 @@ const UserDetails = ({ProfileInfo}) => {
 
                 <label htmlFor="file">
                   <div className={'choose'}>
-                    <span>აირჩიეთ</span>
+                    <span
+                      style={{cursor: 'pointer'}}
+                    >აირჩიეთ</span>
 
                   </div>
                 </label>
@@ -195,11 +207,14 @@ const UserDetails = ({ProfileInfo}) => {
             <div className={'d-flex justify-content-end'}>
               <Button
                 onClick={getCroppedImg}
+                style={{cursor: 'pointer'}}
+
               >
                 მოჭრა
               </Button>
               <Button className={'ml-3'}
                       onClick={uploadImg}
+                      style={{cursor: 'pointer'}}
               >
                 შენახვა
               </Button>

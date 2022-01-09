@@ -23,7 +23,7 @@ const API = {
     return $ApiBase.get('/Profile/GetProfileInfo')
   },
   getPosts(post) {
-    return $ApiBase.get('/Posts/GetPosts' , post)
+    return $ApiBase.post('/Posts/GetPosts', post)
   },
   newPostAPI(newPost) {
     return $ApiBase.post('/docs/create', newPost)
@@ -98,6 +98,15 @@ const API = {
   },
   getReferenceTypes() {
     return $ApiBase.get(`/reference/GetReferenceTypes`)
+  },
+  CreateChart(newChart) {
+    return $ApiBase.post(`/Posts/CreateChart`, newChart)
+  },
+  getCharts(id, rowsPerPage) {
+    return $ApiBase.get(`/Posts/GetCharts/${id}/${rowsPerPage}`)
+  },
+  setProfileImage(stringPhoto) {
+    return $ApiBase.post(`/Profile/SetProfileImage`, stringPhoto)
   },
   axiosCreate() {
     return axios.create({

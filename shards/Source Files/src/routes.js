@@ -26,21 +26,18 @@ import ReferencesPage
   from "./components/adminPage/editingTableOfContents/ReferencesPage";
 import RecoverPassword from "./components/RecoverPassword/RecoverPassword";
 import ChangePassword from "./components/RecoverPassword/changePassword";
+import ChartPages from "./components/blog/chartPages/chartPages";
 
 export let PrivacyRoutes = [
   {
     path: "/",
     exact: true,
     layout: DefaultLayout,
-    component: BlogOverview
+    component: UserProfileLite
   },
+
   {
-    path: "/blog-overview",
-    layout: DefaultLayout,
-    component: BlogOverview
-  },
-  {
-    path: "/chartControl",
+    path: "/addChart",
     layout: DefaultLayout,
     component: ChartControl
   },
@@ -157,6 +154,17 @@ export let PrivacyRoutes = [
     path: "/EditingTableOfContents",
     layout: DefaultLayout,
     component: ReferencesPage
+  },
+  {
+    path: "/MyCharts",
+    layout: DefaultLayout,
+    component: ChartPages
+  },
+  {
+    path: "/Chart/:id",
+    layout: DefaultLayout,
+    component: BlogOverview,
+
   },
 ]
 

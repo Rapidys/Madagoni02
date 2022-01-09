@@ -50,7 +50,7 @@ const AppRouter = (props) => {
             />
           );
         })}
-        <Redirect to='/blog-overview'/>
+        <Redirect to='/user-profile-lite'/>
 
 
       </Switch>

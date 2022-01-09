@@ -18,8 +18,7 @@ import {getPosts} from "../../Reducers/posts/blogPostsReducer";
 
 let BlogPosts = () => {
 
-  let BlogPosts = useSelector((state => state.BlogPosts))
-  const PostsListOne = BlogPosts.PostsListOne
+  let BlogPosts = useSelector((state => state.BlogPosts.PostsListOne))
 
   let [newPostModal, setNewPostModal] = useState(false)
 
@@ -27,13 +26,13 @@ let BlogPosts = () => {
     setNewPostModal(e => !e)
   }
   let dispatch = useDispatch()
-  // useEffect(() => {
-  //   dispatch(getPosts({
-  //     AdminMode: true,
-  //     RecordsPerPage: 5,
-  //     PageNumber: 1
-  //   }))
-  // }, [])
+  useEffect(() => {
+    dispatch(getPosts({
+      AdminMode: false,
+      RecordsPerPage: 5,
+      PageNumber: 1
+    }))
+  }, [])
   return (
     <Container fluid className="main-content-container px-4">
       {/* Page Header */}
@@ -55,37 +54,43 @@ let BlogPosts = () => {
 
       {/* First Row of Posts */}
       <Row>
-        {PostsListOne.map((post, idx) => (
+        {BlogPosts && BlogPosts.map((post, idx) => (
           <Col lg="3" md="6" sm="12" className="mb-4" key={idx}>
             <Card small className="card-post card-post--1">
               <div
                 className="card-post__image"
-                style={{backgroundImage: `url(${post.backgroundImage})`}}
+                style={{backgroundImage: `url(${post.stringPhoto ? post.stringPhoto : post.backgroundImage})`}}
               >
-                <Badge
-                  pill
-                  className={`card-post__category bg-${post.categoryTheme}`}
-                >
-                  {post.category}
-                </Badge>
+                {/*<Badge*/}
+                {/*  pill*/}
+                {/*  // className={`card-post__category bg-${post.categoryTheme}`}*/}
+                {/*>*/}
+                {/*  {post.category}*/}
+                {/*</Badge>*/}
                 <div className="card-post__author d-flex">
                   <a
                     href="#"
                     className="card-post__author-avatar card-post__author-avatar--small"
-                    style={{backgroundImage: `url('${post.authorAvatar}')`}}
+                    style={{backgroundImage: `url('${post.authorPhoto ? post.authorPhoto : post.authorAvatar}')`}}
                   >
                     Written by {post.author}
                   </a>
                 </div>
               </div>
-              <CardBody>
+              <CardBody style ={{minHeight:'200px'}}>
                 <h5 className="card-title">
                   <a href="#" className="text-fiord-blue">
                     {post.title}
                   </a>
                 </h5>
-                <p className="card-text d-inline-block mb-3">{post.body}</p>
-                <span className="text-muted">{post.date}</span>
+                <div>
+                  <p className="card-text mb-3">
+                    {post.body.slice(0,120)}
+                  </p>
+                </div>
+
+
+                <span className="text-muted">{post.datePublished.slice(0,10)}</span>
               </CardBody>
             </Card>
           </Col>

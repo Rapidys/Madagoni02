@@ -18,8 +18,8 @@ const AdminPage = () => {
 
   let [adminPanelFunctions, setAdminPanelFunctions] = useState([
     {
-      title: "დიაგრამების კონტროლი",
-      to: "chartControl"
+      title: "დიაგრამის შექმნა",
+      to: "/addChart"
     },
     {
       title: "სტრუქტურის რედაქტირება",

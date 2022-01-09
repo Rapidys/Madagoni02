@@ -1,10 +1,11 @@
 import API from "../API/ApiBase";
 
 let initialState = {
-  ProfileInfo: {}
+  ProfileInfo: {},
 }
 
 let setProfileInfo = 'SET-PROFILE-INFO'
+
 
 let ProfileInfoReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -13,6 +14,7 @@ let ProfileInfoReducer = (state = initialState, action) => {
         ...state,
         ProfileInfo: action.info
       }
+
     default:
       return state
   }

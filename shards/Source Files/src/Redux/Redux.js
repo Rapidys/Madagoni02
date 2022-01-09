@@ -30,6 +30,7 @@ import referenceTypesReducer from "../Reducers/referenceType";
 import updateReferenceReducer from "../Reducers/updateReferenceReducer";
 import changePasswordReducer from "../Reducers/changePasswordReducer";
 import ProfileInfoReducer from "../Reducers/ProfileInfoReducer";
+import ChartReducer from "../Reducers/ChartReducer";
 
 
 let Reducers = combineReducers({
@@ -61,7 +62,8 @@ let Reducers = combineReducers({
   GetDocReducer: GetDocReducer,
   updateReference: updateReferenceReducer,
   changePassword: changePasswordReducer,
-  ProfileInfo: ProfileInfoReducer
+  ProfileInfo: ProfileInfoReducer,
+  ChartData:ChartReducer,
 })
 
 let store = createStore(Reducers, applyMiddleware(thunk))

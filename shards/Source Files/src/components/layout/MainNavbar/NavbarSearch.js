@@ -53,13 +53,20 @@ export default () => {
 
         </DropdownToggle>
         <Collapse tag={DropdownMenu} left={"true"} small open={visible}>
-          <NavLink to="/blog-overview" className={"text-decoration-none"}>
+          <NavLink to="/MyCharts" className={"text-decoration-none"}>
             <DropdownItem className={"items"}>
               <i
                 className="material-icons cursor-pointer hov">assessment</i>
               <span className={"ml-2"}>დიაგრამები</span>
             </DropdownItem>
           </NavLink>
+          {/*<NavLink to="/blog-overview" className={"text-decoration-none"}>*/}
+          {/*  <DropdownItem className={"items"}>*/}
+          {/*    <i*/}
+          {/*      className="material-icons cursor-pointer hov">assessment</i>*/}
+          {/*    <span className={"ml-2"}>დიაგრამები</span>*/}
+          {/*  </DropdownItem>*/}
+          {/*</NavLink>*/}
 
           <DropdownItem divider/>
           <NavLink to="/blog-posts" className={"text-decoration-none"}>
