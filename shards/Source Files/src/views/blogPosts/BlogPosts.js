@@ -13,13 +13,18 @@ import PageTitle from "../../components/common/PageTitle";
 import {useDispatch, useSelector} from "react-redux";
 import BlogModal from "./blogModal/blogModal";
 import {getPosts} from "../../Reducers/posts/blogPostsReducer";
-import ReactQuill from "react-quill";
+import ReactQuill, {Quill} from "react-quill";
 import Editor from "../../components/add-new-post/editor/Editor";
 import styled from 'styled-components'
 import MyModal from "../../components/MyModal/MyModal";
 import Preloader from "../../Preloader/Preloader";
 import defaultPostImg from '../../assets/defaultPost.jpeg'
 import defaultUser from '../../assets/user.png'
+import ReactEditor from "../../components/ReactQuill/ReactEditor";
+import {Tooltip} from "@material-ui/core";
+import PostModal from "./postModal/postModal";
+import Pagination from "../../Pagination/Pagination";
+
 
 let Styles = styled.div`
   .ql-container.ql-snow {
@@ -29,15 +34,25 @@ let Styles = styled.div`
   .ql-editor {
     padding: 0;
   }
+
+
 `
 
 let BlogPosts = () => {
 
+
   let BlogPosts = useSelector((state => state.BlogPosts.PostsListOne))
   let isLoadingPosts = useSelector((state => state.BlogPosts.isLoadingPosts))
-
   let [newPostModal, setNewPostModal] = useState(false)
   const [successfullyPosted, setSuccessfullyPosted] = useState(false)
+  const [postModal, setPostModal] = useState(false)
+  let [postInfo, setPostInfo] = useState([])
+
+  let currentPage = useSelector(state => state.PaginationData.currentPage)
+  let rowsPerPage = useSelector(state => state.PaginationData.rowsPerPage)
+  let totalCount = useSelector(state => state.PaginationData.totalPages)
+
+
   let onSuccessfullyClosed = (e) => {
     setSuccessfullyPosted(e => !e)
   }
@@ -48,14 +63,21 @@ let BlogPosts = () => {
   useEffect(() => {
     dispatch(getPosts({
       AdminMode: false,
-      RecordsPerPage: 5,
-      PageNumber: 1
+      RecordsPerPage: rowsPerPage,
+      PageNumber: currentPage
     }))
-  }, [])
+  }, [currentPage,rowsPerPage])
+
+
+  let handlePostModal = (post) => {
+    setPostInfo(post)
+    setPostModal(v => !v)
+  }
 
   if (isLoadingPosts) {
     return <Preloader/>
   }
+
   return (
     <Styles>
       <Container fluid className="main-content-container px-4">
@@ -86,8 +108,17 @@ let BlogPosts = () => {
             maxWidth={'sm'}
             title={'წარმატებულად დაიპოსტა'}
           />
+
+          <PostModal
+            postModal={postModal}
+            handlePostModal={handlePostModal}
+            postInfo={postInfo}
+          />
           {BlogPosts && BlogPosts.map((post, idx) => (
-            <Col lg="3" md="6" sm="12" className="mb-4" key={idx}>
+            <Col lg="3" md="6" sm="12" className="mb-4" key={idx}
+                 style={{cursor: 'pointer'}}
+                 onClick={() => handlePostModal(post)}
+            >
               <Card small className="card-post card-post--1">
                 <div
                   className="card-post__image"
@@ -95,13 +126,17 @@ let BlogPosts = () => {
                 >
 
                   <div className="card-post__author d-flex">
-                    <a
-                      href="#"
-                      className="card-post__author-avatar card-post__author-avatar--small"
-                      style={{backgroundImage: `url('${post.authorPhoto ? post.authorPhoto : defaultUser}')`}}
+                    <Tooltip
+                      title={post.author}
                     >
-                      Written by {post.author}
-                    </a>
+                      <a
+                        href="#"
+                        className="card-post__author-avatar card-post__author-avatar--small"
+                        style={{backgroundImage: `url('${post.authorPhoto ? post.authorPhoto : defaultUser}')`}}
+                      />
+
+                    </Tooltip>
+
                   </div>
                 </div>
                 <CardBody style={{minHeight: '200px'}}>
@@ -112,30 +147,36 @@ let BlogPosts = () => {
                   </h5>
                   <div>
                     <ReactQuill
-                      value={post.body.slice(0, 120)}
+                      value={post.body.length > 120 ? post.body.slice(0, 120) + '...' : post.body}
                       readOnly={true}
-                      modules={Editor.modules}
+                      modules={Editor.mods}
                       className={'border-none'}
 
                     />
                   </div>
 
+                  <div className={'mt-4'}>
+                                    <span
+                                      className="text-muted ">{post.datePublished.slice(0, 10)}</span>
+                  </div>
 
-                  <span
-                    className="text-muted">{post.datePublished.slice(0, 10)}</span>
                 </CardBody>
               </Card>
             </Col>
           ))}
         </Row>
-
+        <Pagination
+          totalCount={totalCount}
+          rowsPerPage={rowsPerPage}
+          currentPage={currentPage-1}
+        />
       </Container>
     </Styles>
 
   );
 
 }
-Editor.modules = {
+Editor.mods = {
   toolbar: false,
 };
 export default BlogPosts;

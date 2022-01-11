@@ -1,15 +1,20 @@
 import React from 'react';
 import {Bar} from 'react-chartjs-2'
-import {Card, CardBody} from "shards-react";
 
 const PrimaryChart = ({chartData}) => {
   return (
-    <div className={"w-100 mb-5 p-3"}>
-      <Card>
-        <CardBody>
-          <Bar
-            height={300}
+    <div className={"w-100"}
+         style={{
+           margin: 0,
+           padding:0,
+           position: 'absolute',
+           top: '50%',
+           transform: 'translateY(-50%)',
+         }}
+    >
 
+          <Bar
+            className={'w-100'}
             data={{
               labels: chartData.chartData && chartData.chartData.map(item => item.chartTitle),
               datasets: [
@@ -45,13 +50,12 @@ const PrimaryChart = ({chartData}) => {
               scales: {
                 y: {
                   beginAtZero: true
-                },
+                }
 
               }
             }}
           />
-        </CardBody>
-      </Card>
+
 
     </div>
   );

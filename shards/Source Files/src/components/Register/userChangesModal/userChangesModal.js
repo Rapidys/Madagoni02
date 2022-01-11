@@ -1,19 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import MyModal from "../../MyModal/MyModal";
-import {Button, Form, FormInput} from "shards-react";
+import {Button, Form} from "shards-react";
 import MySelect from "../../../MySelect/MySelect";
 import {useDispatch, useSelector} from "react-redux";
 import {getPositions} from "../../../Reducers/PositionsReducer";
 import RegisterModalNew from "../registerModalTypes/RegisterModalNew";
 import TreeList from "../../CompaignTree/TreeList";
+import defaultValue from '../../../assets/user.png'
 
 const UserChangesModal = ({
                             userControlOpen,
                             controlClose,
                             delUser,
-                            changeUserName,
-                            setUserNewName,
-                            userNewName,
                             changePositionName,
                             PositionValue,
                             setPositionValue,
@@ -21,15 +19,15 @@ const UserChangesModal = ({
                             userAppointment,
                             userInfoForAppoinment,
                             setUserControlOpen,
-                            PositionReferenceId
+                            PositionReferenceId,
+                            changeUserOptions
 
                           }) => {
 
   let [isUserChangeName, setIsUserChangeName] = useState(true)
   let [userPosition, setUserPosition] = useState(false)
   let [appointment, setAppointment] = useState(false)
-  let [nameError, setNameError] = useState('')
-  let [lastNameError, setLastNameError] = useState('')
+
   let [appointmentInformation, setAppointmentInformation] = useState({})
   let Positions = useSelector((state => state.positions.positions))
   let [openTree, setOpenTree] = useState(false)
@@ -48,29 +46,13 @@ const UserChangesModal = ({
   }
 
 
-  let blurName = () => {
-    if (userNewName.name === '') {
-      setNameError('შეიყვანეთ ახალი სახელი')
-    }
-  }
-
-
-  let BlurLastName = () => {
-    if (userNewName.lastName === '') {
-      setLastNameError('შეიყვანეთ ახალი გვარი')
-    }
-  }
   let userChangeNameInput = () => {
     setIsUserChangeName(v => !v)
     setUserPosition(false)
     setAppointment(false)
 
   }
-  let onUserPositionClose = () => {
-    setUserPosition(v => !v)
-    setIsUserChangeName(false)
-    setAppointment(false)
-  }
+
   let onAppointmentClose = () => {
     setAppointment(v => !v)
     setIsUserChangeName(false)
@@ -98,15 +80,29 @@ const UserChangesModal = ({
       onClose={controlClose}
       title={'რედაქტირება'}
     >
+      <div className={'d-flex align-items-center'}>
+        <img
+          src={userInfoForAppoinment.stringPhoto ? userInfoForAppoinment.stringPhoto : defaultValue}
+          alt="ProfileImg"
+          className="rounded-circle mb-3"
+          style={{width: '80px', height: '80px'}}
+
+        />
+        <div className={'ml-3'}>
+          <h4
+            className="mb-0">{`${userInfoForAppoinment.firstName} ${userInfoForAppoinment.lastName}`}</h4>
+          <span
+            className="text-muted d-block mb-2">{userInfoForAppoinment.position}</span>
+        </div>
+
+      </div>
 
       <div className={'d-flex'}>
 
+
         <Button className={'d-flex bg-primary mr-2'}
                 onClick={userChangeNameInput}
-        >სახელის შეცვლა</Button>
-        <Button className={'d-flex bg-primary mr-2'}
-                onClick={onUserPositionClose}
-        >თანამდებობა</Button>
+        >ცვლილება</Button>
         <Button className={'d-flex bg-primary mr-2'}
                 onClick={onAppointmentClose}
         >გადანიშვნა</Button>
@@ -156,6 +152,7 @@ const UserChangesModal = ({
             userAppointment={userAppointment}
             setAppointmentInformation={setAppointmentInformation}
             PositionReferenceId={PositionReferenceId}
+            userChanges={false}
           />
 
 
@@ -183,50 +180,29 @@ const UserChangesModal = ({
       }
       {isUserChangeName === true
 
-        && <Form>
-          <FormInput
-            type="text"
-            placeholder={'სახელი'}
-            className={'mt-2'}
-            value={userNewName.name}
-            onChange={(e) => {
-              setUserNewName({
-                ...userNewName,
-                name: e.target.value
-              })
-              setNameError('')
-            }}
-            onBlur={blurName}
-          />
-
-          <label style={{color: 'red'}}>{nameError}</label>
-          <FormInput
-            type="text"
-            placeholder={'გვარი'}
-            value={userNewName.lastName}
-            onChange={(e) => {
-              setUserNewName({
-                ...userNewName,
-                lastName: e.target.value,
-              })
-              setLastNameError('')
-
-            }}
-            onBlur={BlurLastName}
+        && <>
+          <RegisterModalNew
+            addUser={changeUserOptions}
+            PositionValue={PositionValue}
+            setPositionValue={setPositionValue}
+            getPositionReferenceId={getPositionReferenceId}
+            userInfoForAppoinment={userInfoForAppoinment}
+            handleMiniDepartmentDree={handleMiniDepartmentDree}
+            chosenAppointmentDep={chosenAppointmentDep}
+            setUserControlOpen={setUserControlOpen}
+            forAppointment={false}
+            userAppointment={userAppointment}
+            setAppointmentInformation={setAppointmentInformation}
+            PositionReferenceId={PositionReferenceId}
+            userChanges={true}
+            changeUserOptions={changeUserOptions}
 
           />
-          <label style={{color: 'red'}}>{lastNameError}</label>
+
           <br/>
-          <Button
-            className={'bg-warning border-0'}
-            onClick={changeUserName}
-            disabled={userNewName.name === '' || userNewName.lastName === ''}
-          >
-            შეცვლა
-          </Button>
 
 
-        </Form>
+        </>
       }
     </MyModal>
   );

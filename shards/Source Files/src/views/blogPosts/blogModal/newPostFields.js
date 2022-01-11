@@ -4,8 +4,9 @@ import {
   FormInput,
 } from "shards-react";
 import {TextField} from "@mui/material";
-import ReactQuill from "react-quill";
+import ReactQuill, {Quill} from "react-quill";
 import styled from 'styled-components'
+import Editor from "../../../components/add-new-post/editor/Editor";
 
 let Styles = styled.div`
   .ql-editor {
@@ -27,6 +28,8 @@ const NewPostFields = ({
                          title
                        }) => {
 
+  let icons = Quill.import('ui/icons');
+  icons['video'] = '<i class="fas fa-chart-bar text-secondary"/>';
 
   let onTitleChange = (e) => {
     setTitle(e.target.value)
@@ -52,6 +55,8 @@ const NewPostFields = ({
         <ReactQuill
           value={body}
           onChange={onBodyChange}
+          modules={Editor.newPostModule}
+          formats={Editor.newPostFormats}
           placeholder={'აღწერა'}
         />
       </FormGroup>
@@ -100,5 +105,33 @@ const NewPostFields = ({
     </Styles>
   );
 };
+Editor.newPostModule = {
+
+  toolbar: [
+    [{header: '1'}, {header: '2'}, {header: [3, 4, 5, 6]},],
+    [{size: []}],
+    [{align: ''}, {align: 'center'}, {align: 'right'}, {align: 'justify'}],
+    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+    ['link', 'image', 'video'],
+  ],
+
+}
+
+Editor.newPostFormats = [
+  'header',
+  'size',
+  'bold',
+  'italic',
+  'underline',
+  'strike',
+  'blockquote',
+  'list',
+  'bullet',
+  'link',
+  'image',
+  'video',
+  'code-block',
+  'align'
+]
 
 export default NewPostFields;

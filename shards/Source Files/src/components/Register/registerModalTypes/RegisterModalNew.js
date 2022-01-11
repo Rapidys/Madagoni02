@@ -17,7 +17,8 @@ const RegisterModalNew = ({
                             setUserControlOpen,
                             forAppointment,
                             setAppointmentInformation,
-                            PositionReferenceId
+                            userChanges,
+
                           }) => {
   let dispatch = useDispatch()
 
@@ -37,7 +38,6 @@ const RegisterModalNew = ({
     setPositionValue(e.target.value)
     getPositionReferenceId(e.target.selectedIndex)
   }
-  let treeData = useSelector((state => state.Tree.Structure))
 
   return (
     <div>
@@ -47,7 +47,7 @@ const RegisterModalNew = ({
           name: userInfoForAppoinment ? userInfoForAppoinment.firstName : '',
           lastName: userInfoForAppoinment ? userInfoForAppoinment.lastName : '',
           email: userInfoForAppoinment ? userInfoForAppoinment.email : '',
-          mobile: userInfoForAppoinment ? userInfoForAppoinment.mobile : '',
+          mobile: userInfoForAppoinment ? userInfoForAppoinment.phone : '',
           position: userInfoForAppoinment ? userInfoForAppoinment.position : '',
           positionid: userInfoForAppoinment ? userInfoForAppoinment.positionid : '',
 
@@ -108,7 +108,7 @@ const RegisterModalNew = ({
 
             }
             <FormInput
-              type="number" placeholder={'მობ.ნომერი'}
+              type="text" placeholder={'მობ.ნომერი'}
               name='mobile'
               id='#mobile'
               value={values.mobile || ''}
@@ -133,18 +133,26 @@ const RegisterModalNew = ({
             </div>
 
             <div className={'mt-2'}>
-              {chosenAppointmentDep &&
+              {!userChanges && chosenAppointmentDep &&
                 <span>არჩეულია დეპარტამენტი : <p
                   className={'text-danger'}>{chosenAppointmentDep}</p></span>
               }
             </div>
+            {userChanges === false
+              ? <Button className={'mt-3'}
+                        onClick={handleSubmit}
+                        disabled={!isValid }
+              >
+                დამატება
+              </Button>
+              : <Button className={'mt-3 btn-warning'}
+                        onClick={handleSubmit}
+                        disabled={!isValid }
 
-            <Button className={'mt-3'}
-                    onClick={handleSubmit}
-                    disabled={!isValid || !dirty}
-            >
-              დამატება
-            </Button>
+              >
+                შეცვლა
+              </Button>
+            }
 
 
           </Form>

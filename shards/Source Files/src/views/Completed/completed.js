@@ -14,7 +14,7 @@ import {
   setFinishDocAC, setIsFinishedAC
 } from "../../Reducers/getDocReducer";
 import {useLocation} from "react-router-dom";
-import {setFilteredDocAC} from "../../Reducers/filterReducer";
+
 
 
 

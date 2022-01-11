@@ -4,7 +4,6 @@ import React from "react";
 import {DefaultLayout} from "./layouts";
 
 // Route Views
-import BlogOverview from "./views/BlogOverview";
 import UserProfileLite from "./views/UserProfileLite";
 import NewPostSection from "./components/add-new-post/newPostSection";
 import BlogPosts from "./views/blogPosts/BlogPosts";
@@ -27,7 +26,6 @@ import ReferencesPage
 import RecoverPassword from "./components/RecoverPassword/RecoverPassword";
 import ChangePassword from "./components/RecoverPassword/changePassword";
 import ChartPages from "./components/blog/chartPages/chartPages";
-import ChartPage from "./views/BlogOverview";
 
 export let PrivacyRoutes = [
   {
@@ -161,12 +159,7 @@ export let PrivacyRoutes = [
     layout: DefaultLayout,
     component: ChartPages
   },
-  {
-    path: "/Chart/:id",
-    layout: DefaultLayout,
-    component: ChartPage,
 
-  },
 ]
 
 export let PublicRoutes = [

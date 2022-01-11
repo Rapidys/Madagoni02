@@ -6,6 +6,7 @@ import {connect, useDispatch} from "react-redux";
 import {LoadingAC, setIsAuth} from "../Reducers/AuthReducer";
 import Preloader from "../Preloader/Preloader";
 import {setSesiaDieAC} from "../Reducers/folderCountersReducer";
+import ChartPage from "../views/BlogOverview";
 
 const AppRouter = (props) => {
   let dispatch = useDispatch()
@@ -50,6 +51,7 @@ const AppRouter = (props) => {
             />
           );
         })}
+        <Route path={'/Chart/:id'}><ChartPage /></Route>
         <Redirect to='/user-profile-lite'/>
 
 

@@ -1,11 +1,10 @@
 import React from 'react';
 import {
   Dialog,
-  DialogActions,
   DialogContent,
   DialogTitle
 } from "@material-ui/core";
-import {Button, ModalBody} from "shards-react";
+import {ModalBody} from "shards-react";
 
 
 const MyModal = ({open, onClose, maxWidth, children, title,...props}) => {

@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import Pagination from "../../../Pagination/Pagination";
 import {useDispatch, useSelector} from "react-redux";
 import {GetCharts} from "../../../Reducers/ChartReducer";
+import Preloader from "../../../Preloader/Preloader";
 
 
 let Styles = styled.div`
@@ -18,15 +19,23 @@ let Styles = styled.div`
 const ChartPages = (props) => {
   let currentPage = useSelector(state => state.PaginationData.currentPage)
   let rowsPerPage = useSelector((state => state.PaginationData.rowsPerPage))
-  let totalCount = useSelector(state => state.PaginationData.totalPages)
 
   let dispatch = useDispatch()
+  const isChartsLoading = useSelector((state => state.ChartData.isChartsLoading))
 
   const chartData = useSelector((state => state.ChartData.Charts))
   useEffect(() => {
     dispatch(GetCharts(currentPage, rowsPerPage))
-  },[])
-  let history = useHistory()
+  }, [currentPage, rowsPerPage])
+
+
+  let openChart = (newPageUrl) => {
+    window.open(newPageUrl, "_blank")
+  }
+
+  if (isChartsLoading === true) {
+    return <Preloader/>
+  }
   return (
 
     <Styles>
@@ -52,22 +61,21 @@ const ChartPages = (props) => {
           {chartData.charts && chartData.charts.map((chart, index) => {
             return (
               <tr key={index}
-                  onClick={() =>
-                    history.push(`/Chart/${chart.chartId}`)
-                  }
+                  onClick={() => openChart(`/Chart/${chart.chartId}`)}
                   className={'trWrapper'}
               >
                 <td className={"resTtd"}>{chart.chartId}</td>
-                {/*<td >*/}
-                {/*  {new Intl.DateTimeFormat("en-US", {*/}
-                {/*    month: "numeric",*/}
-                {/*    day: "2-digit",*/}
-                {/*    year: "numeric",*/}
 
-                {/*  }).format(new Date(Mess.documentDate))}*/}
-                {/*</td>*/}
                 <td>{chart.chartName}</td>
-                <td>{chart.dateCreated.slice(0, 10)}</td>
+                <td>
+                  {new Intl.DateTimeFormat("en-US", {
+                    month: "numeric",
+                    day: "2-digit",
+                    year: "numeric",
+
+                  }).format(new Date(chart.dateCreated))}
+
+                </td>
                 <td>
 
                 </td>

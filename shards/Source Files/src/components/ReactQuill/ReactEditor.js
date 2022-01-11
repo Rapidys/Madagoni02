@@ -1,13 +1,14 @@
 import React from 'react';
-import ReactQuill from "react-quill";
+import ReactQuill, {Quill} from "react-quill";
 import Editor from "../add-new-post/editor/Editor";
 
 
 const ReactEditor = ({...props}) => {
+  let icons = Quill.import('ui/icons');
+  icons['video'] = '<i class="fas fa-chart-bar text-secondary" />';
+
   Editor.modules = {
-
     toolbar: [
-
       [{header: '1'}, {header: '2'}, {header: [3, 4, 5, 6]}, {font: []}],
       [{size: []}],
       [{align: ''}, {align: 'center'}, {align: 'right'}, {align: 'justify'}],
@@ -15,7 +16,6 @@ const ReactEditor = ({...props}) => {
       ['link', 'image', 'video'],
       ['clean'],
       ['code-block'],
-
     ],
 
   }

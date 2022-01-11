@@ -14,9 +14,8 @@ import {
   FormTextarea,
   Button
 } from "shards-react";
-import jwtDecode from "jwt-decode";
-import {GetProfileInfo} from "../../Reducers/ProfileInfoReducer";
-import {useDispatch, useSelector} from "react-redux";
+import defaultImg from '../../assets/user.png'
+import userDefault from "../../assets/user.png";
 
 const UserAccountDetails = ({ProfileInfo}) => {
 
@@ -73,12 +72,12 @@ const UserAccountDetails = ({ProfileInfo}) => {
                     </Col>
                     {/* Password */}
                     <Col md="6" className="form-group">
-                      <label htmlFor="fePassword">პაროლი</label>
+                      <label htmlFor="fePassword">მობილური</label>
                       <FormInput
-                        type="password"
+                        type="text"
                         id="fePassword"
-                        placeholder="Password"
-                        value="EX@MPL#P@$$w0RD"
+                        placeholder="მობილური"
+                        value={ProfileInfo.phone || ''}
                         autoComplete="current-password"
                         readOnly={true}
 
@@ -88,10 +87,36 @@ const UserAccountDetails = ({ProfileInfo}) => {
 
 
                   <Row form>
-                    {/* Description */}
+                    <Col md="8" className="form-group">
+                      <FormTextarea
+                        style={{height: '150px'}}
+                        placeholder='დეფაულტ ტექსტი'
 
+                      />
+
+                    </Col>
+                    <Col md="4" className="form-group">
+
+                        <div className="mb-3 mx-auto">
+                          <img
+                            src={ProfileInfo.stringPhoto ? ProfileInfo.stringPhoto : defaultImg}
+                            alt={'ხელმოწერა'}
+                            style={{maxHeight: '150px'}}
+                            className={'w-100'}
+                          />
+                        </div>
+
+                        <Button
+                          style={{cursor: 'pointer'}}
+                          className={'w-100'}
+                        >
+                          ხელმოწერის ატვირთვა
+                        </Button>
+
+                    </Col>
                   </Row>
-                  <Button theme="accent">განახლება</Button>
+
+                  <Button theme="accent" className={'mt-2'}>შენახვა</Button>
                 </Form>
               </Col>
             </Row>

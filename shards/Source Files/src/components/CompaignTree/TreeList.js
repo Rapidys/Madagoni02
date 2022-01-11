@@ -82,6 +82,7 @@ const TreeList = (props) => {
   }
   let setNewTree = () => {
     setNewTreeFinal(true)
+    debugger
     dispatch(setNewUser(treeData))
 
   }

@@ -45,7 +45,6 @@ const TreeNode = (props) => {
   let [open, SetOpen] = useState(false)
   let onClose = (e) => SetOpen(e => !e)
   let [userControlOpen, setUserControlOpen] = useState(false)
-  let [userNewName, setUserNewName] = useState({name: '', lastName: ''})
   let [changedDepNames, setChangedDepNames] = useState('')
   let [Type, setType] = useState('')
   let [positonName, setPositonName] = useState('')
@@ -81,6 +80,7 @@ const TreeNode = (props) => {
     props.handleSetDepValue && props.handleSetDepValue({
       displayName: props.node.displayName,
       departmentId: props.node.departmentId,
+
     })
 
   }
@@ -106,7 +106,19 @@ const TreeNode = (props) => {
     dispatch(TreeDataAC(treeData))
 
   }
+// arsebul userze cvlilebebi
 
+
+  let changeUserOptions = (userNewInfo) => {
+    props.node.firstName = userNewInfo.name
+    props.node.lastName = userNewInfo.lastName
+    props.node.position = PositionValue
+    props.node.positionid = PositionReferenceId
+    props.node.email = userNewInfo.email
+    props.node.phone = String(userNewInfo.mobile)
+
+    // dispatch(TreeDataAC(treeData))
+  }
 
 // axali iuseris an departamentis chasma xeshi
   let addUser = (values) => {
@@ -119,6 +131,7 @@ const TreeNode = (props) => {
         isActive: true,
         departmentId: 0,
         department: null,
+        phone: String(values.mobile),
         positionid: PositionReferenceId,
         position: PositionValue
       }
@@ -159,22 +172,7 @@ const TreeNode = (props) => {
     props.node.isActive = false
     setUserControlOpen(false)
   }
-// useris saxeli shecvla
 
-  let changeUserName = () => {
-    props.node.firstName = userNewName.name
-    props.node.lastName = userNewName.lastName
-    setUserNewName({name: '', lastName: ''})
-    setUserControlOpen(false)
-  }
-
-  // tanamdebobis shecvla
-  let changePositionName = () => {
-    props.node.position = PositionValue
-    props.node.positionid = PositionReferenceId
-    setPositonName('')
-    setUserControlOpen(false)
-  }
   let onDisplayNameClick = () => {
     if (URL === '/register' && props.isAppointment === false) {
       addUserInDepartment()
@@ -196,6 +194,7 @@ const TreeNode = (props) => {
         firstName: props.appointmentInformation && props.appointmentInformation.name,
         lastName: props.appointmentInformation && props.appointmentInformation.lastName,
         email: props.appointmentInformation && props.appointmentInformation.email,
+        phone: props.appointmentInformation && String(props.appointmentInformation.phone),
         isActive: true,
         departmentId: 0,
         department: null,
@@ -232,8 +231,8 @@ const TreeNode = (props) => {
       }))
       props.setModal(false)
     }
-
   }
+
   const hasChild = props.node.departments ? true : false
   const hasEmployes = props.node.employes ? true : false
   return (
@@ -259,12 +258,8 @@ const TreeNode = (props) => {
         userControlOpen={userControlOpen}
         controlClose={controlClose}
         delUser={delUser}
-        changeUserName={changeUserName}
-        setUserNewName={setUserNewName}
-        userNewName={userNewName}
         positonName={positonName}
         setPositonName={setPositonName}
-        changePositionName={changePositionName}
         PositionValue={PositionValue}
         setPositionValue={setPositionValue}
         getPositionReferenceId={getPositionReferenceId}
@@ -275,6 +270,7 @@ const TreeNode = (props) => {
         applyAppointmentChanges={applyAppointmentChanges}
         setApplyAppointmentChanges={setApplyAppointmentChanges}
         onDisplayNameClick={onDisplayNameClick}
+        changeUserOptions={changeUserOptions}
 
       />
 

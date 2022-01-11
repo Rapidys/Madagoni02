@@ -57,7 +57,7 @@ const RegisterModal = ({
           setPositionValue={setPositionValue}
           getPositionReferenceId={getPositionReferenceId}
           userAppointment = {userAppointment}
-
+          userChanges = {false}
         />
 
       }

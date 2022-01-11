@@ -7,7 +7,7 @@ import {
 import NewPostFields from "./newPostFields";
 import API from "../../../API/ApiBase";
 import {getPosts} from "../../../Reducers/posts/blogPostsReducer";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 
 const BlogModal = ({
@@ -22,6 +22,8 @@ const BlogModal = ({
   let [body, setBody] = useState('')
   let [fileName, setFileName] = useState('')
   let [stringImg, setStringImg] = useState(null)
+  let currentPage = useSelector(state => state.PaginationData.currentPage)
+  let rowsPerPage = useSelector(state => state.PaginationData.rowsPerPage)
   let dispatch = useDispatch()
 
   let addPost = () => {
@@ -38,8 +40,8 @@ const BlogModal = ({
       setSuccessfullyPosted(true)
       dispatch(getPosts({
         AdminMode: false,
-        RecordsPerPage: 5,
-        PageNumber: 1
+        RecordsPerPage: rowsPerPage,
+        PageNumber: currentPage
       }))
       setTitle('')
       setBody('')

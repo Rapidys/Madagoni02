@@ -1,4 +1,5 @@
 import API from "../../API/ApiBase";
+import {setToTalPages} from "../PaginationReducer";
 
 let initialState = {
   PostsListOne: [],
@@ -39,6 +40,7 @@ export let getPosts = (post) => {
     try {
       API.getPosts(post).then(response => {
         dispatch(setPostAC(response.data.posts))
+        dispatch(setToTalPages(response.data.totalCount))
         dispatch(isLoadingPostsAC(false))
       })
     } catch (e) {
