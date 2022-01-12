@@ -2,6 +2,7 @@ import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {setDocumentColor} from "../Reducers/setDocumentColorReducer";
 import styled from 'styled-components'
+
 let Styles = styled.div`
   .colorBtnRed {
     background: #ccffcc;
@@ -17,7 +18,10 @@ let Styles = styled.div`
   }
 `
 
-const RightClickMenu = ({x, y, showMenu}) => {
+const RightClickMenu = ({x, y, showMenu, setShowMenu}) => {
+  window.addEventListener('click', () => {
+    return setShowMenu(false)
+  })
   const style = () => {
     return {
       width: 80,
@@ -80,29 +84,29 @@ const RightClickMenu = ({x, y, showMenu}) => {
     }))
   }
   return (
-<Styles>
-  <div style={style()}>
-    <div style={styles.div}
-         className={"align-items-center colorBtnGreen"}
-         onClick={changeToRed}
-    >
-    </div>
-    <div style={styles.div} className={"colorBtnYellow"}
-         onClick={changeToYellow}
-    >
-    </div>
-    <div style={styles.div} className={"colorBtnRed"}
-         onClick={changeToGreen}
-    >
+    <Styles>
+      <div style={style()}>
+        <div style={styles.div}
+             className={"align-items-center colorBtnGreen"}
+             onClick={changeToRed}
+        >
+        </div>
+        <div style={styles.div} className={"colorBtnYellow"}
+             onClick={changeToYellow}
+        >
+        </div>
+        <div style={styles.div} className={"colorBtnRed"}
+             onClick={changeToGreen}
+        >
 
-    </div>
-    <div style={styles.div} className={"bg-white"}
-         onClick={changeToNonColor}
-    >გაუქმ
-    </div>
-  </div>
+        </div>
+        <div style={styles.div} className={"bg-white"}
+             onClick={changeToNonColor}
+        >გაუქმ
+        </div>
+      </div>
 
-</Styles>
+    </Styles>
 
 
   );

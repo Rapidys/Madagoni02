@@ -100,6 +100,8 @@ const Comments = () => {
 
   let visible = useSelector(state => state.getComments.isVisibleModal)
 
+
+
   const [textValue, setTextValue] = useState('')
   let params = useParams()
 
@@ -108,14 +110,15 @@ const Comments = () => {
 
 
   useEffect(() => {
-    if (params.id) {
-      dispatch(getComments(params.id))
-      let interval = setInterval(() => {
+      if (visible === true) {
         dispatch(getComments(params.id))
-      }, 5000)
-      return () => clearInterval(interval);
-    }
-  }, [])
+        let interval = setInterval(() => {
+          dispatch(getComments(params.id))
+        }, 5000)
+        return () => clearInterval(interval);
+      }
+
+  }, [visible])
 
 
   let onTextChange = (e) => {

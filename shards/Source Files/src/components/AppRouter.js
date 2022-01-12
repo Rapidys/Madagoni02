@@ -51,7 +51,7 @@ const AppRouter = (props) => {
             />
           );
         })}
-        <Route path={'/Chart/:id'}><ChartPage /></Route>
+        <Route path={'/Chart/:id'}><ChartPage/></Route>
         <Redirect to='/user-profile-lite'/>
 
 

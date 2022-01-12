@@ -32,13 +32,13 @@ const AdminPage = () => {
   ])
   return (
     <Styles>
-      <Card className={'wrapp '}>
+      <Card className={'wrapp'}>
         <Col>
           <Nav className={" p-5"}>
             {adminPanelFunctions.map((item, idx) => (
               <NavItem key={idx} className={"mt-5"}>
                 <NavLink tag={Link} to={item.to} className={"mr-3"}>
-                  {idx + 1}. {item.title}
+                  {item.title}
                 </NavLink>
               </NavItem>
             ))}

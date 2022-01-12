@@ -9,15 +9,32 @@ import {setCounter} from "../../../Reducers/folderCountersReducer";
 import Preloader from "../../../Preloader/Preloader";
 import {useHistory} from "react-router-dom";
 import {btnFilter} from "./btnFilter";
+import defaultImg from '../../../assets/user.png'
+import {Quill} from "react-quill";
+import styled from 'styled-components'
+
+let Styles = styled.div`
+  .signatureWrapp {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .signatureWrapp img {
+    width: 40px
+  }
+
+`
 
 
 const ChosenDocument = () => {
+
   let params = useParams()
   let pageId = params.id
 
   let dispatch = useDispatch()
   let chosen = useSelector(state => state.chosenDocument.currentMessagePage)
   let isLoading = useSelector(state => state.chosenDocument.isLoading)
+
 
   useEffect(() => {
     dispatch(getMessagePage(pageId))
@@ -26,11 +43,15 @@ const ChosenDocument = () => {
   }, [pageId])
 
 
+
+
   const [documentTitle, setDocumentTitle] = useState('')
   const [documentBody, setDocumentBody] = useState('')
   const [chosenDestination, setchosenDestination] = useState([])
   const [chosenVisitor, setchosenVisitor] = useState([])
-  const [defaultText, setDefaultText] = useState('default user Text')
+
+  // const defaultText = `${signatureDefaultValue}
+  //   <img src=${defaultImg} alt="signature"/>`
 
   useMemo(() => {
     setchosenDestination([])
@@ -40,7 +61,8 @@ const ChosenDocument = () => {
   let [documentType, setDocumentType] = useState()
   useMemo(() => {
     setDocumentTitle(chosen.documentTitle || '')
-    setDocumentBody(chosen.documentBody + ('&nbsp') + defaultText)
+    // setDocumentBody(chosen.documentBody + `<div>${defaultText}</div>`)
+    setDocumentBody(chosen.documentBody || '')
     setDocumentType(chosen.documentType)
     MotionTypeFiltering(chosen, chosenDestination, chosenVisitor)
   }, [chosen])

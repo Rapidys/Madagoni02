@@ -1,11 +1,10 @@
 import React, {useEffect, useMemo, useState} from "react";
-import ReactQuill from "react-quill";
 import {
   Button,
   Card,
-  CardBody,
+  CardBody, Col, Container,
   Form,
-  FormInput
+  FormInput, FormTextarea, Row
 } from "shards-react";
 import "react-quill/dist/quill.snow.css";
 import "../../../assets/quill.css";
@@ -34,14 +33,27 @@ import API from "../../../API/ApiBase";
 import GoBack from "../../../views/chosenDocument/MessagesPage/goBack";
 import styled from "styled-components";
 import ReactEditor from "../../ReactQuill/ReactEditor";
-
+import defaultImg from '../../../assets/signature.jpg'
+import {setSignatureDefaultValueAC} from "../../../Reducers/ProfileInfoReducer";
 
 let Styles = styled.div`
-  .editorWrapp p:last-child {
-    margin-top: 200px;
-    float: right;
+  .signatureInput {
+    border: 1px solid #e1e5eb;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    border-bottom-left-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: auto 60px;
+    border-top: none;
+    outline: none;
+    height: auto;
   }
 
+  textarea[readonly] {
+    background-color: transparent;
+  }
 `
 
 const Editor = (props) => {
@@ -57,6 +69,8 @@ const Editor = (props) => {
     }
   }, [])
 
+  let signatureDefaultValue = useSelector((state => state.ProfileInfo.signatureDefaultValue))
+  let [signatureDefault, setSignatureDefault] = useState(signatureDefaultValue)
 
   let destinations = useSelector(state => state.updateDocument.destinations)
   let params = useParams()
@@ -196,25 +210,66 @@ const Editor = (props) => {
                      onChange={handleTitle}
 
           />
-          {
-            url !== '/add-new-post'
-              ? <Styles>
-                <ReactEditor
+          <Styles>
+            {
+              url !== '/add-new-post'
+                ? <>
+                  <ReactEditor
+                    readOnly={props.readOnly}
+                    className="add-new-post__editor mb-1 editorWrapp border-0"
+                    onChange={handleBody}
+                    value={props.documentBody || ''}
+
+                  />
+                </>
+                : <ReactEditor
                   readOnly={props.readOnly}
-                  className="add-new-post__editor mb-1 editorWrapp"
+                  className="add-new-post__editor editorWrapp"
                   onChange={handleBody}
                   value={props.documentBody || ''}
 
                 />
-              </Styles>
-              : <ReactEditor
-                readOnly={props.readOnly}
-                className="add-new-post__editor mb-1 editorWrapp"
-                onChange={handleBody}
-                value={props.documentBody || ''}
 
-              />
-          }
+
+            }
+            {
+              url !== '/add-new-post' &&
+              <Container>
+                <Row>
+                  <Col md='8' className={'p-0'}>
+                    <FormTextarea
+                      style={{
+                        height: '100px',
+                        border: 'none',
+                        resize: 'none',
+
+                      }}
+                      className={'signatureInput'}
+                      value={signatureDefault || ''}
+                      onChange={(e) => setSignatureDefault(e.target.value)}
+                    />
+                  </Col>
+                  <Col md='4' className={'p-0'}>
+                    <FormTextarea
+                      style={{
+                        height: '100px',
+                        backgroundImage: `url(${defaultImg})`,
+                        border: 'none',
+                        resize: 'none',
+                      }}
+                      className={'signatureInput'}
+                      readOnly={true}
+                    />
+                  </Col>
+
+
+                </Row>
+              </Container>
+
+
+            }
+
+          </Styles>
 
 
           <MyModal

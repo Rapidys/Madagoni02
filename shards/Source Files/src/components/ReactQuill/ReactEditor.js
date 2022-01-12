@@ -6,6 +6,9 @@ import Editor from "../add-new-post/editor/Editor";
 const ReactEditor = ({...props}) => {
   let icons = Quill.import('ui/icons');
   icons['video'] = '<i class="fas fa-chart-bar text-secondary" />';
+  // let Block = Quill.import('blots/block');
+  // Block.tagName = 'DIV';
+  // Quill.register(Block, true);
 
   Editor.modules = {
     toolbar: [

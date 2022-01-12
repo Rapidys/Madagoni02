@@ -34,9 +34,9 @@ const FinishButtonModal = ({
   }, [])
 
   let onFinishChange = (e) => {
+    let idx = Options[e.target.selectedIndex - 1]
     setFinishDocType(e.target.value)
-    dispatch(setSelectedDocIdAC(e.target.selectedIndex))
-
+    dispatch(setSelectedDocIdAC(idx.referenceId))
   }
 
 

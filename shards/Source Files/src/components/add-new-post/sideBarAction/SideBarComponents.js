@@ -25,7 +25,6 @@ const SideBarComponents = (props) => {
 
     <div className={"acordWrapper"}>
 
-
       <div className={"mb-1"}>
         <Accordeons
           documentType={props.documentType}

@@ -4,7 +4,7 @@ let initialState = {
   isNewChartCreated: false,
   Charts: [],
   chosenChart: {},
-  isChartsLoading:false,
+  isChartsLoading: false,
 }
 
 let isNewChartCreated = 'IS-NEW-CHART'
@@ -29,7 +29,7 @@ let ChartReducer = (state = initialState, action) => {
         ...state,
         chosenChart: action.chart
       }
-      case setIsChartsLoading:
+    case setIsChartsLoading:
       return {
         ...state,
         isChartsLoading: action.loading
@@ -42,7 +42,10 @@ let ChartReducer = (state = initialState, action) => {
 export let isNewChartCreatedAC = (chart) => ({type: isNewChartCreated, chart})
 export let getChartsAC = (chart) => ({type: getCharts, chart})
 export let setChosenChartAC = (chart) => ({type: setChosenChart, chart})
-export let setIsChartsLoadingAC = (loading) => ({type: setIsChartsLoading, loading})
+export let setIsChartsLoadingAC = (loading) => ({
+  type: setIsChartsLoading,
+  loading
+})
 
 export default ChartReducer
 

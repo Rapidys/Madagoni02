@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import PropTypes from "prop-types";
 import {
   Card,
@@ -8,121 +8,216 @@ import {
   Row,
   Col,
   Form,
-  FormGroup,
   FormInput,
-  FormSelect,
   FormTextarea,
   Button
 } from "shards-react";
+import ImgCropper from "../ImgCropper/ImgCropper";
+import {useDispatch, useSelector} from "react-redux";
+import {onSignatureValueChangeAC} from "../../Reducers/ProfileInfoReducer";
 import defaultImg from '../../assets/user.png'
-import userDefault from "../../assets/user.png";
+import styled from 'styled-components'
+
+let Styles = styled.div`
+  .signatureWrapper {
+    align-items: center;
+    border: 1px solid #e1e5eb;
+    border-radius: 0.25rem;
+    font-weight: 300;
+    will-change: border-color, box-shadow;
+    transition: box-shadow 250ms cubic-bezier(.27, .01, .38, 1.06), border 250ms cubic-bezier(.27, .01, .38, 1.06);
+    margin: 0;
+  }
+
+  .setImg {
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-position: center;
+    resize: none;
+  }
+
+  #col-withoud-padding {
+    padding-right: 0;
+    padding-left: 0;
+  }
+`
+
 
 const UserAccountDetails = ({ProfileInfo}) => {
+    let [imgSrc, setImgSrc] = useState(null)
+    let [open, setOpen] = useState(false)
+    const [image, setImage] = useState(null)
+    const [result, setResult] = useState(null)
+    const [crop, setCrop] = useState({aspect: 0});
+    let dispatch = useDispatch()
 
 
+    let signatureDefaultValue = useSelector((state => state.ProfileInfo.signatureDefaultValue))
+
+    let onClose = () => {
+      setOpen(v => !v)
+    }
+
+    let handleFileChange = (e) => {
+      setImgSrc(URL.createObjectURL(e.target.files[0]))
+      console.log(result)
+    }
+
+
+    let uploadImg = () => {
+      console.log(result)
+    }
+    let openImgCropper = () => {
+      setOpen(true)
+    }
+
+
+    let onSignatureChange = (e) => {
+      dispatch(onSignatureValueChangeAC(e.target.value))
+
+    }
+    let test = () => {
+      console.log({
+        signatureImg: result,
+        signatureValue: signatureDefaultValue
+      })
+    }
     return (
-      <Card small className="mb-4">
-        <CardHeader className="border-bottom">
-          <h6 className="m-0">დეტალები</h6>
-        </CardHeader>
-        <ListGroup flush>
-          <ListGroupItem className="p-3">
-            <Row>
-              <Col>
-                <Form>
-                  <Row form>
-                    {/* First Name */}
-                    <Col md="6" className="form-group">
-                      <label htmlFor="feFirstName">სახელი</label>
-                      <FormInput
-                        id="feFirstName"
-                        placeholder="First Name"
-                        value={ProfileInfo.firstName || ''}
-                        readOnly={true}
+      <Styles>
+        <Card small className="mb-4">
+          <CardHeader className="border-bottom">
+            <h6 className="m-0">დეტალები</h6>
+          </CardHeader>
+          <ListGroup flush>
+            <ListGroupItem className="p-3">
+              <ImgCropper
+                image={image}
+                setResult={setResult}
+                crop={crop}
+                imgSrc={imgSrc}
+                setCrop={setCrop}
+                setImage={setImage}
+                result={result}
+                uploadImg={uploadImg}
+                handleFileChange={handleFileChange}
+                onClose={onClose}
+                open={open}
+                classes = {''}
 
-                      />
-                    </Col>
-                    {/* Last Name */}
-                    <Col md="6" className="form-group">
-                      <label htmlFor="feLastName">გვარი</label>
-                      <FormInput
-                        id="feLastName"
-                        placeholder="Last Name"
-                        value={ProfileInfo.lastName || ''}
-                        readOnly={true}
+              />
+              <Row>
+                <Col>
+                  <Form>
+                    <Row form>
+                      {/* First Name */}
+                      <Col md="6" className="form-group">
+                        <label htmlFor="feFirstName">სახელი</label>
+                        <FormInput
+                          id="feFirstName"
+                          placeholder="First Name"
+                          value={ProfileInfo.firstName || ''}
+                          readOnly={true}
 
-
-                      />
-                    </Col>
-                  </Row>
-                  <Row form>
-                    {/* Email */}
-                    <Col md="6" className="form-group">
-                      <label htmlFor="feEmail">ე-მაილი</label>
-                      <FormInput
-                        type="email"
-                        id="feEmail"
-                        placeholder="Email Address"
-                        value={ProfileInfo.email || ''}
-                        autoComplete="email"
-                        readOnly={true}
-
-
-                      />
-                    </Col>
-                    {/* Password */}
-                    <Col md="6" className="form-group">
-                      <label htmlFor="fePassword">მობილური</label>
-                      <FormInput
-                        type="text"
-                        id="fePassword"
-                        placeholder="მობილური"
-                        value={ProfileInfo.phone || ''}
-                        autoComplete="current-password"
-                        readOnly={true}
-
-                      />
-                    </Col>
-                  </Row>
+                        />
+                      </Col>
+                      {/* Last Name */}
+                      <Col md="6" className="form-group">
+                        <label htmlFor="feLastName">გვარი</label>
+                        <FormInput
+                          id="feLastName"
+                          placeholder="Last Name"
+                          value={ProfileInfo.lastName || ''}
+                          readOnly={true}
 
 
-                  <Row form>
-                    <Col md="8" className="form-group">
-                      <FormTextarea
-                        style={{height: '150px'}}
-                        placeholder='დეფაულტ ტექსტი'
+                        />
+                      </Col>
+                    </Row>
+                    <Row form>
+                      {/* Email */}
+                      <Col md="6" className="form-group">
+                        <label htmlFor="feEmail">ე-მაილი</label>
+                        <FormInput
+                          type="email"
+                          id="feEmail"
+                          placeholder="Email Address"
+                          value={ProfileInfo.email || ''}
+                          autoComplete="email"
+                          readOnly={true}
 
-                      />
 
-                    </Col>
-                    <Col md="4" className="form-group">
+                        />
+                      </Col>
+                      {/* Password */}
+                      <Col md="6" className="form-group">
+                        <label htmlFor="fePassword">მობილური</label>
+                        <FormInput
+                          type="text"
+                          id="fePassword"
+                          placeholder="მობილური"
+                          value={ProfileInfo.phone || ''}
+                          autoComplete="current-password"
+                          readOnly={true}
 
-                        <div className="mb-3 mx-auto">
-                          <img
-                            src={ProfileInfo.stringPhoto ? ProfileInfo.stringPhoto : defaultImg}
-                            alt={'ხელმოწერა'}
-                            style={{maxHeight: '150px'}}
-                            className={'w-100'}
-                          />
-                        </div>
+                        />
+                      </Col>
+                    </Row>
+
+
+                    <Row form className={'signatureWrapper'}>
+                      <Col md="8" id={'col-withoud-padding'}>
+                        <FormTextarea
+                          style={{
+                            height: '150px', resize: 'none', border: 'none'
+
+                          }}
+                          placeholder='დეფაულტ ტექსტი'
+                          value={signatureDefaultValue}
+                          onChange={(e) => onSignatureChange(e)}
+                        />
+
+                      </Col>
+                      <Col md="4" id={'col-withoud-padding'}>
+                        <FormTextarea
+                          style={{
+                            height: '150px',
+                            backgroundImage: `url(${result ? result : defaultImg})`,
+                            border: 'none'
+                          }}
+                          readOnly={true}
+                          className={'setImg'}
+                        />
+                      </Col>
+
+                    </Row>
+                    <Row>
+                      <Col md="4" className="form-group">
+
 
                         <Button
                           style={{cursor: 'pointer'}}
                           className={'w-100'}
+                          onClick={openImgCropper}
                         >
-                          ხელმოწერის ატვირთვა
+                          ხელმოწერის არჩევა
                         </Button>
 
-                    </Col>
-                  </Row>
+                      </Col>
+                    </Row>
+                    <Button theme="accent" className={'mt-2'}
+                            onClick={test}
+                    >შენახვა</Button>
+                    <br/>
 
-                  <Button theme="accent" className={'mt-2'}>შენახვა</Button>
-                </Form>
-              </Col>
-            </Row>
-          </ListGroupItem>
-        </ListGroup>
-      </Card>
+
+                  </Form>
+                </Col>
+              </Row>
+            </ListGroupItem>
+          </ListGroup>
+        </Card>
+      </Styles>
+
     )
   }
 ;

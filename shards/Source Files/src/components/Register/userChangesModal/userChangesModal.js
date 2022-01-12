@@ -63,7 +63,6 @@ const UserChangesModal = ({
     let idx = Positions[e.target.selectedIndex - 1]
     setPositionValue(e.target.value)
     getPositionReferenceId(idx.referenceId)
-
   }
 
   let closeTree = () => {

@@ -32,14 +32,14 @@ const DocStateField = ({stateValue, setStateValue, ...props}) => {
   return (
     <FormControl fullWidth size="small">
       <InputLabel
-        id="demo-simple-select-label" >დოკ.მდგომარეობა</InputLabel>
+        id="demo-simple-select-label">დოკ.მდგომარეობა</InputLabel>
 
       <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"
         value={stateValue}
         onChange={onValueChange}
-
+        label='დოკ.მდგომარეობა'
       >
 
         {

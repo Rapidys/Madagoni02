@@ -8,8 +8,11 @@ import {
 } from "shards-react";
 
 import styled from 'styled-components'
-import {CreateNewChart} from "../../../Reducers/ChartReducer";
+import {
+  CreateNewChart,
+} from "../../../Reducers/ChartReducer";
 import {useDispatch} from "react-redux";
+import MyModal from "../../MyModal/MyModal";
 
 let Styles = styled.div`
   .footer {
@@ -23,8 +26,18 @@ let Styles = styled.div`
     background: transparent;
     max-width: 250px;
   }
+
+  .deleteInput {
+    color: teal;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  .deleteInput:hover {
+    color: red;
+  }
 `
-const DinamycallyChartModa = ({openChartData, onChartDataClose}) => {
+const DinamycallyChartModa = () => {
 
   const [chartOptions, setChartOptions] = useState([{
     chartTitle: '',
@@ -33,8 +46,12 @@ const DinamycallyChartModa = ({openChartData, onChartDataClose}) => {
     hasErrorTitle: false,
   }])
   const [chartName, setChartName] = useState('')
-  const [isErrorTitle, setIsErrorTitle] = useState(false)
-  const [isErrorData, setIsErrorData] = useState(false)
+  const [isErrorTitle, setIsErrorTitle] = useState(true)
+  const [isErrorData, setIsErrorData] = useState(true)
+  const [isErrorName, setIsErrorName] = useState(true)
+  const [isErrorNameOnBlur, setIsErrorNameOnBlur] = useState(false)
+  const [isCreated, setIsCreated] = useState(false)
+
   let dispatch = useDispatch()
   let handleOption = () => {
     setChartOptions([...chartOptions, {
@@ -43,6 +60,8 @@ const DinamycallyChartModa = ({openChartData, onChartDataClose}) => {
       hasErrorData: false,
       hasErrorTitle: false,
     }])
+    setIsErrorTitle(true)
+    setIsErrorData(true)
   }
   let handleDelete = (option) => {
     setChartOptions([...chartOptions].filter((item, index) => index !== option))
@@ -65,7 +84,14 @@ const DinamycallyChartModa = ({openChartData, onChartDataClose}) => {
         chartData: [...chartOptions]
       }
     ))
-
+    setChartName('')
+    setChartOptions([{
+      chartTitle: '',
+      chartData: '',
+      hasErrorData: false,
+      hasErrorTitle: false,
+    }])
+    setIsCreated(true)
   }
 
   let handleChange = (index, event) => {
@@ -73,18 +99,18 @@ const DinamycallyChartModa = ({openChartData, onChartDataClose}) => {
     values[index][event.target.name] = event.target.value
     setChartOptions(values)
   }
-  // let handleDataBlur = (index, event) => {
-  //   const values = [...chartOptions]
-  //   if (event.target.value > 100) {
-  //     values[index].hasErrorData = true
-  //     setChartOptions(values)
-  //     setIsErrorData(true)
-  //   } else {
-  //     values[index].hasErrorData = false
-  //     setChartOptions(values)
-  //     setIsErrorData(false)
-  //   }
-  // }
+  let handleDataBlur = (index, event) => {
+    const values = [...chartOptions]
+    if (event.target.value === '') {
+      values[index].hasErrorData = true
+      setChartOptions(values)
+      setIsErrorData(true)
+    } else {
+      values[index].hasErrorData = false
+      setChartOptions(values)
+      setIsErrorData(false)
+    }
+  }
 
   let handleTitleBlur = (index, event) => {
     const values = [...chartOptions]
@@ -100,6 +126,22 @@ const DinamycallyChartModa = ({openChartData, onChartDataClose}) => {
 
     }
   }
+
+
+  let onChartNameBlur = () => {
+    if (chartName === '') {
+      setIsErrorNameOnBlur(true)
+      setIsErrorName(true)
+    } else {
+      setIsErrorName(false)
+      setIsErrorNameOnBlur(false)
+
+    }
+  }
+
+  let onChartSuccessfullClose = () => {
+    setIsCreated(v => !v)
+  }
   return (
     <Styles>
       <Card>
@@ -107,6 +149,20 @@ const DinamycallyChartModa = ({openChartData, onChartDataClose}) => {
           <CardHeader>დიაგრამის მონაცემები</CardHeader>
 
         </div>
+
+        <MyModal
+          open={isCreated}
+          onClose={onChartSuccessfullClose}
+        >
+          <div className={'d-flex align-items-center'}>
+            <i className="fas fa-check-circle"
+
+               style={{color: 'green', fontSize: '30px'}}/>
+            <span className={'ml-2'}>
+                          წარმატებით შეიქმნა
+            </span>
+          </div>
+        </MyModal>
         <CardBody style={{height: '400px', overflowY: 'scroll'}}>
           <FormGroup>
             <FormInput
@@ -116,8 +172,13 @@ const DinamycallyChartModa = ({openChartData, onChartDataClose}) => {
               value={chartName}
               onChange={(event) => setChartName(event.target.value)}
               className={'nameInput'}
+              onBlur={onChartNameBlur}
 
             />
+            {
+              isErrorNameOnBlur &&
+              <p style={{color: 'red'}}>შეიყვანეთ დიაგრამის სახელი</p>
+            }
 
           </FormGroup>
           <FormGroup>
@@ -129,15 +190,15 @@ const DinamycallyChartModa = ({openChartData, onChartDataClose}) => {
                     style={{width: '67%'}}
                   >
 
-                    {item.hasErrorTitle ===
-                      true
-                      && <span
-                        style={{
-                          display: 'block',
-                          color: 'red',
-                        }}
-                      >აუცილებელი ველი</span>
-                    }
+                    {/*{item.hasErrorTitle ===*/}
+                    {/*  true*/}
+                    {/*  && <span*/}
+                    {/*    style={{*/}
+                    {/*      display: 'block',*/}
+                    {/*      color: 'red',*/}
+                    {/*    }}*/}
+                    {/*  >აუცილებელი ველი</span>*/}
+                    {/*}*/}
 
                     <FormInput
                       placeholder="დასახელება"
@@ -162,7 +223,7 @@ const DinamycallyChartModa = ({openChartData, onChartDataClose}) => {
                       value={item.chartData}
                       className={'ml-2'}
                       onChange={(event) => handleChange(index, event)}
-                      // onBlur={(event) => handleDataBlur(index, event)}
+                      onBlur={(event) => handleDataBlur(index, event)}
                     />
                   </div>
                   <div className={'d-flex flex-column mt-2'}
@@ -170,8 +231,7 @@ const DinamycallyChartModa = ({openChartData, onChartDataClose}) => {
 
                   >
                       <span>
-                        <i className="fas fa-times-circle ml-4"
-                           style={{color: 'red'}}
+                        <i className="far fa-window-close ml-4 deleteInput"
                            onClick={() => {
                              handleDelete(index)
                            }}
@@ -200,7 +260,7 @@ const DinamycallyChartModa = ({openChartData, onChartDataClose}) => {
 
           <Button
             onClick={handleNewChart}
-            disabled={isErrorData || isErrorTitle}
+            disabled={isErrorData || isErrorTitle || isErrorName}
             className={'ml-2'}
 
           >შენახვა</Button>

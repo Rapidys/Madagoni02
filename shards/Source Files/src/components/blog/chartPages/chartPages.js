@@ -16,7 +16,7 @@ let Styles = styled.div`
 
 
 `
-const ChartPages = (props) => {
+const ChartPages = () => {
   let currentPage = useSelector(state => state.PaginationData.currentPage)
   let rowsPerPage = useSelector((state => state.PaginationData.rowsPerPage))
 
@@ -76,9 +76,7 @@ const ChartPages = (props) => {
                   }).format(new Date(chart.dateCreated))}
 
                 </td>
-                <td>
 
-                </td>
 
               </tr>
 
