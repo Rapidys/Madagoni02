@@ -32,7 +32,7 @@ let UserActions = (props) => {
   let ProfileInfo = useSelector((state => state.ProfileInfo.ProfileInfo))
 
   return (
-    <NavItem tag={Dropdown} caret toggle={toggleUserActions}>
+    <Dropdown open={visible} caret toggle={toggleUserActions}>
       <DropdownToggle caret tag={NavLink} className="text-nowrap px-3">
         <Styles>
           <img
@@ -45,7 +45,7 @@ let UserActions = (props) => {
 
         <span className="d-none d-md-inline-block">{props.login}</span>
       </DropdownToggle>
-      <Collapse tag={DropdownMenu} right small open={visible}>
+      <Collapse tag={DropdownMenu} right small>
         <Link to='/user-profile-lite' className={'text-decoration-none'}>
           <DropdownItem>
             <i className="material-icons">&#xE7FD;</i>
@@ -65,7 +65,7 @@ let UserActions = (props) => {
 
 
       </Collapse>
-    </NavItem>
+    </Dropdown>
 
   );
 

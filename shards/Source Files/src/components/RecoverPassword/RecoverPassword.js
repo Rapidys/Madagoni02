@@ -41,6 +41,8 @@ const RecoverPassword = () => {
             open={isSendedPassword}
             onClose={onClose}
             maxWidth={'sm'}
+            title={'შეტყობინება'}
+
           >
             შეამოწმეთ ელ-ფოსტა
           </MyModal>

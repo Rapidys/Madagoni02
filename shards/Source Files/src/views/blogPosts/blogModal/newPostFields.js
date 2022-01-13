@@ -15,6 +15,14 @@ let Styles = styled.div`
     overflow: hidden;
     overflow-y: scroll;
   }
+
+  .css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input {
+    height: auto;
+    padding: 0.4375rem 0.75rem;
+
+  }
+
+
 `
 
 const NewPostFields = ({
@@ -44,11 +52,35 @@ const NewPostFields = ({
 
 
       <FormGroup>
-        <FormInput
-          placeholder="სათაური"
-          type={'text'}
-          value={title}
-          onChange={onTitleChange}
+        <TextField id="outlined-basic"
+                   label={'სათაური'}
+                   variant="outlined"
+                   value={title}
+                   onChange={onTitleChange}
+                   size="small"
+                   sx={{width: '100%'}}
+
+
+        />
+
+      </FormGroup>
+      <FormGroup>
+
+        <TextField
+          id="date"
+          label={'მდე'}
+          type="date"
+          inputformat="MM/dd/yyyy"
+          value={ValidUntil}
+          onChange={(newValue) => {
+            setValidUntil(newValue.target.value);
+          }}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          sx={{width: '100%'}}
+          size="small"
+
         />
       </FormGroup>
       <FormGroup>
@@ -83,25 +115,6 @@ const NewPostFields = ({
       </FormGroup>
 
 
-      <FormGroup>
-
-        <TextField
-          id="date"
-          label={'მდე'}
-          type="date"
-          inputformat="MM/dd/yyyy"
-          value={ValidUntil}
-          onChange={(newValue) => {
-            setValidUntil(newValue.target.value);
-          }}
-          InputLabelProps={{
-            shrink: true,
-          }}
-          sx={{width: '100%', color: 'red'}}
-          size="small"
-
-        />
-      </FormGroup>
     </Styles>
   );
 };

@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import {
-  NavItem,
   DropdownToggle,
   Collapse,
   DropdownMenu,
@@ -35,8 +34,6 @@ let Styles = styled.div`
 
 export default () => {
 
-  let [hovered, setHovered] = useState(false)
-
 
   const [visible, setVisible] = useState(false)
 
@@ -47,12 +44,12 @@ export default () => {
   return (
     <Styles className={"align-items-center"}>
 
-      <NavItem tag={Dropdown} caret toggle={dotesToggle}>
+      <Dropdown open={visible} toggle={dotesToggle}>
         <DropdownToggle className={"bg-light border-0"}>
           <i className="material-icons moreBtn">more_vert</i>
 
         </DropdownToggle>
-        <Collapse tag={DropdownMenu} left={"true"} small open={visible}>
+        <Collapse tag={DropdownMenu} left={"true"} small>
           <NavLink to="/MyCharts" className={"text-decoration-none"}>
             <DropdownItem className={"items"}>
               <i
@@ -60,13 +57,6 @@ export default () => {
               <span className={"ml-2"}>დიაგრამები</span>
             </DropdownItem>
           </NavLink>
-          {/*<NavLink to="/blog-overview" className={"text-decoration-none"}>*/}
-          {/*  <DropdownItem className={"items"}>*/}
-          {/*    <i*/}
-          {/*      className="material-icons cursor-pointer hov">assessment</i>*/}
-          {/*    <span className={"ml-2"}>დიაგრამები</span>*/}
-          {/*  </DropdownItem>*/}
-          {/*</NavLink>*/}
 
           <DropdownItem divider/>
           <NavLink to="/blog-posts" className={"text-decoration-none"}>
@@ -100,7 +90,7 @@ export default () => {
             </DropdownItem>
           </NavLink>
         </Collapse>
-      </NavItem>
+      </Dropdown>
 
     </Styles>
 

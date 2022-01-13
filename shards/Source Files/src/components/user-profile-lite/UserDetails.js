@@ -42,6 +42,7 @@ const UserDetails = ({ProfileInfo}) => {
     })
   }
 
+
   return (
     <Card small className="mb-4 pt-3">
       <CardHeader className="border-bottom text-center">
@@ -76,7 +77,8 @@ const UserDetails = ({ProfileInfo}) => {
           handleFileChange={handleFileChange}
           onClose={onClose}
           open={open}
-          classes = {'rounded-circle'}
+          classes={'rounded-circle'}
+          setImgSrc={setImgSrc}
 
         />
 

@@ -71,7 +71,7 @@ const SearchCard = () => {
 
     return (
       <Container>
-        <Card>
+        <Card className={'mt-2'}>
           <div className={'m-3'}>
             {isSmallResolution === false
               ? <>

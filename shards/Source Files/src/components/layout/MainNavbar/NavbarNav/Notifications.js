@@ -94,7 +94,7 @@ let Notifications = () => {
           })}
 
           <DropdownItem className="notification__all text-center">
-            View all Notifications
+            შეტყობინებები
           </DropdownItem>
         </Collapse>
       </NavItem>

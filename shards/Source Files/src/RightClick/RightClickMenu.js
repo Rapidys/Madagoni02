@@ -5,16 +5,17 @@ import styled from 'styled-components'
 
 let Styles = styled.div`
   .colorBtnRed {
-    background: #ccffcc;
+    background:#ff9999;
     color: black;
   }
 
   .colorBtnYellow {
-    background: #fff2cc;
+    background: #ffe699;
   }
 
   .colorBtnGreen {
-    background: #ffcccc;
+    background:  #99ff99;
+
   }
 `
 
@@ -88,7 +89,7 @@ const RightClickMenu = ({x, y, showMenu, setShowMenu}) => {
       <div style={style()}>
         <div style={styles.div}
              className={"align-items-center colorBtnGreen"}
-             onClick={changeToRed}
+             onClick={changeToGreen}
         >
         </div>
         <div style={styles.div} className={"colorBtnYellow"}
@@ -96,7 +97,7 @@ const RightClickMenu = ({x, y, showMenu, setShowMenu}) => {
         >
         </div>
         <div style={styles.div} className={"colorBtnRed"}
-             onClick={changeToGreen}
+             onClick={changeToRed}
         >
 
         </div>

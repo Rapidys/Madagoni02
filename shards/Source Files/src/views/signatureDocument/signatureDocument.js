@@ -55,7 +55,7 @@ const SignatureDocuments = () => {
 
   return (
     <DocumentPage
-      pageTitle={'დასადასტურებელი დოკუმენტები'}
+      pageTitle={'ხელმოსაწერი დოკუმენტები'}
       pageName='/signatureDocument'
       Documents={visirable}
       totalCount={totalCount}

@@ -17,6 +17,10 @@ let Styles = styled.div`
   .ql-video {
     overflow-y: hidden;
   }
+
+  .card-post__image{
+    height: 300px;
+  }
 `
 
 const PostModal = ({postModal, handlePostModal, postInfo}) => {
@@ -24,8 +28,7 @@ const PostModal = ({postModal, handlePostModal, postInfo}) => {
     <MyModal
       open={postModal}
       onClose={handlePostModal}
-      maxWidth={'sm'}
-      title={'სრული პოსტი'}
+      maxWidth={'md'}
 
     >
       <Col className="mb-4"
@@ -43,17 +46,18 @@ const PostModal = ({postModal, handlePostModal, postInfo}) => {
         </div>
 
 
-        <Card>
-          <div
-            className="card-post__image"
-            style={{backgroundImage: `url(${postInfo.stringPhoto ? postInfo.stringPhoto : defaultPostImg})`}}
-          >
+        <Card >
+          <CardBody>
+            <div
+              // style={{backgroundImage: `url(${postInfo.stringPhoto ? postInfo.stringPhoto : defaultPostImg})`}}
+            >
+              <img src={postInfo.stringPhoto ? postInfo.stringPhoto : defaultPostImg} alt="postImg"
+             className={'w-100'}
 
-            <div className="card-post__author d-flex">
-
-
+              />
             </div>
-          </div>
+          </CardBody>
+
           <CardBody style={{minHeight: '200px'}}>
             <h5 className="card-title">
               <a href="#" className="text-fiord-blue">

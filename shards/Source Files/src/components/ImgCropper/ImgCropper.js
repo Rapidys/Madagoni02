@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ReactCrop from "react-image-crop";
 import {Button} from "shards-react";
 import MyModal from "../MyModal/MyModal";
 import styled from "styled-components";
+import {uploadFile} from "../../Reducers/addNewPost/UploadFileReducer";
 
 let Styles = styled.div`
   .wrapper {
@@ -35,6 +36,10 @@ let Styles = styled.div`
     box-shadow: 5px 5px 5px #888888;
   }
 
+  .inputfile + label:hover {
+    background-color: #00b8d8;
+  }
+
   .inputfile:focus + label,
   .inputfile + label {
     cursor: pointer; /* "hand" cursor */
@@ -43,6 +48,7 @@ let Styles = styled.div`
   .choose {
     margin: 0 auto;
   }
+
 
   .uploadPlace {
     min-height: 200px;
@@ -54,6 +60,22 @@ let Styles = styled.div`
   .icon {
     font-size: 30px;
     color: grey;
+  }
+
+  .UploadImgSection {
+    border: 1px dashed black;
+    padding: 20px;
+  }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(0);
+
+    }
+    to {
+      transform: rotate(360deg);
+
+    }
   }
 `
 
@@ -69,7 +91,8 @@ const ImgCropper = ({
                       handleFileChange,
                       onClose,
                       open,
-                      classes
+                      classes,
+                      setImgSrc
                     }) => {
 
 
@@ -96,6 +119,23 @@ const ImgCropper = ({
     setResult(base64Img)
   }
 
+  let dragStartHandler = (e) => {
+    e.preventDefault()
+    setDrag(true)
+  }
+
+  let onDropHandler = (e) => {
+    e.preventDefault()
+    let files = [...e.dataTransfer.files]
+    setImgSrc(URL.createObjectURL(files[0]))
+    setDrag(false)
+  }
+  let dragLeaveHandler = (e) => {
+    e.preventDefault()
+    setDrag(false)
+  }
+  let [drag, setDrag] = useState(false)
+
   return (
     <MyModal
       open={open}
@@ -105,7 +145,13 @@ const ImgCropper = ({
       title={'სურათის ატვირთვა'}
     >
       <Styles>
-        <div className={'wrapper'}>
+        <div className={`wrapper ${drag === true && 'UploadImgSection'}`}
+             onDragStart={e => dragStartHandler(e)}
+             onDragLeave={e => dragLeaveHandler(e)}
+             onDragOver={e => dragStartHandler(e)}
+             onDrop={e => onDropHandler(e)}
+
+        >
           <div className={'uploadPlace'}>
             {imgSrc !== null
               ?
@@ -121,7 +167,7 @@ const ImgCropper = ({
               : <>
                 <i className="fas fa-cloud-upload-alt icon"/>
                 <div>
-                  <h6>არჩეული სურათი</h6>
+                  <h6>ჩააგდეთ სურათი</h6>
                 </div>
               </>
             }
@@ -134,7 +180,6 @@ const ImgCropper = ({
 
               </div>
             }
-
 
           </div>
 
@@ -162,15 +207,18 @@ const ImgCropper = ({
           </div>
 
         </div>
-        <hr></hr>
+        <hr/>
         <div className={'d-flex justify-content-end'}>
-          <Button
-            onClick={getCroppedImg}
-            style={{cursor: 'pointer'}}
+          {imgSrc
+            && <Button
+              onClick={getCroppedImg}
+              style={{cursor: 'pointer'}}
 
-          >
-            მოჭრა
-          </Button>
+            >
+              მოჭრა
+            </Button>
+          }
+
           <Button className={'ml-3'}
                   onClick={uploadImg}
                   style={{cursor: 'pointer'}}

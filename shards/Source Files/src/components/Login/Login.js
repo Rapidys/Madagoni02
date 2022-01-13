@@ -27,7 +27,7 @@ const Login = () => {
 
   let validationSchema = yup.object().shape({
     email: yup.string().email('შეიყვანეთ ელ-ფოსტა').required('შეიყვანეთ ელ-ფოსტა'),
-    password: yup.string().typeError('უნდა იყოს ციფრები').required('შეიყვანეთ პაროლი')
+    password: yup.string().typeError('').required('შეიყვანეთ პაროლი')
   })
 
 
@@ -45,9 +45,12 @@ const Login = () => {
             open={isChangedPass}
             onClose={onClose}
             maxWidth={'sm'}
-            title={''}
+            title={'შეტყობინება'}
           >
-            წარმატებით შეიცვალა !!
+            <i className="fas fa-check-circle"
+               style={{color: 'green', fontSize: '30px'}}/>
+            <span
+              className={"ml-2"}>წარმატებით შეიცვალა</span>
           </MyModal>
           <CardBody>
             <Formik
@@ -83,7 +86,7 @@ const Login = () => {
                                onBlur={handleBlur}
                     />
                   </FormGroup>
-                  {errors.email &&
+                  {errors.email && touched.email &&
                     <span className={'text-danger'}>{errors.email}</span>}
                   <FormGroup>
                     <label htmlFor="#password">პაროლი</label>
@@ -95,7 +98,7 @@ const Login = () => {
                                onChange={handleChange}
                                onBlur={handleBlur}
                     />
-                    {errors.password &&
+                    {errors.password && touched.password &&
                       <span className={'text-danger'}>{errors.password}</span>}
                   </FormGroup>
                   {

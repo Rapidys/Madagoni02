@@ -72,7 +72,7 @@ const SentDocuments = () => {
                         close={close}
       />
       : <DocumentPage
-        pageTitle={'გაგზავნილები'}
+        pageTitle={'გაგზავნილი დოკუმენტები'}
         pageName='/sentDocument'
         Documents={sentDocs}
         totalCount={totalCount}

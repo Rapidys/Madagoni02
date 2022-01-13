@@ -55,7 +55,7 @@ const IncomingDocuments = () => {
 
 
     <DocumentPage
-      pageTitle={'მიღებულები'}
+      pageTitle={'მიღებული დოკუმენტები'}
       pageName='/incomingDocument'
       Documents={incomings}
       totalCount={totalCount}

@@ -18,7 +18,8 @@ let Styles = styled.div`
 
 const Accordeons = (props) => {
   let chosen = useSelector(state => state.chosenDocument.currentMessagePage)
-
+  let history = useHistory()
+  let url = history.location.pathname
 
   let [mainInfo, setMainInfo] = useState(true)
   let [attachedFiles, setAttachedFiles] = useState(false)
@@ -40,7 +41,7 @@ const Accordeons = (props) => {
 
               <div className={'p-2'}>
                 <div className={"mt-3 alignIt"}>
-                  {new Intl.DateTimeFormat("en-US", {
+                  {url !== '/add-new-post' && new Intl.DateTimeFormat("en-US", {
                     day: "2-digit",
                     month: "numeric",
                     year: "numeric",

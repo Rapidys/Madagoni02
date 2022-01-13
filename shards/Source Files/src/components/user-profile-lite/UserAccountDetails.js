@@ -103,6 +103,7 @@ const UserAccountDetails = ({ProfileInfo}) => {
                 onClose={onClose}
                 open={open}
                 classes = {''}
+                setImgSrc = {setImgSrc}
 
               />
               <Row>
@@ -196,7 +197,7 @@ const UserAccountDetails = ({ProfileInfo}) => {
 
                         <Button
                           style={{cursor: 'pointer'}}
-                          className={'w-100'}
+                          className={'w-100 mt-2'}
                           onClick={openImgCropper}
                         >
                           ხელმოწერის არჩევა
