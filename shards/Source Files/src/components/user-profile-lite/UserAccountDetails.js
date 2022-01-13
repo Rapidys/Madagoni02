@@ -171,7 +171,7 @@ const UserAccountDetails = ({ProfileInfo}) => {
                             height: '150px', resize: 'none', border: 'none'
 
                           }}
-                          placeholder='დეფაულტ ტექსტი'
+                          placeholder='ხელმოწერილი ტექსტი'
                           value={signatureDefaultValue}
                           onChange={(e) => onSignatureChange(e)}
                         />

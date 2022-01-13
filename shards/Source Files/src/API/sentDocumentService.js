@@ -8,7 +8,6 @@ import {
   chosenIsLoadingAC
 } from "../Reducers/chosenDocumentReducer";
 import {setIsAuth} from "../Reducers/AuthReducer";
-import {filterLoadingAC} from "../Reducers/filterReducer";
 
 
 export let getMessagePage = (params) => {

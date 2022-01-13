@@ -14,7 +14,7 @@ let setExecutorId = 'SET-EXECUTOR-ID'
 let setAuthorId = 'SET-AUTHOR-ID'
 let setFilteredDoc = 'SET-FILTERED-DOC'
 let filterLoading = 'SET-FILTERED-LOADING'
-let isFiltered = 'SET-IS-FILTERED'
+
 let filterReducer = (state = initialState, action) => {
   switch (action.type) {
     case setDivisionId :

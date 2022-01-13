@@ -17,7 +17,6 @@ import {
 const NewPostSection = () => {
   let dispatch = useDispatch()
   const [documentTitle, setDocumentTitle] = useState('')
-
   const [documentBody, setDocumentBody] = useState('')
 
   useEffect(() => {
@@ -28,8 +27,10 @@ const NewPostSection = () => {
     dispatch(approveBtnAC(false))
     dispatch(setCancelAC(false))
   }, [])
+
   let [chosenDestination, setChosenDestination] = useState([])
   let [chosenVisitor, setChosenVisitor] = useState([])
+
   return (
 
     <AddNewPost

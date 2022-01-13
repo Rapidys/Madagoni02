@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {CardBody} from "shards-react";
+import React, {useState} from 'react';
+import {CardBody, Container} from "shards-react";
 import {useHistory} from "react-router-dom/cjs/react-router-dom";
 import RightClickMenu from "../../RightClick/RightClickMenu";
 import {uniqueIdAC} from "../../Reducers/chosenDocumentReducer";
@@ -16,11 +16,11 @@ let Styles = styled.div`
   }
 
   .fire {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
   }
 
-  @media screen and (max-width: 921px) {
+  @media screen and (max-width: 980px) {
     .resTtd {
       font-size: 12px;
       padding: 0.75rem;
@@ -33,7 +33,7 @@ let Styles = styled.div`
   }
   @media screen and (max-width: 840px) {
     .resTtd {
-      font-size: 14px;
+      font-size: 12px;
       padding: 0.35rem;
     }
 
@@ -42,10 +42,20 @@ let Styles = styled.div`
       height: 30px;
     }
   }
+  @media screen and (max-width: 769px) {
+    .resTtd {
+      font-size: 12px;
+      padding: 0.25rem;
+    }
 
+    .fire {
+      width: 25px;
+      height: 25px;
+    }
+  }
   @media screen and (max-width: 540px) {
     .resTtd {
-      font-size: 14px;
+      font-size: 12px;
     }
 
     thead {
@@ -64,9 +74,8 @@ let Styles = styled.div`
     }
 
     .resTtd {
-      font-size: 9px;
+      font-size: 10px;
     }
-
   }
 
 
@@ -99,7 +108,6 @@ let Styles = styled.div`
 const DocumentBody = (props) => {
 
   let router = useHistory()
-  let isLoading = useSelector(state => state.filterR.filterLoading)
   let loading = useSelector(state => state.GetDoc.isLoading)
 
   const [x, setX] = useState(0)
@@ -119,88 +127,97 @@ const DocumentBody = (props) => {
   }
 
 
-
-  if (props.Documents.length === 0) {
-    return <h4 style={{textAlign: 'center'}} className={'mt-4'}>დოკუმენტები ვერ
-      მოიძებნა...</h4>
-  }
-
-
   return (
     loading
       ? <Preloader/>
       : <Styles>
-        <CardBody className="p-4 pb-3">
-          <RightClickMenu showMenu={showMenu} x={x} y={y} setShowMenu = {setShowMenu}/>
+        <Container>
+          <CardBody className="p-0">
+            <RightClickMenu showMenu={showMenu} x={x} y={y}
+                            setShowMenu={setShowMenu}/>
 
-          <table className="table mb-0 p-5">
-            <thead className="thead bg-light">
-            <tr>
-              <th scope="col" className="resTtd border-0">
-                დოკ. <br/> ნომერი
-              </th>
-              <th scope="col" className="resTtd border-0">
-                დოკუმენტის თარიღი
-              </th>
-              <th scope="col" className="resTtd border-0">
-                დოკუმენტის თემა
-              </th>
-              <th scope="col" className="resTtd border-0">
-                ავტორი
-              </th>
-              <th scope="col" className="resTtd border-0">
-              </th>
-            </tr>
-            </thead>
-            <tbody>
+            <table className="table mb-0 p-5">
 
-            {props.Documents.map((Mess, index) => {
-              return (
-                <tr
-                  className={Mess.isNew === true ? 'font-weight-bold  messWrapper' : 'messWrapper'}
-                  onClick={() => {
-                    router.push(`${props.pageName}/${Mess.documentId}`)
-                    setShowMenu(false)
-                    dispatch(setCounter())
-                  }}
-                  key={index}
-                  onContextMenu={(e) => contextMenu(e, Mess.documentId)}
-                  id={Mess.documentId}
-                  style={{
-                    backgroundColor: Mess.documentColorId === 1 && '#ffcccc' ||
-                      Mess.documentColorId === 2 && '#fff2cc' || Mess.documentColorId === 3 && '#ccffcc'
-                  }}
-                >
-                  <td className={"resTtd"}>{Mess.documentId}</td>
-                  <td className={"resTtd"}>
-                    {new Intl.DateTimeFormat("en-US", {
-                      month: "numeric",
-                      day: "2-digit",
-                      year: "numeric",
+              <thead className="thead bg-light">
+              <tr>
+                <th scope="col" className="resTtd border-0">
+                  დოკ. <br/> ნომერი
+                </th>
+                <th scope="col" className="resTtd border-0">
+                  თარიღი
+                </th>
+                <th scope="col" className="resTtd border-0">
+                  სათაური
+                </th>
+                <th scope="col" className="resTtd border-0">
+                  ტიპი
+                </th>
+                <th scope="col" className="resTtd border-0">
+                  ავტორი
+                </th>
+                <th scope="col" className="resTtd border-0"></th>
+              </tr>
+              </thead>
+              <tbody>
 
-                    }).format(new Date(Mess.documentDate))}
-                  </td>
-                  <td className={"resTtd"}>{Mess.documentTitle}</td>
-                  <td className={"resTtd"}>{Mess.documentType} </td>
-                  <td className={"resTtd"}>
-                    {
-                      Mess.overdue !== 0 && <img src={fire} alt="fireAnimation"
-                                                 className={'fire'}
-                      />
-                    }
-                  </td>
+              {props.Documents.map((Mess, index) => {
+                return (
+                  <tr
+                    className={Mess.isNew === true ? 'font-weight-bold  messWrapper' : 'messWrapper'}
+                    onClick={() => {
+                      router.push(`${props.pageName}/${Mess.documentId}`)
+                      setShowMenu(false)
+                      dispatch(setCounter())
+                    }}
+                    key={index}
+                    onContextMenu={(e) => contextMenu(e, Mess.documentId)}
+                    id={Mess.documentId}
+                    style={{
+                      backgroundColor: Mess.documentColorId === 1 && '#ffcccc' ||
+                        Mess.documentColorId === 2 && '#fff2cc' || Mess.documentColorId === 3 && '#ccffcc'
+                    }}
+                  >
+                    <td className={"resTtd"}>{Mess.documentId}</td>
+                    <td className={"resTtd"}>
+                      {new Intl.DateTimeFormat("en-US", {
+                        month: "numeric",
+                        day: "2-digit",
+                        year: "numeric",
 
-                </tr>
+                      }).format(new Date(Mess.documentDate))}
+                    </td>
+                    <td className={"resTtd"}>{Mess.documentTitle}</td>
+                    <td className={"resTtd"}>{Mess.documentType}</td>
+                    <td className={"resTtd"}>{Mess.authorName}</td>
+
+                    <td className={"resTtd"}>
+                      {
+                        Mess.overdue !== 0 && <img src={fire} alt="fireAnimation"
+                                                   className={'fire'}
+                        />
+                      }
+                    </td>
 
 
-              )
-            })}
+                  </tr>
 
-            </tbody>
 
-          </table>
+                )
+              })}
 
-        </CardBody>
+              </tbody>
+
+            </table>
+
+
+            {props.Documents.length === 0
+              &&
+              <h5 style={{textAlign: 'center'}} className={'mt-4'}>
+                დოკუმენტები ვერ მოიძებნა... </h5>
+            }
+          </CardBody>
+        </Container>
+
       </Styles>
 
   );

@@ -1,7 +1,7 @@
 import React from 'react';
-import {CardHeader, Col, Container, Row} from "shards-react";
+import {CardBody, CardHeader, Col, Container, Row} from "shards-react";
 import {Card} from "@material-ui/core";
-import MakeFiles from "./makeFiles";
+import SpreadSheet from "./spreadSheet";
 
 const Files = () => {
 
@@ -14,7 +14,9 @@ const Files = () => {
             <CardHeader>
               ფაილები
             </CardHeader>
-            <MakeFiles/>
+            <CardBody >
+              <SpreadSheet />
+            </CardBody>
 
 
           </Card>

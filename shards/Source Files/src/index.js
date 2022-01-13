@@ -6,11 +6,14 @@ import store from "./Redux/Redux";
 import {Provider} from "react-redux";
 import {BrowserRouter} from "react-router-dom";
 
+console.log = console.warn = console.error = () => {
+};
+
 ReactDOM.render(
   <React.Fragment>
     <BrowserRouter>
       <Provider store={store}>
-        <App/>,
+        <App/>
       </Provider>
     </BrowserRouter>
   </React.Fragment>,

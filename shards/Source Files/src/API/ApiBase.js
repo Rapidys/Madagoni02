@@ -1,5 +1,4 @@
 import axios from 'axios'
-import {Redirect} from "react-router-dom";
 
 
 let baseUrl = 'https://cyberdocapiservice20211103000756.azurewebsites.net/api'

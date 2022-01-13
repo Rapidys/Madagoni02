@@ -66,7 +66,7 @@ let BlogPosts = () => {
       RecordsPerPage: rowsPerPage,
       PageNumber: currentPage
     }))
-  }, [currentPage,rowsPerPage])
+  }, [currentPage, rowsPerPage])
 
 
   let handlePostModal = (post) => {
@@ -114,61 +114,71 @@ let BlogPosts = () => {
             handlePostModal={handlePostModal}
             postInfo={postInfo}
           />
-          {BlogPosts && BlogPosts.map((post, idx) => (
-            <Col lg="3" md="6" sm="12" className="mb-4" key={idx}
-                 style={{cursor: 'pointer'}}
-                 onClick={() => handlePostModal(post)}
-            >
-              <Card small className="card-post card-post--1">
-                <div
-                  className="card-post__image"
-                  style={{backgroundImage: `url(${post.stringPhoto ? post.stringPhoto : defaultPostImg})`}}
-                >
+          {BlogPosts && BlogPosts.map((post, idx) => {
+            let str = post.body
+            let start = str.indexOf('<p>')
+            let end = str.indexOf('</p>')
+            let bodyText = str.substring(start, end)
 
-                  <div className="card-post__author d-flex">
-                    <Tooltip
-                      title={post.author}
-                    >
-                      <a
-                        href="#"
-                        className="card-post__author-avatar card-post__author-avatar--small"
-                        style={{backgroundImage: `url('${post.authorPhoto ? post.authorPhoto : defaultUser}')`}}
+            return (
+              <Col lg="3" md="6" sm="12" className="mb-4" key={idx}
+                   style={{cursor: 'pointer'}}
+                   onClick={() => handlePostModal(post)}
+              >
+                <Card small className="card-post card-post--1">
+                  <div
+                    className="card-post__image"
+                    style={{backgroundImage: `url(${post.stringPhoto ? post.stringPhoto : defaultPostImg})`}}
+                  >
+
+                    <div className="card-post__author d-flex">
+                      <Tooltip
+                        title={post.author}
+                      >
+                        <a
+                          href="#"
+                          className="card-post__author-avatar card-post__author-avatar--small"
+                          style={{backgroundImage: `url('${post.authorPhoto ? post.authorPhoto : defaultUser}')`}}
+                        />
+
+                      </Tooltip>
+
+                    </div>
+                  </div>
+                  <CardBody style={{minHeight: '200px'}}>
+                    <h5 className="card-title">
+                      <a href="#" className="text-fiord-blue">
+                        {post.title}
+                      </a>
+                    </h5>
+                    <div>
+                      {
+                      }
+                      <ReactQuill
+                        value={bodyText.length > 120 ? bodyText.slice(0, 120) + '...' : bodyText}
+                        readOnly={true}
+                        modules={Editor.mods}
+                        className={'border-none'}
+
                       />
+                    </div>
 
-                    </Tooltip>
-
-                  </div>
-                </div>
-                <CardBody style={{minHeight: '200px'}}>
-                  <h5 className="card-title">
-                    <a href="#" className="text-fiord-blue">
-                      {post.title}
-                    </a>
-                  </h5>
-                  <div>
-                    <ReactQuill
-                      value={post.body.length > 120 ? post.body.slice(0, 120) + '...' : post.body}
-                      readOnly={true}
-                      modules={Editor.mods}
-                      className={'border-none'}
-
-                    />
-                  </div>
-
-                  <div className={'mt-4'}>
+                    <div className={'mt-4'}>
                                     <span
                                       className="text-muted ">{post.datePublished.slice(0, 10)}</span>
-                  </div>
+                    </div>
 
-                </CardBody>
-              </Card>
-            </Col>
-          ))}
+                  </CardBody>
+                </Card>
+              </Col>
+            )
+          })
+          }
         </Row>
         <Pagination
           totalCount={totalCount}
           rowsPerPage={rowsPerPage}
-          currentPage={currentPage-1}
+          currentPage={currentPage - 1}
         />
       </Container>
     </Styles>

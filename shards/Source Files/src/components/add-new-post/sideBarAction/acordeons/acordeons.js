@@ -27,8 +27,6 @@ const Accordeons = (props) => {
     setAttachedFiles((c) => !c);
 
   }
-  let history = useHistory()
-  let url = history.location.pathname
 
   return (
     <Styles>
@@ -42,13 +40,12 @@ const Accordeons = (props) => {
 
               <div className={'p-2'}>
                 <div className={"mt-3 alignIt"}>
-                  {props.Date && props.Date}
-                  {/*{new Intl.DateTimeFormat("en-US", {*/}
-                  {/*  month: "numeric",*/}
-                  {/*  day: "2-digit",*/}
-                  {/*  year: "numeric",*/}
+                  {new Intl.DateTimeFormat("en-US", {
+                    day: "2-digit",
+                    month: "numeric",
+                    year: "numeric",
+                  }).format(new Date(props.Date === undefined ? null : props.Date))}
 
-                  {/*}).format(new Date())}*/}
                 </div>
                 <div
                   className={"mt-3 alignIt"}>{props.docId && props.docId}</div>

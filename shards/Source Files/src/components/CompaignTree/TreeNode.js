@@ -61,20 +61,16 @@ const TreeNode = (props) => {
     setPositionReferenceId(referenceId)
   }
 
+  const setChosen = () => {
+    props.handleSetNodeValue && props.handleSetNodeValue({
+        firstName: props.node.firstName,
+        lastName: props.node.lastName,
+        userId: props.node.userId,
+        departmentId: props.node.departmentId,
+      }
+    )
+  }
 
-  const setChosen = useCallback(
-    () => {
-      props.handleSetNodeValue && props.handleSetNodeValue({
-          firstName: props.node.firstName,
-          lastName: props.node.lastName,
-          userId: props.node.userId,
-          departmentId: props.node.departmentId,
-        }
-      )
-    },
-
-    [],
-  );
 
   const setDepartment = () => {
     props.handleSetDepValue && props.handleSetDepValue({

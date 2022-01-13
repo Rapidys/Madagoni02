@@ -20,7 +20,8 @@ let ProfileInfoReducer = (state = initialState, action) => {
     case setSignatureDefaultValue :
       return {
         ...state,
-        signatureDefaultValue: `პატივისცემით, ${action.department}
+        signatureDefaultValue: `პატივისცემით,
+${action.department}
 ${action.position}
 ${action.firstName} ${action.lastName}`
       }

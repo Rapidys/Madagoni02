@@ -26,19 +26,17 @@ const AddNewPost = ({
                     }) => {
 
 
-
   return (
     <Container fluid className="main-content-container px-4 pb-4">
       {/* Page Header */}
-      <Row noGutters className="page-header">
+      <Row noGutters className="page-header mt-2 mb-2">
         <PageTitle sm="12" title={title}
                    className="text-sm-left p-1"/>
-        {/*subtitle="Blog Posts"*/}
       </Row>
       <Row>
 
         {/* Editor */}
-        <Col lg="9" md="12" >
+        <Col lg="9" md="12">
           <Editor
             setDocumentTitle={setDocumentTitle}
             documentTitle={documentTitle}

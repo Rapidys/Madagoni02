@@ -34,7 +34,6 @@ import GoBack from "../../../views/chosenDocument/MessagesPage/goBack";
 import styled from "styled-components";
 import ReactEditor from "../../ReactQuill/ReactEditor";
 import defaultImg from '../../../assets/signature.jpg'
-import {setSignatureDefaultValueAC} from "../../../Reducers/ProfileInfoReducer";
 
 let Styles = styled.div`
   .signatureInput {
@@ -85,7 +84,6 @@ const Editor = (props) => {
   let [resendAddresant, setResendAddresant] = useState(false)
   let [successResended, setSuccessResended] = useState(false)
   let error = useSelector((state => state.addNewPost.error))
-  let MotionStatus = useSelector((state => state.MotionStatus.motionStatus))
 
   let dispatch = useDispatch()
 

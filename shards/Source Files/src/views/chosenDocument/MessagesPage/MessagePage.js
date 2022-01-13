@@ -43,15 +43,11 @@ const ChosenDocument = () => {
   }, [pageId])
 
 
-
-
   const [documentTitle, setDocumentTitle] = useState('')
   const [documentBody, setDocumentBody] = useState('')
   const [chosenDestination, setchosenDestination] = useState([])
   const [chosenVisitor, setchosenVisitor] = useState([])
 
-  // const defaultText = `${signatureDefaultValue}
-  //   <img src=${defaultImg} alt="signature"/>`
 
   useMemo(() => {
     setchosenDestination([])
@@ -61,7 +57,6 @@ const ChosenDocument = () => {
   let [documentType, setDocumentType] = useState()
   useMemo(() => {
     setDocumentTitle(chosen.documentTitle || '')
-    // setDocumentBody(chosen.documentBody + `<div>${defaultText}</div>`)
     setDocumentBody(chosen.documentBody || '')
     setDocumentType(chosen.documentType)
     MotionTypeFiltering(chosen, chosenDestination, chosenVisitor)
@@ -89,7 +84,7 @@ const ChosenDocument = () => {
             documentType={documentType}
             draftBtn={MotionStatus === 0 ? 'lg-ml-3 xs-ml-0 border - 1 float-right' : 'd-none'}
             docId={`დოკუმენტის ნომერი :${chosen.documentId} `}
-            Date={`${chosen.documentDate}`}
+            Date={chosen.documentDate}
             isDisabledVisitor={false}
             isDisabledDestinate={false}
             readOnly={false}

@@ -41,15 +41,15 @@ const ReferencesPage = () => {
   let [addTypeModalOpen, setAddTypeModalOpen] = useState(false)
   let [editModal, setEditModal] = useState(false)
   let [referenceTypeUrl, setReferenceTypeUrl] = useState('')
-  let [isLoadingTypes,setIsLoadingTypes] = useState(false)
-  let [newOption, setNewOption] = useState([])
+  let [isLoadingTypes, setIsLoadingTypes] = useState(false)
+
   let onChangeReference = (e) => {
     setReferenceValue(e.target.value)
   }
   let [options, setOptions] = useState([])
   useEffect(() => {
     setIsLoadingTypes(true)
-    if(!options.length){
+    if (!options.length) {
       setIsLoadingTypes(false)
     }
     if (referenceValue === 'დასრულების ტიპები') {
@@ -91,9 +91,7 @@ const ReferencesPage = () => {
   let closeAddTypeModal = () => {
     setAddTypeModalOpen(v => !v)
   }
-  let saveChanges = () => {
-    dispatch(setReference(referenceTypeUrl, newOption))
-  }
+
   return (
     <Styles>
       <Card className={'wrapp p-3'}>
@@ -127,7 +125,7 @@ const ReferencesPage = () => {
             options={options}
             setEditModal={setEditModal}
             edit={edit}
-            isLoadingTypes = {isLoadingTypes}
+            isLoadingTypes={isLoadingTypes}
 
           />
 
@@ -136,7 +134,7 @@ const ReferencesPage = () => {
             editModal={editModal}
             setEditModal={setEditModal}
             items={items}
-            referenceTypeUrl = {referenceTypeUrl}
+            referenceTypeUrl={referenceTypeUrl}
           />
         </Col>
       </Card>
