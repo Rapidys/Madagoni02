@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Card} from "shards-react";
-import {getFilteredDocs, setFilteredDocAC,} from "../../Reducers/filterReducer";
+import {setFilteredDocAC,} from "../../Reducers/filterReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {Container, } from "@mui/material";
 import SearchGrid from "./searchForm/searchGrid";

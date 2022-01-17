@@ -18,7 +18,7 @@ const RegisterModalNew = ({
                             forAppointment,
                             setAppointmentInformation,
                             userChanges,
-
+                            onPositionChange
                           }) => {
   let dispatch = useDispatch()
 
@@ -34,22 +34,18 @@ const RegisterModalNew = ({
     mobile: yup.string().required('შეიყვანეთ მობ.ნომერი'),
   })
 
-  let onPositionChange = (e) => {
-    setPositionValue(e.target.value)
-    getPositionReferenceId(e.target.selectedIndex)
-  }
 
   return (
     <div>
 
       <Formik
         initialValues={{
-          name: userInfoForAppoinment ? userInfoForAppoinment.firstName : '',
-          lastName: userInfoForAppoinment ? userInfoForAppoinment.lastName : '',
-          email: userInfoForAppoinment ? userInfoForAppoinment.email : '',
-          mobile: userInfoForAppoinment ? userInfoForAppoinment.phone : '',
-          position: userInfoForAppoinment ? userInfoForAppoinment.position : '',
-          positionid: userInfoForAppoinment ? userInfoForAppoinment.positionid : '',
+          name: userInfoForAppoinment.firstName ? userInfoForAppoinment.firstName : '',
+          lastName: userInfoForAppoinment.lastName ? userInfoForAppoinment.lastName : '',
+          email: userInfoForAppoinment.email  ? userInfoForAppoinment.email : '',
+          mobile: userInfoForAppoinment.phone ? userInfoForAppoinment.phone : '',
+          position: userInfoForAppoinment.position ? userInfoForAppoinment.position : '',
+          positionid: userInfoForAppoinment.positionid ? userInfoForAppoinment.positionid : '',
 
         }}
         validateOnBlur

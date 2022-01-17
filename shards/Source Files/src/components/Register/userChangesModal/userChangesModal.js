@@ -195,7 +195,7 @@ const UserChangesModal = ({
             PositionReferenceId={PositionReferenceId}
             userChanges={true}
             changeUserOptions={changeUserOptions}
-
+            onPositionChange = {onPositionChange}
           />
 
           <br/>

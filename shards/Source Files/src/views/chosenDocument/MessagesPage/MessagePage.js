@@ -9,21 +9,7 @@ import {setCounter} from "../../../Reducers/folderCountersReducer";
 import Preloader from "../../../Preloader/Preloader";
 import {useHistory} from "react-router-dom";
 import {btnFilter} from "./btnFilter";
-import defaultImg from '../../../assets/user.png'
-import {Quill} from "react-quill";
-import styled from 'styled-components'
 
-let Styles = styled.div`
-  .signatureWrapp {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .signatureWrapp img {
-    width: 40px
-  }
-
-`
 
 
 const ChosenDocument = () => {

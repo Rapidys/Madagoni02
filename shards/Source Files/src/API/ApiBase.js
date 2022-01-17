@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 
-let baseUrl = 'https://cyberdocapiservice20211103000756.azurewebsites.net/api'
+let baseUrl = 'https://cyberdocapiservice20220117224215.azurewebsites.net/api'
 
 
 const API = {

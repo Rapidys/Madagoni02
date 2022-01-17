@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import {Redirect, Route, Switch} from "react-router-dom";
 import {PrivacyRoutes, PublicRoutes} from "../routes";
-import withTracker from "../withTracker";
 import {connect, useDispatch} from "react-redux";
 import {LoadingAC, setIsAuth} from "../Reducers/AuthReducer";
 import Preloader from "../Preloader/Preloader";
@@ -41,7 +40,7 @@ const AppRouter = (props) => {
               key={index}
               path={route.path}
               exact={route.exact}
-              component={withTracker(props => {
+              component={(props => {
                 return (
                   <route.layout {...props}>
                     <route.component {...props} />

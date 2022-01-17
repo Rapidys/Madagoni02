@@ -39,12 +39,33 @@ let Styles = styled.div`
     top: 170px;
   }
 
+  @media (max-width: 576px) {
+    .forNewSign {
+      left: 33px;
+      top: 110px;
+    }
+
+    .forNewReceived {
+      left: 33px;
+      top: 158px;
+    }
+
+    .forSign {
+      left: 8px;
+      top: 110px;
+    }
+
+    .forReceived {
+      left: 8px;
+      top: 158px;
+    }
+  }
 
 
 `
 
 
-const Counter = ({item}) => {
+const Counter = () => {
   let dispatch = useDispatch()
   let Counter = useSelector((state => state.folderCounter.folderCount))
 

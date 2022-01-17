@@ -93,12 +93,12 @@ let Styles = styled.div`
   }
   @media screen and (max-width: 340px) {
     .resTtd {
-      font-size: 5px;
+      font-size: 6px;
     }
   }
   @media screen and (max-width: 310px) {
     .resTtd {
-      font-size: 4px;
+      font-size: 5px;
     }
   }
 
