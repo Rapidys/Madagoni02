@@ -34,18 +34,17 @@ const RegisterModalNew = ({
     mobile: yup.string().required('შეიყვანეთ მობ.ნომერი'),
   })
 
-
   return (
     <div>
 
       <Formik
         initialValues={{
-          name: userInfoForAppoinment.firstName ? userInfoForAppoinment.firstName : '',
-          lastName: userInfoForAppoinment.lastName ? userInfoForAppoinment.lastName : '',
-          email: userInfoForAppoinment.email  ? userInfoForAppoinment.email : '',
-          mobile: userInfoForAppoinment.phone ? userInfoForAppoinment.phone : '',
-          position: userInfoForAppoinment.position ? userInfoForAppoinment.position : '',
-          positionid: userInfoForAppoinment.positionid ? userInfoForAppoinment.positionid : '',
+          name: userInfoForAppoinment && userInfoForAppoinment.firstName ? userInfoForAppoinment.firstName : '',
+          lastName: userInfoForAppoinment && userInfoForAppoinment.lastName ? userInfoForAppoinment.lastName : '',
+          email: userInfoForAppoinment && userInfoForAppoinment.email ? userInfoForAppoinment.email : '',
+          mobile: userInfoForAppoinment && userInfoForAppoinment.phone ? userInfoForAppoinment.phone : '',
+          position: userInfoForAppoinment && userInfoForAppoinment.position ? userInfoForAppoinment.position : '',
+          positionid: userInfoForAppoinment && userInfoForAppoinment.positionid ? userInfoForAppoinment.positionid : '',
 
         }}
         validateOnBlur
@@ -137,13 +136,13 @@ const RegisterModalNew = ({
             {userChanges === false
               ? <Button className={'mt-3'}
                         onClick={handleSubmit}
-                        disabled={!isValid }
+                        disabled={!isValid}
               >
                 დამატება
               </Button>
               : <Button className={'mt-3 btn-warning'}
                         onClick={handleSubmit}
-                        disabled={!isValid }
+                        disabled={!isValid}
 
               >
                 შეცვლა

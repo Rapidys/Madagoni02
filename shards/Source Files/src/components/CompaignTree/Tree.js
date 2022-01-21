@@ -25,7 +25,6 @@ const Tree = (props) => {
                   appointmentInformation = {props.appointmentInformation}
                   PositionValue = {props.PositionValue}
                   PositionReferenceId = {props.PositionReferenceId}
-
         />
 
 

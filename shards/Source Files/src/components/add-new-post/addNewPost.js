@@ -27,7 +27,7 @@ const AddNewPost = ({
 
 
   return (
-    <Container fluid className="main-content-container px-4 pb-4">
+    <Container fluid className="main-content-container px-4 pb-4 mb-5">
       {/* Page Header */}
       <Row noGutters className="page-header mt-2 mb-2">
         <PageTitle sm="12" title={title}
@@ -45,6 +45,8 @@ const AddNewPost = ({
             draftBtn={draftBtn}
             readOnly={readOnly}
             titleReadOnly={titleReadOnly}
+            chosenDestination={chosenDestination}
+
           />
         </Col>
 

@@ -135,7 +135,7 @@ const AttachedFiles = (props) => {
              onDragLeave={e => dragLeaveHandler(e)}
              onDragOver={e => dragStartHandler(e)}
              onDrop={e => onDropHandler(e)}
-             style={{border: drag === true ? 'dashed' : 'solid'}}
+             style={{border: drag === true ? '1px dashed ' : '1px solid'}}
 
         >
 

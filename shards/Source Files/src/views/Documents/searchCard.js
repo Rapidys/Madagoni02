@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Card} from "shards-react";
+import {Button, Card, Container} from "shards-react";
 import {setFilteredDocAC,} from "../../Reducers/filterReducer";
 import {useDispatch, useSelector} from "react-redux";
-import {Container, } from "@mui/material";
 import SearchGrid from "./searchForm/searchGrid";
 import {useMediaQuery} from "@material-ui/core";
 import SearchAcordionOnSmallResolution from "./searchAcordionOnSmallResolution";
@@ -70,7 +69,7 @@ const SearchCard = () => {
     }
 
     return (
-      <Container>
+      <Container fluid = {true}>
         <Card className={'mt-2'}>
           <div className={'m-3'}>
             {isSmallResolution === false

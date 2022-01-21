@@ -1,10 +1,9 @@
 import React, {useEffect, useMemo, useState} from "react";
 import {
-  Button,
   Card,
-  CardBody, Col, Container,
+  CardBody,
   Form,
-  FormInput, FormTextarea, Row
+  FormInput,
 } from "shards-react";
 import "react-quill/dist/quill.snow.css";
 import "../../../assets/quill.css";
@@ -19,41 +18,19 @@ import {
   setRealoadDOCAC,
   setSignDocument
 } from "../../../Reducers/signDocumentReducer";
-import FinishButtonModal from "./BtnModals/FinishButtonModal";
-import SignDocumentModal from "./BtnModals/signDocumentModal";
 import SideBarDestinations
   from "../sideBarAction/sideBarModalInfo/sideBarDestinations";
 import {
   setIsUpdatedAC,
   updateDocument
 } from "../../../Reducers/updateDocumentReducer";
-import MyModal from "../../MyModal/MyModal";
 import {setAddBtnAC, setIsFinishedAC} from "../../../Reducers/getDocReducer";
 import API from "../../../API/ApiBase";
 import GoBack from "../../../views/chosenDocument/MessagesPage/goBack";
-import styled from "styled-components";
-import ReactEditor from "../../ReactQuill/ReactEditor";
-import defaultImg from '../../../assets/signature.jpg'
+import EditorInput from "./EditorInput/EditorInput";
+import EditorModals from "./BtnModals/EditorModals";
+import EditorButtons from "./editorButtons/EditorButtons";
 
-let Styles = styled.div`
-  .signatureInput {
-    border: 1px solid #e1e5eb;
-    overflow-wrap: break-word;
-    white-space: pre-wrap;
-    border-bottom-left-radius: 0.25rem;
-    border-bottom-right-radius: 0.25rem;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: auto 60px;
-    border-top: none;
-    outline: none;
-    height: auto;
-  }
-
-  textarea[readonly] {
-    background-color: transparent;
-  }
-`
 
 const Editor = (props) => {
 
@@ -208,83 +185,27 @@ const Editor = (props) => {
                      onChange={handleTitle}
 
           />
-          <Styles>
-            {
-              url !== '/add-new-post'
-                ? <>
-                  <ReactEditor
-                    readOnly={props.readOnly}
-                    className="add-new-post__editor mb-1 editorWrapp border-0"
-                    onChange={handleBody}
-                    value={props.documentBody || ''}
-
-                  />
-                </>
-                : <ReactEditor
-                  readOnly={props.readOnly}
-                  className="add-new-post__editor editorWrapp"
-                  onChange={handleBody}
-                  value={props.documentBody || ''}
-
-                />
 
 
-            }
-            {
-              url !== '/add-new-post' &&
-              <Container>
-                <Row>
-                  <Col md='8' className={'p-0'}>
-                    <FormTextarea
-                      style={{
-                        height: '100px',
-                        border: 'none',
-                        resize: 'none',
+          <EditorInput
+            documentBody={props.documentBody}
+            handleBody={handleBody}
+            readOnly={props.readOnly}
+            signatureDefault={signatureDefault}
+            setSignatureDefault={setSignatureDefault}
+          />
 
-                      }}
-                      className={'signatureInput'}
-                      value={signatureDefault || ''}
-                      onChange={(e) => setSignatureDefault(e.target.value)}
-                    />
-                  </Col>
-                  <Col md='4' className={'p-0'}>
-                    <FormTextarea
-                      style={{
-                        height: '100px',
-                        backgroundImage: `url(${defaultImg})`,
-                        border: 'none',
-                        resize: 'none',
-                      }}
-                      className={'signatureInput'}
-                      readOnly={true}
-                    />
-                  </Col>
+          <EditorModals
+            successResended={successResended}
+            onSuccessResend={onSuccessResend}
+            openSign={openSign}
+            onCloseSignature={onCloseSignature}
+            finishCategories={finishCategories}
+            finishModal={finishModal}
+            setFinishCategories={setFinishCategories}
+          />
 
 
-                </Row>
-              </Container>
-
-
-            }
-
-          </Styles>
-
-
-          <MyModal
-            open={successResended}
-            onClose={onSuccessResend}
-            maxWidth={'sm'}
-          >
-            <div className={'d-flex align-items-center'}>
-              <i className="fas fa-check-circle"
-
-                 style={{color: 'green', fontSize: '30px'}}/>
-              <span className={'ml-2'}>
-                          წარმატებით გადაიგზავნა
-            </span>
-            </div>
-
-          </MyModal>
         </Form>
         <div className={'mt-3'}>
           {
@@ -299,64 +220,29 @@ const Editor = (props) => {
             handleClose={resendDocModal}
             resendDocument={resendDocument}
           />
-          {url === '/add-new-post'
-            ? <Button
-              disabled={!Motions.MotionDest.length && true}
-              onClick={addNewPost}
-              className={getDoc.addBtn !== true ? 'd-none' : 'border - 1  float-right'}
-            >გაგზავნა</Button>
-            : <Button
-              onClick={resendDocModal}
-              className={getDoc.addBtn !== true ? 'd-none' : 'border - 1 float-right'}
-            >გადაგზავნა</Button>
-          }
 
-          {/*"ml-lg-2 ml-sm-0 border - 1"*/}
-          <Button
-            disabled={!Motions.MotionDest.length && true}
-            onClick={handleDraft}
-            className={props.draftBtn}
-          >დრაფტად შენახვა</Button>
+          <EditorButtons
+            addNewPost={addNewPost}
+            getDoc={getDoc}
+            resendDocModal={resendDocModal}
+            handleDraft={handleDraft}
+            setSignature={setSignature}
+            rejectDocument={rejectDocument}
+            finishModal={finishModal}
+            draftBtn={props.draftBtn}
+            chosenDestination={props.chosenDestination}
 
-          <Button
-            className={getDoc.approveBtn !== true ? 'd-none' : 'border - 1 float-right'}
-            onClick={setSignature}
-          >
-            ხელმოწერა
-          </Button>
-
-          <Button
-            className={getDoc.cancel !== true ? 'd-none' : 'border - 1 float-right'}
-            onClick={rejectDocument}
-          >გაუქმება</Button>
-
-          <SignDocumentModal
-            openSign={openSign}
-            closeSign={onCloseSignature}
           />
 
 
-          <Button
-            className={getDoc.finishDocument !== true ? 'd-none' : 'border - 1 float-right'}
-            onClick={finishModal}
-          >
-            დავასრულე
-          </Button>
-          <FinishButtonModal finishCategories={finishCategories}
-                             finishModal={finishModal}
-                             setFinishCategories={setFinishCategories}
-          />
-
-
-          {
-            error === true &&
-            <p className={'text-danger'}>
-              შეყვანილი მონაცემები არ არის საკმარისი
-            </p>
-          }
         </div>
 
-
+        {
+          error === true &&
+          <p className={'text-danger'}>
+            შეყვანილი მონაცემები არ არის საკმარისი
+          </p>
+        }
       </CardBody>
     </Card>
   )

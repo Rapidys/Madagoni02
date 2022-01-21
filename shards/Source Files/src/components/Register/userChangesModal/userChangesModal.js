@@ -109,30 +109,30 @@ const UserChangesModal = ({
                 onClick={delUser}
         >წაშლა</Button>
       </div>
-      {
-        userPosition === true &&
+      {/*{*/}
+      {/*  userPosition === true &&*/}
 
-        <Form>
-          <div className={'mt-2 mb-2'}>
-            <MySelect
-              defaultValue={'თანამდებობები'}
-              options={Positions}
-              onChange={onPositionChange}
-              value={PositionValue}
-              id={positionId}
-            />
-          </div>
+      {/*  <Form>*/}
+      {/*    <div className={'mt-2 mb-2'}>*/}
+      {/*      <MySelect*/}
+      {/*        defaultValue={'თანამდებობები'}*/}
+      {/*        options={Positions}*/}
+      {/*        onChange={onPositionChange}*/}
+      {/*        value={PositionValue}*/}
+      {/*        id={positionId}*/}
+      {/*      />*/}
+      {/*    </div>*/}
 
-          <Button
-            className={'bg-warning border-0'}
-            onClick={changePositionName}
+      {/*    <Button*/}
+      {/*      className={'bg-warning border-0'}*/}
+      {/*      onClick={changePositionName}*/}
 
-          >
-            შეცვლა
-          </Button>
-        </Form>
+      {/*    >*/}
+      {/*      შეცვლა*/}
+      {/*    </Button>*/}
+      {/*  </Form>*/}
 
-      }
+      {/*}*/}
 
 
       {appointment === true
@@ -152,6 +152,8 @@ const UserChangesModal = ({
             setAppointmentInformation={setAppointmentInformation}
             PositionReferenceId={PositionReferenceId}
             userChanges={false}
+            onPositionChange={onPositionChange}
+
           />
 
 
@@ -195,7 +197,8 @@ const UserChangesModal = ({
             PositionReferenceId={PositionReferenceId}
             userChanges={true}
             changeUserOptions={changeUserOptions}
-            onPositionChange = {onPositionChange}
+            onPositionChange={onPositionChange}
+
           />
 
           <br/>

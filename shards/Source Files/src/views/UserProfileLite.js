@@ -18,7 +18,7 @@ const UserProfileLite = () => {
 
   let ProfileInfo = useSelector((state => state.ProfileInfo.ProfileInfo))
   return (
-    <Container fluid className="main-content-container px-4">
+    <Container fluid className="main-content-container px-4 mb-5">
       <Row noGutters className="page-header py-4">
         <PageTitle title="პროფილი" md="12" className="ml-sm-auto mr-sm-auto"/>
       </Row>

@@ -101,7 +101,6 @@ const Comments = () => {
   let visible = useSelector(state => state.getComments.isVisibleModal)
 
 
-
   const [textValue, setTextValue] = useState('')
   let params = useParams()
 
@@ -110,13 +109,13 @@ const Comments = () => {
 
 
   useEffect(() => {
-      if (visible === true) {
+    if (visible === true) {
+      dispatch(getComments(params.id))
+      let interval = setInterval(() => {
         dispatch(getComments(params.id))
-        let interval = setInterval(() => {
-          dispatch(getComments(params.id))
-        }, 5000)
-        return () => clearInterval(interval);
-      }
+      }, 5000)
+      return () => clearInterval(interval);
+    }
 
   }, [visible])
 
@@ -136,7 +135,17 @@ const Comments = () => {
     }
     dispatch(createComment(newComment, params.id))
     setTextValue('')
+  }
 
+  let setCommentOnKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      let newComment = {
+        DocumentId: Number(params.id),
+        CommentBody: textValue,
+      }
+      dispatch(createComment(newComment, params.id))
+      setTextValue('')
+    }
   }
   let userImg = useSelector(state => state.userInfo.img)
 
@@ -190,7 +199,7 @@ const Comments = () => {
                         </div>
 
                       </div>
-                      <div>
+                      <div className={'mr-2'}>
                         {mess.commentDate.slice(11, 19)}
                       </div>
                     </Row>
@@ -204,7 +213,9 @@ const Comments = () => {
                   </p>
                   <FormTextarea onChange={onTextChange} value={textValue}
                                 placeholder='კომენტარი ...'
-                                className={"mb-3"}/>
+                                className={"mb-3"}
+                                onKeyPress={setCommentOnKeyPress}
+                  />
                   <Button
                     onClick={setComment}
                   >

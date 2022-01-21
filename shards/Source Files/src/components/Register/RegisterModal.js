@@ -6,6 +6,7 @@ import MySelect from "../../MySelect/MySelect";
 import RegisterModalNew from "./registerModalTypes/RegisterModalNew";
 import RegisterNewDep from "./registerModalTypes/RegisterNewDep";
 import ChangeNames from "./registerModalTypes/changeNames";
+import {useSelector} from "react-redux";
 
 const RegisterModal = ({
                          onClose,
@@ -22,14 +23,19 @@ const RegisterModal = ({
                          PositionValue,
                          setPositionValue,
                          getPositionReferenceId,
-                         userAppointment
+                         userAppointment,
 
                        }) => {
+  let Positions = useSelector((state => state.positions.positions))
 
   let onSortChange = (e) => {
     setType(e.target.value)
   }
-
+  let onPositionChange = (e) => {
+    let idx = Positions[e.target.selectedIndex - 1]
+    setPositionValue(e.target.value)
+    getPositionReferenceId(idx.referenceId)
+  }
 
   return (
     <MyModal
@@ -58,6 +64,8 @@ const RegisterModal = ({
           getPositionReferenceId={getPositionReferenceId}
           userAppointment = {userAppointment}
           userChanges = {false}
+          onPositionChange={onPositionChange}
+
         />
 
       }

@@ -1,6 +1,5 @@
 import React from "react";
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import { Col } from "shards-react";
 
 const PageTitle = ({ title, subtitle, className, ...attrs }) => {

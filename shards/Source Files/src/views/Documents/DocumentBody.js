@@ -131,91 +131,90 @@ const DocumentBody = (props) => {
     loading
       ? <Preloader/>
       : <Styles>
-        <Container>
-          <CardBody className="p-0">
-            <RightClickMenu showMenu={showMenu} x={x} y={y}
-                            setShowMenu={setShowMenu}/>
+        <Container fluid={true}>
 
-            <table className="table mb-0 p-5">
+          <RightClickMenu showMenu={showMenu} x={x} y={y}
+                          setShowMenu={setShowMenu}/>
 
-              <thead className="thead bg-light">
-              <tr>
-                <th scope="col" className="resTtd border-0">
-                  დოკ. <br/> ნომერი
-                </th>
-                <th scope="col" className="resTtd border-0">
-                  თარიღი
-                </th>
-                <th scope="col" className="resTtd border-0">
-                  სათაური
-                </th>
-                <th scope="col" className="resTtd border-0">
-                  ტიპი
-                </th>
-                <th scope="col" className="resTtd border-0">
-                  ავტორი
-                </th>
-                <th scope="col" className="resTtd border-0"></th>
-              </tr>
-              </thead>
-              <tbody>
+          <table className="table mb-0 p-5">
 
-              {props.Documents.map((Mess, index) => {
-                return (
-                  <tr
-                    className={Mess.isNew === true ? 'font-weight-bold  messWrapper' : 'messWrapper'}
-                    onClick={() => {
-                      router.push(`${props.pageName}/${Mess.documentId}`)
-                      setShowMenu(false)
-                      dispatch(setCounter())
-                    }}
-                    key={index}
-                    onContextMenu={(e) => contextMenu(e, Mess.documentId)}
-                    id={Mess.documentId}
-                    style={{
-                      backgroundColor: Mess.documentColorId === 1 && '#ffcccc' ||
-                        Mess.documentColorId === 2 && '#fff2cc' || Mess.documentColorId === 3 && '#ccffcc'
-                    }}
-                  >
-                    <td className={"resTtd"}>{Mess.documentId}</td>
-                    <td className={"resTtd"}>
-                      {new Intl.DateTimeFormat("en-US", {
-                        month: "numeric",
-                        day: "2-digit",
-                        year: "numeric",
+            <thead className="thead bg-light">
+            <tr>
+              <th scope="col" className="resTtd border-0">
+                დოკ. <br/> ნომერი
+              </th>
+              <th scope="col" className="resTtd border-0">
+                თარიღი
+              </th>
+              <th scope="col" className="resTtd border-0">
+                სათაური
+              </th>
+              <th scope="col" className="resTtd border-0">
+                ტიპი
+              </th>
+              <th scope="col" className="resTtd border-0">
+                ავტორი
+              </th>
+              <th scope="col" className="resTtd border-0"></th>
+            </tr>
+            </thead>
+            <tbody>
 
-                      }).format(new Date(Mess.documentDate))}
-                    </td>
-                    <td className={"resTtd"}>{Mess.documentTitle}</td>
-                    <td className={"resTtd"}>{Mess.documentType}</td>
-                    <td className={"resTtd"}>{Mess.authorName}</td>
+            {props.Documents.map((Mess, index) => {
+              return (
+                <tr
+                  className={Mess.isNew === true ? 'font-weight-bold  messWrapper' : 'messWrapper'}
+                  onClick={() => {
+                    router.push(`${props.pageName}/${Mess.documentId}`)
+                    setShowMenu(false)
+                    dispatch(setCounter())
+                  }}
+                  key={index}
+                  onContextMenu={(e) => contextMenu(e, Mess.documentId)}
+                  id={Mess.documentId}
+                  style={{
+                    backgroundColor: Mess.documentColorId === 1 && '#ffcccc' ||
+                      Mess.documentColorId === 2 && '#fff2cc' || Mess.documentColorId === 3 && '#ccffcc'
+                  }}
+                >
+                  <td className={"resTtd"}>{Mess.documentId}</td>
+                  <td className={"resTtd"}>
+                    {new Intl.DateTimeFormat("en-US", {
+                      month: "numeric",
+                      day: "2-digit",
+                      year: "numeric",
 
-                    <td className={"resTtd"}>
-                      {
-                        Mess.overdue !== 0 && <img src={fire} alt="fireAnimation"
-                                                   className={'fire'}
-                        />
-                      }
-                    </td>
+                    }).format(new Date(Mess.documentDate))}
+                  </td>
+                  <td className={"resTtd"}>{Mess.documentTitle}</td>
+                  <td className={"resTtd"}>{Mess.documentType}</td>
+                  <td className={"resTtd"}>{Mess.authorName}</td>
 
-
-                  </tr>
+                  <td className={"resTtd"}>
+                    {
+                      Mess.overdue !== 0 && <img src={fire} alt="fireAnimation"
+                                                 className={'fire'}
+                      />
+                    }
+                  </td>
 
 
-                )
-              })}
-
-              </tbody>
-
-            </table>
+                </tr>
 
 
-            {props.Documents.length === 0
-              &&
-              <h5 style={{textAlign: 'center'}} className={'mt-4'}>
-                დოკუმენტები ვერ მოიძებნა... </h5>
-            }
-          </CardBody>
+              )
+            })}
+
+            </tbody>
+
+          </table>
+
+
+          {props.Documents.length === 0
+            &&
+            <h5 style={{textAlign: 'center'}} className={'mt-4'}>
+              დოკუმენტები ვერ მოიძებნა... </h5>
+          }
         </Container>
 
       </Styles>

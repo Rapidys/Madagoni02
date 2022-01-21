@@ -113,7 +113,7 @@ const TreeNode = (props) => {
     props.node.email = userNewInfo.email
     props.node.phone = String(userNewInfo.mobile)
 
-    // dispatch(TreeDataAC(treeData))
+    dispatch(TreeDataAC(treeData))
   }
 
 // axali iuseris an departamentis chasma xeshi
@@ -190,7 +190,7 @@ const TreeNode = (props) => {
         firstName: props.appointmentInformation && props.appointmentInformation.name,
         lastName: props.appointmentInformation && props.appointmentInformation.lastName,
         email: props.appointmentInformation && props.appointmentInformation.email,
-        phone: props.appointmentInformation && String(props.appointmentInformation.phone),
+        phone: props.appointmentInformation && String(props.appointmentInformation.mobile),
         isActive: true,
         departmentId: 0,
         department: null,

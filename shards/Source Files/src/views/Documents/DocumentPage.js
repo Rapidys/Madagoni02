@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {
-  Card,
+  Card, CardBody,
   CardHeader,
   Col,
   Container,
@@ -41,7 +41,7 @@ const DocumentPage = ({pageTitle, pageName, Documents, ...props}) => {
   return (
     <Styles>
 
-      <Container fluid className="main-content-container px-4 container">
+      <Container fluid={true} className="px-4 mb-5">
         <Row>
           <Col>
             <Card small className="mb-4">
@@ -49,10 +49,12 @@ const DocumentPage = ({pageTitle, pageName, Documents, ...props}) => {
                 <h6 className="m-0 text-black">{pageTitle}</h6>
               </CardHeader>
               <SearchCard/>
-              <DocumentBody pageName={pageName}
-                            Documents={Documents}
+              <CardBody className="p-0">
+                <DocumentBody pageName={pageName}
+                              Documents={Documents}
 
-              />
+                />
+              </CardBody>
               <Pagination
                 totalCount={props.totalCount}
                 rowsPerPage={props.rowsPerPage}

@@ -20,7 +20,6 @@ const MyFiles = () => {
 
   let currentPage = useSelector(state => state.PaginationData.currentPage)
   let rowsPerPage = useSelector(state => state.PaginationData.rowsPerPage)
-  let totalCount = useSelector(state => state.PaginationData.totalPages)
 
 
   let MyFiles = useSelector((state => state.MyFiles.Files))
@@ -33,7 +32,7 @@ const MyFiles = () => {
   return (
 
     <Styles>
-      <div className={'wrapper'}>
+      <div className={'wrapper mb-5'}>
         <Card>
           <CardBody className="p-4 pb-3">
 
