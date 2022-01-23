@@ -22,7 +22,6 @@ import GetDocReducer from "../Reducers/getDocReducer";
 import notificationReducer from "../Reducers/notifications/notificationReducer";
 import BlogPostsReducer from "../Reducers/posts/blogPostsReducer";
 import updateDocumentReducer from "../Reducers/updateDocumentReducer";
-import MyFilesReducer from "../Reducers/MyFilesReducer";
 import signDocumentReducer from "../Reducers/signDocumentReducer";
 import filterReducer from "../Reducers/filterReducer";
 import PositionsReducer from "../Reducers/PositionsReducer";
@@ -31,6 +30,9 @@ import updateReferenceReducer from "../Reducers/updateReferenceReducer";
 import changePasswordReducer from "../Reducers/changePasswordReducer";
 import ProfileInfoReducer from "../Reducers/ProfileInfoReducer";
 import ChartReducer from "../Reducers/ChartReducer";
+import {updateFileReducer} from "../Reducers/files/UpdateFileReducer";
+import {getFilesReducer} from "../Reducers/files/getFilesReducer";
+import {getFileReducer} from "../Reducers/files/getFileReducer";
 
 
 let Reducers = combineReducers({
@@ -54,7 +56,6 @@ let Reducers = combineReducers({
   getNotifications: notificationReducer,
   BlogPosts: BlogPostsReducer,
   updateDocument: updateDocumentReducer,
-  MyFiles: MyFilesReducer,
   signDocument: signDocumentReducer,
   filterR: filterReducer,
   positions: PositionsReducer,
@@ -64,6 +65,9 @@ let Reducers = combineReducers({
   changePassword: changePasswordReducer,
   ProfileInfo: ProfileInfoReducer,
   ChartData:ChartReducer,
+  updateFile:updateFileReducer,
+  MyFiles:getFilesReducer,
+  MyFile:getFileReducer,
 })
 
 let store = createStore(Reducers, applyMiddleware(thunk))

@@ -12,6 +12,18 @@ const API = {
       }
     )
   },
+  updateFile(data) {
+    return $ApiBase.post('/File/UpdateFile', data)
+  },
+  deleteFile(id) {
+    return $ApiBase.get(`/File/deleteFile/${id}`,)
+  },
+  getMyFiles(currentPage, rowsPerPage) {
+    return $ApiBase.get(`/File/getFiles/${currentPage}/${rowsPerPage}`)
+  },
+  getFile(id) {
+    return $ApiBase.get(`/File/getFile/${id}`)
+  },
   passwordRecovery(data) {
     return $ApiBase.post('/auth/PasswordRecovery', data)
   },

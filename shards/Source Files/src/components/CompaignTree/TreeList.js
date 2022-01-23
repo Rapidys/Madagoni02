@@ -44,6 +44,11 @@ let Styles = styled.div`
 
     }
   }
+  @media (max-width: 500px) {
+    * {
+      font-size: 10px;
+    }
+  }
 
   .active {
     transform: rotate(45deg);
@@ -82,7 +87,6 @@ const TreeList = (props) => {
   }
   let setNewTree = () => {
     setNewTreeFinal(true)
-    debugger
     dispatch(setNewUser(treeData))
 
   }
@@ -110,10 +114,10 @@ const TreeList = (props) => {
                         setOpenTree={props.setOpenTree}
                         userInfoForAppoinment={props.userInfoForAppoinment}
                         ClickOnAuthor={props.ClickOnAuthor}
-                        setUserControlOpen = {props.setUserControlOpen}
-                        appointmentInformation = {props.appointmentInformation}
-                        PositionValue = {props.PositionValue}
-                        PositionReferenceId = {props.PositionReferenceId}
+                        setUserControlOpen={props.setUserControlOpen}
+                        appointmentInformation={props.appointmentInformation}
+                        PositionValue={props.PositionValue}
+                        PositionReferenceId={props.PositionReferenceId}
 
 
                   />

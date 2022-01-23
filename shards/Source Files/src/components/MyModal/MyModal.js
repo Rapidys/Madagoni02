@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Dialog,
+  Dialog, DialogActions,
   DialogContent,
   DialogTitle
 } from "@material-ui/core";

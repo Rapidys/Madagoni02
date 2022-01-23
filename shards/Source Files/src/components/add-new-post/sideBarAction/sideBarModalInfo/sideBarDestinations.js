@@ -22,20 +22,22 @@ import {
 } from "../../../../Reducers/updateDocumentReducer";
 
 let Styles = styled.div`
-  .footer {
-    position: fixed;
-    bottom: 0;
-    right: 20px;
-  }
   .wrapper:first-child {
     padding-top: 0;
   }
 
   @media (max-width: 500px) {
-
     .wrapper {
       padding: 0;
-      margin: 0 0 0 5px;
+      margin: 0 0 0 7px;
+    }
+
+    .modal-body {
+      padding: 0 ;
+    }
+
+    .MuiTypography-h6 {
+      font-size: 1rem;
     }
   }
 `
@@ -137,82 +139,82 @@ const SideBarDestinations = (props) => {
   return (
 
 
-    <Styles>
-      <Dialog
-        open={props.open}
-        onClose={props.handleClose}
-        fullWidth={true}
-        maxWidth={"lg"}
-        className={'wrapper'}
-      >
+    <Dialog
+      open={props.open}
+      onClose={props.handleClose}
+      fullWidth={true}
+      maxWidth={"lg"}
+      className={'wrapper'}
+    >
+      <Styles>
+
         <div className={'d-flex justify-content-between'}>
           <DialogTitle>სტრუქტურა</DialogTitle>
           <i className="fas fa-times p-4" style={{cursor: 'pointer'}}
              onClick={props.handleClose}/>
         </div>
-          <DialogContent className={'wrapper'}>
-            <DialogContentText>
-              აირჩიეთ სასურველი ადრესატები
-            </DialogContentText>
+        <DialogContent className={'wrapper'}>
+          <DialogContentText>
+            აირჩიეთ სასურველი ადრესატები
+          </DialogContentText>
 
-            <FormControl sx={{mt: 2, minWidth: 120}} className={"w-100"}>
+          <FormControl sx={{mt: 2, minWidth: 120}} className={"w-100"}>
 
-              <MenuItem value="xl" style={{padding: 0}}>
-                <Row className={"w-100"}>
+            <MenuItem value="xl" style={{padding: 0}}>
+              <Row className={"w-100"}>
 
-                  <Col lg="8" className={'treeCol'}>
+                <Col lg="8" className={'treeCol'}>
 
 
-                    <TreeList
-                      treeData={treeData}
-                      setTreeDatas={props.setTreeDatas}
-                      handleSetNodeValue={handleSetNodeValue}
-                      handleSetDepValue={handleSetDepValue}
-                      isAppointment={false}
+                  <TreeList
+                    treeData={treeData}
+                    setTreeDatas={props.setTreeDatas}
+                    handleSetNodeValue={handleSetNodeValue}
+                    handleSetDepValue={handleSetDepValue}
+                    isAppointment={false}
+
+                  />
+
+                </Col>
+                <Col lg="4" className={"border-left"}>
+
+
+                  <br/>
+
+                  <div>
+                    <b>ადრესატები</b>
+                    <ChosenDestinations
+                      destination={destination}
+                      department={department}
+                      setDepartment={setDepartment}
+                      setDestination={setDestination}
+                      handleSetDate={handleSetDate}
+                      save={save}
 
                     />
+                  </div>
+                </Col>
+              </Row>
+            </MenuItem>
+          </FormControl>
 
-                  </Col>
-                  <Col lg="4" className={"border-left"}>
-
-
-                    <br/>
-
-                    <div>
-                      <b>ადრესატები</b>
-                      <ChosenDestinations
-                        destination={destination}
-                        department={department}
-                        setDepartment={setDepartment}
-                        setDestination={setDestination}
-                        handleSetDate={handleSetDate}
-                        save={save}
-
-                      />
-                    </div>
-                  </Col>
-                </Row>
-              </MenuItem>
-            </FormControl>
-
-          </DialogContent>
+        </DialogContent>
 
 
         <DialogActions className={'footer'}>
-            {url === '/add-new-post'
-              ? <Button onClick={save}>შენახვა</Button>
-              : <Button
-                onClick={props.resendDocument}
-                disabled={!destination.length && true}
-              >გადაგზავნა</Button>
-            }
-
+          {url === '/add-new-post'
+            ? <Button onClick={save}>შენახვა</Button>
+            : <Button
+              onClick={props.resendDocument}
+              disabled={!destination.length && true}
+            >გადაგზავნა</Button>
+          }
 
 
         </DialogActions>
+      </Styles>
 
-      </Dialog>
-    </Styles>
+    </Dialog>
 
   );
 };

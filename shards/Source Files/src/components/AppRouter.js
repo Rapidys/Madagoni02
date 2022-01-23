@@ -21,6 +21,7 @@ const AppRouter = (props) => {
   }, [])
 
 
+
   if (props.isLoading) {
     return <Preloader/>
   }

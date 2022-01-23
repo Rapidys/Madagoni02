@@ -19,10 +19,22 @@ import {
 import styled from "styled-components";
 
 let Styles = styled.div`
-  .footer {
-    position: fixed;
-    bottom: 0;
-    right: 20px;
+  .wrapper:first-child {
+    padding-top: 0;
+  }
+  @media (max-width: 500px) {
+    .wrapper {
+      padding: 0;
+      margin: 0 0 0 7px;
+    }
+
+    .modal-body {
+      padding: 0;
+    }
+
+    .MuiTypography-h6 {
+      font-size: 1rem;
+    }
   }
 `
 
@@ -76,20 +88,23 @@ const SideBarVisitors = (props) => {
   return (
 
 
-    <Styles>
-      <Dialog
-        open={props.openVisitors}
-        onClose={props.handleCloseVisitors}
-        fullWidth={true}
-        maxWidth={"lg"}
-      >
+    <Dialog
+      open={props.openVisitors}
+      onClose={props.handleCloseVisitors}
+      fullWidth={true}
+      maxWidth={"lg"}
+      className={'wrapper'}
+
+    >
+      <Styles>
+
         <div className={'d-flex justify-content-between'}>
           <DialogTitle>სტრუქტურა</DialogTitle>
           <i className="fas fa-times p-4" style={{cursor: 'pointer'}}
              onClick={props.handleCloseVisitors}/>
         </div>
 
-        <DialogContent>
+        <DialogContent className={'wrapper'}>
           <DialogContentText>
             აირჩიეთ სასურველი ვიზიტორები
           </DialogContentText>
@@ -137,8 +152,9 @@ const SideBarVisitors = (props) => {
           <Button onClick={Save}>შენახვა</Button>
 
         </DialogActions>
-      </Dialog>
-    </Styles>
+      </Styles>
+
+    </Dialog>
   );
 };
 

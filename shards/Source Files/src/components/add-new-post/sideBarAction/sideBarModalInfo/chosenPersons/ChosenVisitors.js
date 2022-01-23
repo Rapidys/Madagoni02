@@ -1,5 +1,16 @@
 import React, {useMemo} from 'react';
 import {useSelector} from "react-redux";
+import styled from 'styled-components'
+
+let Styles = styled.div`
+  @media(max-width: 500px){
+    *{
+      font-size: 10px;
+    }
+  }
+
+
+`
 
 const ChosenVisitors = (props) => {
 
@@ -25,7 +36,7 @@ const ChosenVisitors = (props) => {
     return <div>არჩეულები არ არიან</div>
   }
   return (
-    <div>
+    <Styles>
       {props.userState.length > 0 && props.userState.map(user => {
         return (
 
@@ -48,7 +59,7 @@ const ChosenVisitors = (props) => {
         )
       })}
 
-    </div>
+    </Styles>
   );
 };
 

@@ -12,6 +12,7 @@ const ChartPage = () => {
   useEffect(() => {
     dispatch(GetChart(params.id))
   }, [params.id])
+
   const chartData = useSelector((state => state.ChartData.chosenChart))
   const isChartsLoading = useSelector((state => state.ChartData.isChartsLoading))
   if (isChartsLoading === true) {

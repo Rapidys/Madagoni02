@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useState} from 'react';
 import Tree from "./Tree";
 import styled from "styled-components";
 import {Tooltip} from "@material-ui/core";
@@ -13,6 +13,10 @@ import {
 } from "../../Reducers/filterReducer";
 import {setNewUser} from "../../Reducers/registerReducer";
 import {TreeDataAC} from "../../Reducers/TreeDataReducer";
+import {
+ sharedValueUserAC,
+
+} from "../../Reducers/files/UpdateFileReducer";
 
 
 let Styles = styled.span`
@@ -34,6 +38,11 @@ let Styles = styled.span`
     left: -5px;
     font-size: 12px;
   }
+  @media(max-width: 500px){
+    .positions{
+      font-size: 8px;
+    }
+  }
 `
 const TreeNode = (props) => {
 
@@ -54,6 +63,8 @@ const TreeNode = (props) => {
   let [applyAppointmentChanges, setApplyAppointmentChanges] = useState(false)
 
   let dispatch = useDispatch()
+
+  const shearUsers = useSelector((state => state.updateFile.shareUsers)) // fileShear
 
   //axali dokumentis sheqmnis destinate an visitor
 
@@ -207,6 +218,14 @@ const TreeNode = (props) => {
     }
   }
   let onUserClick = () => {
+    if (URL === '/newFile' || '/file' && props.isAppointment === false) {
+      dispatch(sharedValueUserAC([{
+        fileUserId: 0,
+        isActive: true,
+        userId: props.node.userId,
+        displayName: props.node.firstName + ' ' + props.node.lastName,
+      }]))
+    }
     if (URL === '/register' && props.isAppointment === false) {
       userControl()
     }

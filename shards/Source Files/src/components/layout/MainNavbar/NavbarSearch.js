@@ -8,6 +8,8 @@ import {
 } from "shards-react";
 import styled from "styled-components";
 import {NavLink} from "react-router-dom";
+import {setChangePage} from "../../../Reducers/files/UpdateFileReducer";
+import {useDispatch} from "react-redux";
 
 
 let Styles = styled.div`
@@ -36,7 +38,6 @@ export default () => {
 
 
   const [visible, setVisible] = useState(false)
-
   let dotesToggle = () => {
     setVisible((c) => !c);
   }
