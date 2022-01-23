@@ -146,7 +146,7 @@ const DinamycallyChartModa = () => {
     <Styles>
       <Card>
         <div className={'d-flex justify-content-between'}>
-          <CardHeader>დიაგრამის მონაცემები</CardHeader>
+          <CardHeader>დიაგრამის შექმნა</CardHeader>
 
         </div>
 

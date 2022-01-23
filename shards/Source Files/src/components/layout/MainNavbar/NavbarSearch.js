@@ -4,7 +4,7 @@ import {
   Collapse,
   DropdownMenu,
   Dropdown,
-  DropdownItem,
+  DropdownItem, NavItem,
 } from "shards-react";
 import styled from "styled-components";
 import {NavLink} from "react-router-dom";
@@ -44,13 +44,19 @@ export default () => {
 
   return (
     <Styles className={"align-items-center"}>
-
       <Dropdown open={visible} toggle={dotesToggle}>
         <DropdownToggle className={"bg-light border-0"}>
           <i className="material-icons moreBtn">more_vert</i>
 
         </DropdownToggle>
         <Collapse tag={DropdownMenu} left={"true"} small>
+          <NavLink to="/addChart" className={"text-decoration-none"}>
+            <DropdownItem className={"items"}>
+              <i
+                className="material-icons cursor-pointer hov">add_to_photos</i>
+              <span className={"ml-2"}>დიაგრამის შექმნა</span>
+            </DropdownItem>
+          </NavLink>
           <NavLink to="/MyCharts" className={"text-decoration-none"}>
             <DropdownItem className={"items"}>
               <i

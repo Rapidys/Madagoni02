@@ -18,10 +18,6 @@ const AdminPage = () => {
 
   let [adminPanelFunctions, setAdminPanelFunctions] = useState([
     {
-      title: "დიაგრამის შექმნა",
-      to: "/addChart"
-    },
-    {
       title: "სტრუქტურის რედაქტირება",
       to: "/register"
     },
