@@ -1,6 +1,8 @@
 import React from 'react';
 import Preloader from "../../../Preloader/Preloader";
 
+
+
 const ReferenceTables = ({options, edit,isLoadingTypes}) => {
 
 
@@ -9,7 +11,7 @@ const ReferenceTables = ({options, edit,isLoadingTypes}) => {
   }
 
   return (
-    <table className="table mb-0 p-5">
+    <table className="table mb-0 p-5 wrapp-table">
       <thead className="thead bg-light">
       <tr>
         <th scope="col" className="resTtd border-0">

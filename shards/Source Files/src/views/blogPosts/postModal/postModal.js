@@ -18,8 +18,17 @@ let Styles = styled.div`
     overflow-y: hidden;
   }
 
-  .card-post__image{
+  .card-post__image {
     height: 300px;
+  }
+
+  @media (max-width: 500px) {
+    .card-body {
+      padding: 0.3rem;
+    }
+    *{
+      font-size: 10px;
+    }
   }
 `
 
@@ -46,25 +55,27 @@ const PostModal = ({postModal, handlePostModal, postInfo}) => {
         </div>
 
 
-        <Card >
-          <CardBody>
-            <div
-              // style={{backgroundImage: `url(${postInfo.stringPhoto ? postInfo.stringPhoto : defaultPostImg})`}}
-            >
-              <img src={postInfo.stringPhoto ? postInfo.stringPhoto : defaultPostImg} alt="postImg"
-             className={'w-100'}
+        <Card>
+          <Styles>
 
-              />
-            </div>
-          </CardBody>
+            <CardBody>
+              <div
+              >
+                <img
+                  src={postInfo.stringPhoto ? postInfo.stringPhoto : defaultPostImg}
+                  alt="postImg"
+                  className={'w-100'}
 
-          <CardBody style={{minHeight: '200px'}}>
-            <h5 className="card-title">
-              <a href="#" className="text-fiord-blue">
-                {postInfo.title}
-              </a>
-            </h5>
-            <Styles>
+                />
+              </div>
+            </CardBody>
+
+            <CardBody style={{minHeight: '200px'}} >
+              <h5 className="card-title">
+                <a href="#" className="text-fiord-blue">
+                  {postInfo.title}
+                </a>
+              </h5>
 
               <ReactQuill
                 value={postInfo.body || ''}
@@ -74,14 +85,16 @@ const PostModal = ({postModal, handlePostModal, postInfo}) => {
 
               />
 
-            </Styles>
-            <div className={'mt-4'}>
+              <div className={'mt-4 d-flex'}>
                      <span
                        className="text-muted mt-3">{postInfo.datePublished && postInfo.datePublished.slice(0, 10)}
                   </span>
-            </div>
 
-          </CardBody>
+              </div>
+
+            </CardBody>
+          </Styles>
+
         </Card>
       </Col>
 

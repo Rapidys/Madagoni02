@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Card, Col} from "shards-react";
 import MySelect from "../../../MySelect/MySelect";
 import {getReferenceTypes} from "../../../Reducers/referenceType";
@@ -9,7 +9,6 @@ import styled from "styled-components";
 import ReferenceTables from "./referenceTables";
 import ChangeReferenceModal from "./changeReferenceModal";
 import AddTypeModal from "./addTypeModal";
-import {setReference} from "../../../Reducers/updateReferenceReducer";
 
 
 let Styles = styled.div`
@@ -27,7 +26,21 @@ let Styles = styled.div`
     cursor: pointer;
 
   }
-
+  @media(max-width: 470px){
+    .wrapp-table{
+      font-size: 12px;
+    }
+  }
+  @media(max-width: 368px){
+    .wrapp-table{
+      font-size: 10px;
+    }
+  }
+  @media(max-width: 300px){
+    .wrapp-table{
+      font-size: 8px;
+    }
+  }
 `
 
 const ReferencesPage = () => {
@@ -117,7 +130,7 @@ const ReferencesPage = () => {
           />
           <Button
             onClick={closeAddTypeModal}
-            className={'ml-2'}
+            disabled={options.length === 0 && true}
           >ტიპის დამატება</Button>
         </Col>
         <Col>

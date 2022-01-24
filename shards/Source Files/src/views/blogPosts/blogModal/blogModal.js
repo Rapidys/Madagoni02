@@ -14,7 +14,7 @@ const BlogModal = ({
                      newPostModal,
                      onNewPostClose,
                      setNewPostModal,
-                     setSuccessfullyPosted
+                     setSuccessfullyPosted,
                    }) => {
 
   let [title, setTitle] = useState('')
@@ -71,9 +71,8 @@ const BlogModal = ({
       onClose={onNewPostClose}
       maxWidth={'sm'}
     >
-
+      <h6>პოსტის შექმნა</h6>
       <Form className="m-auto">
-
         <NewPostFields
           title={title}
           setTitle={setTitle}

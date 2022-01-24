@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {CardBody, CardHeader} from "shards-react";
+import {CardBody} from "shards-react";
 import {Card} from "@material-ui/core";
 import SpreadSheet from "./spreadSheet";
 import {useDispatch, useSelector} from "react-redux";
@@ -11,11 +11,7 @@ import {
 import SuccessModal from "../successModa/successModal";
 import styled from "styled-components";
 
-let Styles = styled.div`
-  .wrapper {
-    min-height: 500px;
-  }
-`
+
 const Files = () => {
   const [data, setData] = useState([
     [{value: ''}, {value: ''}, {value: ''}, {value: ''}, {value: ''}],
@@ -41,7 +37,7 @@ const Files = () => {
     return <Redirect to='/MyFiles'/>
   }
   return (
-    <Styles>
+    <div>
       <div className={'wrapper mb-5 h-auto'}>
 
         <Card>
@@ -61,7 +57,7 @@ const Files = () => {
           />
         </Card>
       </div>
-    </Styles>
+    </div>
 
   );
 };

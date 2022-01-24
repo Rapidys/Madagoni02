@@ -5,19 +5,12 @@ import {useDispatch, useSelector} from "react-redux";
 import SpreadSheet from "../newFile/spreadSheet";
 import Preloader from "../../../Preloader/Preloader";
 import API from "../../../API/ApiBase";
-import {Card, CardBody, CardHeader, Container} from "shards-react";
+import {Card, CardBody,} from "shards-react";
 import {
   setChangePage,
-  setFileInfoAC, setSuccessModalClose, shareChosenUsersAC, shareUsersAC,
+  setFileInfoAC, setSuccessModalClose, sharedValueUserAC, shareUsersAC,
 } from "../../../Reducers/files/UpdateFileReducer";
 import SuccessModal from "../successModa/successModal";
-
-
-let Styles = styled.div`
-  .wrapper {
-    min-height: 500px;
-  }
-`
 
 
 const ChosenFile = () => {
@@ -30,6 +23,7 @@ const ChosenFile = () => {
   let url = history.location.pathname
 
   let successModal = useSelector((state => state.updateFile.successModal))
+  let shareUsers = useSelector((state => state.updateFile.shareUsers))
   let file = useSelector((state => state.updateFile.file))
 
 
@@ -45,13 +39,13 @@ const ChosenFile = () => {
 
     try {
       setLoading(true)
-        API.getFile(params.id).then(response => {
-          dispatch(shareUsersAC(response.data.shareUsers))
-          setFiles(response.data.fileData)
-          setFileInfo(response.data)
-          setLoading(false)
-          dispatch(setFileInfoAC(response.data))
-        })
+      API.getFile(params.id).then(response => {
+        dispatch(shareUsersAC(response.data.shareUsers))
+        setFiles(response.data.fileData)
+        setFileInfo(response.data)
+        setLoading(false)
+        dispatch(setFileInfoAC(response.data))
+      })
 
     } catch (e) {
       console.log(e)
@@ -68,8 +62,8 @@ const ChosenFile = () => {
   }
 
   return (
-    <Styles>
-      <div className={'wrapper mb-5 h-auto'}>
+    <div>
+      <div className={'mb-5 h-auto'}>
         <Card>
           <CardBody>
             <h5>
@@ -86,7 +80,7 @@ const ChosenFile = () => {
 
       </div>
 
-    </Styles>
+    </div>
 
   );
 };

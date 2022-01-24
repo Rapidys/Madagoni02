@@ -1,10 +1,9 @@
 import React from 'react';
 import {
   FormGroup,
-  FormInput,
 } from "shards-react";
-import {TextField} from "@mui/material";
-import ReactQuill, {Quill} from "react-quill";
+import {Input, TextField} from "@mui/material";
+import ReactQuill from "react-quill";
 import styled from 'styled-components'
 import Editor from "../../../components/add-new-post/editor/Editor";
 
@@ -22,6 +21,21 @@ let Styles = styled.div`
 
   }
 
+  .ql-snow .ql-tooltip {
+    margin-left: 140px;
+  }
+
+  .ql-snow .ql-tooltip[data-mode=video]::before {
+    content: "ლინკი:"
+  }
+
+  .ql-snow .ql-tooltip[data-mode=link]::before {
+    content: "ლინკი:"
+  }
+
+  .ql-snow .ql-tooltip.ql-editing a.ql-action::after {
+    content: 'შენახვა';
+  }
 
 `
 
@@ -33,11 +47,11 @@ const NewPostFields = ({
                          body,
                          ValidUntil,
                          setValidUntil,
-                         title
+                         title,
                        }) => {
 
-  let icons = Quill.import('ui/icons');
-  icons['video'] = '<i class="fas fa-chart-bar text-secondary"/>';
+  // let icons = Quill.import('ui/icons');
+  // icons['video'] = '<i class="fas fa-chart-bar text-secondary"/>';
 
   let onTitleChange = (e) => {
     setTitle(e.target.value)
@@ -48,8 +62,6 @@ const NewPostFields = ({
 
   return (
     <Styles>
-      <h6>პოსტის შექმნა</h6>
-
 
       <FormGroup>
         <TextField id="outlined-basic"
@@ -59,13 +71,9 @@ const NewPostFields = ({
                    onChange={onTitleChange}
                    size="small"
                    sx={{width: '100%'}}
-
-
         />
-
       </FormGroup>
       <FormGroup>
-
         <TextField
           id="date"
           label={'მდე'}
@@ -80,7 +88,6 @@ const NewPostFields = ({
           }}
           sx={{width: '100%'}}
           size="small"
-
         />
       </FormGroup>
       <FormGroup>
@@ -95,10 +102,11 @@ const NewPostFields = ({
       <FormGroup>
         <div className="p-3 mt-3 border rounded">
           <div className="custom-file mb-3">
-            <input type="file"
+            <Input type="file"
                    name="file"
                    className="custom-file-input"
                    id="customFile2"
+                   inputProps={{accept: 'image/*'}}
                    onChange={(e) => uploadImg(e)}
             />
             <label className="custom-file-label" htmlFor="customFile2">
@@ -106,9 +114,7 @@ const NewPostFields = ({
             </label>
             <div className={'mt-4'}>
               <span>{fileName}</span>
-
             </div>
-
             <br/>
           </div>
         </div>

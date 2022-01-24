@@ -6,24 +6,25 @@ import {
   Col,
   Card,
   CardBody,
-  Button
+  Button, CardFooter
 } from "shards-react";
 
 import PageTitle from "../../components/common/PageTitle";
 import {useDispatch, useSelector} from "react-redux";
 import BlogModal from "./blogModal/blogModal";
 import {getPosts} from "../../Reducers/posts/blogPostsReducer";
-import ReactQuill, {Quill} from "react-quill";
+import ReactQuill from "react-quill";
 import Editor from "../../components/add-new-post/editor/Editor";
 import styled from 'styled-components'
 import MyModal from "../../components/MyModal/MyModal";
 import Preloader from "../../Preloader/Preloader";
 import defaultPostImg from '../../assets/defaultPost.jpeg'
 import defaultUser from '../../assets/user.png'
-import ReactEditor from "../../components/ReactQuill/ReactEditor";
 import {Tooltip} from "@material-ui/core";
 import PostModal from "./postModal/postModal";
 import Pagination from "../../Pagination/Pagination";
+import NewPostFields from "./blogModal/newPostFields";
+import RedactionModal from "./redactingModal/RedactionModal";
 
 
 let Styles = styled.div`
@@ -34,6 +35,28 @@ let Styles = styled.div`
   .ql-editor {
     padding: 0;
   }
+
+  @media (min-width: 991px) {
+    .cardWrapper {
+      min-height: 430px;
+    }
+  }
+  @media (max-width: 1000px) {
+    .title {
+      font-size: 14px;
+    }
+  }
+  @media (max-width: 991px) {
+    .cardWrapper {
+      height: 400px;
+    }
+  }
+  @media (max-width: 769px) {
+    .cardWrapper {
+      height: auto;
+    }
+  }
+
 
 
 `
@@ -47,18 +70,21 @@ let BlogPosts = () => {
   const [successfullyPosted, setSuccessfullyPosted] = useState(false)
   const [postModal, setPostModal] = useState(false)
   let [postInfo, setPostInfo] = useState([])
+  let [openRedaction, setOpenRedaction] = useState(false)
+  let currentPage = useSelector((state => state.PaginationData.currentPage))
+  let rowsPerPage = useSelector((state => state.PaginationData.rowsPerPage))
+  let totalCount = useSelector((state => state.PaginationData.totalPages))
 
-  let currentPage = useSelector(state => state.PaginationData.currentPage)
-  let rowsPerPage = useSelector(state => state.PaginationData.rowsPerPage)
-  let totalCount = useSelector(state => state.PaginationData.totalPages)
 
 
   let onSuccessfullyClosed = (e) => {
     setSuccessfullyPosted(e => !e)
   }
+
   let onNewPostClose = () => {
     setNewPostModal(e => !e)
   }
+
   let dispatch = useDispatch()
   useEffect(() => {
     dispatch(getPosts({
@@ -74,6 +100,12 @@ let BlogPosts = () => {
     setPostModal(v => !v)
   }
 
+  let handleRedacting = (e,post) => {
+    e.stopPropagation()
+    setPostInfo(post)
+    setOpenRedaction(v => !v)
+  }
+
   if (isLoadingPosts) {
     return <Preloader/>
   }
@@ -81,19 +113,20 @@ let BlogPosts = () => {
   return (
     <Styles>
       <Container fluid className="main-content-container px-4"
-      style = {{marginBottom:'100px'}}
+                 style={{marginBottom: '100px'}}
       >
         {/* Page Header */}
         <Row noGutters
              className="page-header py-4 d-flex justify-content-between">
           <PageTitle sm="4" title="პოსტები"
                      className="text-sm-left "/>
-          <Button className={'btn-info'}
+          <Button className={'btn-success'}
                   onClick={onNewPostClose}
                   style={{height: '50px'}}
           >
             პოსტის დამატება
           </Button>
+
           <BlogModal
             onNewPostClose={onNewPostClose}
             newPostModal={newPostModal}
@@ -101,6 +134,13 @@ let BlogPosts = () => {
             setSuccessfullyPosted={setSuccessfullyPosted}
           />
         </Row>
+
+        <RedactionModal
+          openRedaction={openRedaction}
+          setOpenRedaction={setOpenRedaction}
+          postValue={postInfo}
+          setPostInfo = {setPostInfo}
+        />
 
         {/* First Row of Posts */}
         <Row>
@@ -127,7 +167,9 @@ let BlogPosts = () => {
                    style={{cursor: 'pointer'}}
                    onClick={() => handlePostModal(post)}
               >
-                <Card small className="card-post card-post--1">
+                <Card small className="card-post card-post--1 cardWrapper"
+
+                >
                   <div
                     className="card-post__image"
                     style={{backgroundImage: `url(${post.stringPhoto ? post.stringPhoto : defaultPostImg})`}}
@@ -147,17 +189,17 @@ let BlogPosts = () => {
 
                     </div>
                   </div>
-                  <CardBody style={{minHeight: '200px'}}>
-                    <h5 className="card-title">
-                      <a href="#" className="text-fiord-blue">
+                  <CardBody>
+                    <h6 className="card-title">
+                      <a href="#" className="text-fiord-blue title">
                         {post.title}
                       </a>
-                    </h5>
+                    </h6>
                     <div>
                       {
                       }
                       <ReactQuill
-                        value={bodyText.length > 120 ? bodyText.slice(0, 120) + '...' : bodyText}
+                        value={bodyText.length > 120 ? bodyText.slice(0, 110) + '...' : bodyText}
                         readOnly={true}
                         modules={Editor.mods}
                         className={'border-none'}
@@ -165,23 +207,34 @@ let BlogPosts = () => {
                       />
                     </div>
 
-                    <div className={'mt-4'}>
-                                    <span
-                                      className="text-muted ">{post.datePublished.slice(0, 10)}</span>
-                    </div>
 
                   </CardBody>
+
+                  <CardFooter className={'d-flex justify-content-between'}>
+                               <span
+                                 className="text-muted ">{post.datePublished.slice(0, 10)}
+                               </span>
+                    <span>
+                               <i className="fas fa-pencil-alt"
+                                  onClick={(e)=>{
+                                    e.stopPropagation()
+                                    setPostInfo(post)
+                                    setOpenRedaction(true)
+                                  }}
+                               />
+                         </span>
+                  </CardFooter>
                 </Card>
               </Col>
             )
           })
           }
         </Row>
-          <Pagination
-            totalCount={totalCount}
-            rowsPerPage={rowsPerPage}
-            currentPage={currentPage - 1}
-          />
+        <Pagination
+          totalCount={totalCount}
+          rowsPerPage={rowsPerPage}
+          currentPage={currentPage - 1}
+        />
 
       </Container>
     </Styles>

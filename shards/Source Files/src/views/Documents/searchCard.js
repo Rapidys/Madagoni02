@@ -69,61 +69,13 @@ const SearchCard = () => {
     }
 
     return (
-      <Container fluid = {true}>
-        <Card className={'mt-2'}>
-          <div className={'m-3'}>
-            {isSmallResolution === false
-              ? <>
+        <Container fluid={true}>
+          <Card className={'mt-2'}>
+            <div className={'m-3'}>
+              {isSmallResolution === false
+                ? <>
 
 
-                <SearchGrid
-                  docNumberVal={docNumberVal}
-                  setDocNumberVal={setDocNumberVal}
-                  setValueFrom={setValueFrom}
-                  mobileVersValueFrom={mobileVersValueFrom}
-                  setMobileVersValueFrom={setMobileVersValueFrom}
-                  mobileVersValueTo={mobileVersValueTo}
-                  setMobileVersValueTo={setMobileVersValueTo}
-                  setValueTo={setValueTo}
-                  docTitleVal={docTitleVal}
-                  setDocTitleVal={setDocTitleVal}
-                  setDocType={setDocType}
-                  docType={docType}
-                  division={division}
-                  executor={executor}
-                  author={author}
-                  setStateValue={setStateValue}
-                  stateValue={stateValue}
-                  dueDateValue={dueDateValue}
-                  setDueDateValue={setDueDateValue}
-                  isSmallResolution={isSmallResolution}
-                  valueFrom={valueFrom}
-                  valueTo={valueTo}
-                />
-
-                <div>
-
-                  <Button className={'float-right mb-4 mt-2'}
-                          onClick={getValues}
-                  >ძებნა</Button>
-                </div>
-              </>
-              :
-              <>
-                <Button
-                  onClick={() => {
-                    setSmallResSearchModal(true)
-                  }}
-
-                  className={'w-100 bg-primary text-white border-0 text-align-left'}
-                >ძიება</Button>
-
-
-                <SearchAcordionOnSmallResolution
-                  smallResSearchModal={smallResSearchModal}
-                  setSmallResSearchModal={setSmallResSearchModal}
-                  title={'ძებნა'}
-                >
                   <SearchGrid
                     docNumberVal={docNumberVal}
                     setDocNumberVal={setDocNumberVal}
@@ -144,26 +96,74 @@ const SearchCard = () => {
                     stateValue={stateValue}
                     dueDateValue={dueDateValue}
                     setDueDateValue={setDueDateValue}
-
+                    isSmallResolution={isSmallResolution}
+                    valueFrom={valueFrom}
+                    valueTo={valueTo}
                   />
-                  <div className={'mt-3'}>
 
-                    <Button className={'float-right mb-4'}
-                            onClick={onSmallResolSearchBtn}
+                  <div>
+
+                    <Button className={'float-right mb-4 mt-2'}
+                            onClick={getValues}
                     >ძებნა</Button>
                   </div>
-                </SearchAcordionOnSmallResolution>
+                </>
+                :
+                <>
+                  <Button
+                    onClick={() => {
+                      setSmallResSearchModal(true)
+                    }}
+
+                    className={'w-100 bg-primary text-white border-0 text-align-left'}
+                  >ძიება</Button>
 
 
-              </>
-            }
+                  <SearchAcordionOnSmallResolution
+                    smallResSearchModal={smallResSearchModal}
+                    setSmallResSearchModal={setSmallResSearchModal}
+                    title={'ძებნა'}
+                  >
+                    <SearchGrid
+                      docNumberVal={docNumberVal}
+                      setDocNumberVal={setDocNumberVal}
+                      setValueFrom={setValueFrom}
+                      mobileVersValueFrom={mobileVersValueFrom}
+                      setMobileVersValueFrom={setMobileVersValueFrom}
+                      mobileVersValueTo={mobileVersValueTo}
+                      setMobileVersValueTo={setMobileVersValueTo}
+                      setValueTo={setValueTo}
+                      docTitleVal={docTitleVal}
+                      setDocTitleVal={setDocTitleVal}
+                      setDocType={setDocType}
+                      docType={docType}
+                      division={division}
+                      executor={executor}
+                      author={author}
+                      setStateValue={setStateValue}
+                      stateValue={stateValue}
+                      dueDateValue={dueDateValue}
+                      setDueDateValue={setDueDateValue}
+
+                    />
+                    <div className={'mt-3'}>
+
+                      <Button className={'float-right mb-4'}
+                              onClick={onSmallResolSearchBtn}
+                      >ძებნა</Button>
+                    </div>
+                  </SearchAcordionOnSmallResolution>
 
 
-          </div>
+                </>
+              }
 
 
-        </Card>
-      </Container>
+            </div>
+
+
+          </Card>
+        </Container>
 
     )
       ;

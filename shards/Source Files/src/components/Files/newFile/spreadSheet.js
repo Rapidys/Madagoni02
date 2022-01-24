@@ -4,7 +4,7 @@ import Spreadsheet from "react-spreadsheet";
 import {Button, Form, FormInput} from "shards-react";
 import {
   setChangePage,
-  setCloseTreeAC, setOpenTreeAC, shareUsersAC, UpdateFile,
+  setCloseTreeAC, setOpenTreeAC, sharedValueUserAC, shareUsersAC, UpdateFile,
 } from "../../../Reducers/files/UpdateFileReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {TreeData} from "../../../Reducers/TreeDataReducer";
@@ -14,6 +14,11 @@ import {Tooltip} from "@material-ui/core";
 import styled from 'styled-components'
 
 let Styles = styled.div`
+  .wrapper {
+    height: 400px;
+    overflow-y: scroll;
+  }
+
   .forButtons {
     margin-left: 0.5rem;
   }
@@ -67,9 +72,10 @@ const SpreadSheet = ({setData, data, fileInfo}) => {
   let sharedUsers = useSelector((state => state.updateFile.shareUsers))
   let valueFromTree = useSelector((state => state.updateFile.valueFromTree))
 
+
   let count = 0
   useEffect(() => {
-    if (valueFromTree) {
+    if (valueFromTree && valueFromTree[0]) {
       for (let i = 0; i < sharedUsers.length; i++) {
         if (sharedUsers[i].userId === valueFromTree[0].userId) {
           count = 1
@@ -99,7 +105,7 @@ const SpreadSheet = ({setData, data, fileInfo}) => {
   }
   return <Styles>
 
-    <div style={{overflowX: 'scroll'}} className={'mt-3'}>
+    <div style={{overflowX: 'scroll'}} className={'mt-3 wrapper'}>
 
       <div className={'d-flex justify-content-between'}>
         <Form>

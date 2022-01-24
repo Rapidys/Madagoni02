@@ -44,6 +44,7 @@ export let updateFileReducer = (state = initialState, action) => {
       return {
         ...state,
         shareUsers: [...state.shareUsers, ...action.payload],
+        valueFromTree:[],
       }
     case 'SHARE-CHOSEN-USERS':
       return {

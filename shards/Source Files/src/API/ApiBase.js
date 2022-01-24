@@ -122,6 +122,9 @@ const API = {
   setProfileImage(stringPhoto) {
     return $ApiBase.post(`/Profile/SetProfileImage`, stringPhoto)
   },
+  setSignature(signature) {
+    return $ApiBase.post(`/Profile/SetSignature`, signature)
+  },
   axiosCreate() {
     return axios.create({
       baseURL: baseUrl,

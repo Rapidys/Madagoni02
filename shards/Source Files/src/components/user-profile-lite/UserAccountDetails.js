@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
 import {
   Card,
@@ -14,8 +14,11 @@ import {
 } from "shards-react";
 import ImgCropper from "../ImgCropper/ImgCropper";
 import {useDispatch, useSelector} from "react-redux";
-import {onSignatureValueChangeAC} from "../../Reducers/ProfileInfoReducer";
-import defaultImg from '../../assets/user.png'
+import {
+  onSignatureValueChangeAC,
+  setNewSignature
+} from "../../Reducers/ProfileInfoReducer";
+import defaultImg from '../../assets/signature.jpg'
 import styled from 'styled-components'
 
 let Styles = styled.div`
@@ -56,16 +59,16 @@ const UserAccountDetails = ({ProfileInfo}) => {
 
     let onClose = () => {
       setOpen(v => !v)
+      setResult(null)
     }
 
     let handleFileChange = (e) => {
       setImgSrc(URL.createObjectURL(e.target.files[0]))
-      console.log(result)
     }
 
 
     let uploadImg = () => {
-      console.log(result)
+      setOpen(false)
     }
     let openImgCropper = () => {
       setOpen(true)
@@ -77,10 +80,10 @@ const UserAccountDetails = ({ProfileInfo}) => {
 
     }
     let test = () => {
-      console.log({
+      dispatch(setNewSignature({
         signatureImg: result,
-        signatureValue: signatureDefaultValue
-      })
+        signatureText: signatureDefaultValue
+      }))
     }
     return (
       <Styles>
@@ -102,8 +105,8 @@ const UserAccountDetails = ({ProfileInfo}) => {
                 handleFileChange={handleFileChange}
                 onClose={onClose}
                 open={open}
-                classes = {''}
-                setImgSrc = {setImgSrc}
+                classes={''}
+                setImgSrc={setImgSrc}
 
               />
               <Row>
@@ -182,8 +185,10 @@ const UserAccountDetails = ({ProfileInfo}) => {
                         <FormTextarea
                           style={{
                             height: '150px',
+                            backgroundColor: 'white',
                             backgroundImage: `url(${result ? result : defaultImg})`,
-                            border: 'none'
+                            backgroundSize: 'contain',
+                            border: 'none',
                           }}
                           readOnly={true}
                           className={'setImg'}
@@ -191,10 +196,8 @@ const UserAccountDetails = ({ProfileInfo}) => {
                       </Col>
 
                     </Row>
-                    <Row>
+                    <Row className={'justify-content-end'}>
                       <Col md="4" className="form-group">
-
-
                         <Button
                           style={{cursor: 'pointer'}}
                           className={'w-100 mt-2'}

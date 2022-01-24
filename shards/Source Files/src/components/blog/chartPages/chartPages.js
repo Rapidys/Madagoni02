@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import {CardBody} from "shards-react";
-import {useHistory} from "react-router-dom";
 import styled from 'styled-components'
 import Pagination from "../../../Pagination/Pagination";
 import {useDispatch, useSelector} from "react-redux";
@@ -12,6 +11,17 @@ let Styles = styled.div`
   .trWrapper:hover {
     background: #cfd2ce;
     cursor: pointer;
+  }
+
+  @media (max-width: 450px) {
+    .trWrapper {
+      font-size: 10px;
+    }
+  }
+  @media (max-width: 330px) {
+    .trWrapper {
+      font-size: 8px;
+    }
   }
 
 
@@ -66,8 +76,8 @@ const ChartPages = () => {
               >
                 <td className={"resTtd"}>{chart.chartId}</td>
 
-                <td>{chart.chartName}</td>
-                <td>
+                <td className={"resTtd"}>{chart.chartName}</td>
+                <td className={"resTtd"}>
                   {new Intl.DateTimeFormat("en-US", {
                     month: "numeric",
                     day: "2-digit",
