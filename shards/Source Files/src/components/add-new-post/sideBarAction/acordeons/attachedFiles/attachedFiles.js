@@ -4,85 +4,16 @@ import {useDispatch, useSelector} from "react-redux";
 import {
   uploadFile,
 } from "../../../../../Reducers/addNewPost/UploadFileReducer";
-import styled from "styled-components";
 import ChosenFiles from "./ChosenFiles";
 import Preloader from "../../../../../Preloader/Preloader";
 import {useHistory} from "react-router-dom";
+import {AttachedFilesStyles} from "./attachedFilesStyles";
 
-let Styles = styled.div`
 
-  .fileNamesWrapper {
-    width: 40px;
-    overflow-wrap: break-word;
-    white-space: pre-wrap;
-    display: flex;
-    justify-content: space-between;
-
-  }
-
-  .link {
-    text-decoration: underline;
-    cursor: pointer;
-    color: rgba(6, 13, 231, 0.51);
-  }
-
-  .deleteAttachment {
-    text-decoration: line-through
-  }
-
-  .inputfile {
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
-  }
-
-  .inputfile + label {
-    font-size: 1em;
-    color: white;
-    background-color: #ffc107;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height: 40px;
-    padding: 6px;
-    border-radius: 10px;
-  }
-
-  .inputfile:focus + label,
-  .inputfile + label:hover {
-    background-color: #6294ce;
-  }
-
-  .inputfile + label {
-    cursor: pointer; /* "hand" cursor */
-  }
-
-  .drugWrapper {
-    width: 100%;
-    height: 60px;
-    border: 1px dashed black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .drop-area {
-    width: 50%;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-`
 
 const AttachedFiles = (props) => {
 
   let history = useHistory()
-  let url = history.location.pathname
   let [fileNames, setFileNames] = useState([])
   let dispatch = useDispatch()
   let [file, setFile] = useState({})
@@ -126,7 +57,7 @@ const AttachedFiles = (props) => {
     return <Preloader/>
   }
   return (
-    <Styles>
+    <AttachedFilesStyles>
 
       <Collapse open={props.attachedFiles}>
 
@@ -169,7 +100,7 @@ const AttachedFiles = (props) => {
         </div>
 
       </Collapse>
-    </Styles>
+    </AttachedFilesStyles>
   )
     ;
 };

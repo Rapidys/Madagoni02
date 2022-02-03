@@ -1,5 +1,5 @@
 import {setNotificationAC} from "../Reducers/notifications/notificationReducer";
-import API from "./ApiBase";
+import API from "./ApiBases";
 
 
 export let getNotification = () => {

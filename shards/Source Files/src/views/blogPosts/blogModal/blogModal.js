@@ -5,7 +5,7 @@ import {
   Form,
 } from "shards-react";
 import NewPostFields from "./newPostFields";
-import API from "../../../API/ApiBase";
+import API from "../../../API/ApiBases";
 import {getPosts} from "../../../Reducers/posts/blogPostsReducer";
 import {useDispatch, useSelector} from "react-redux";
 

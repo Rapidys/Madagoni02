@@ -1,4 +1,4 @@
-import API from "../API/ApiBase";
+import API from "../API/ApiBases";
 import {LoadingAC, setIsAuth} from "./AuthReducer";
 
 let initialState = {

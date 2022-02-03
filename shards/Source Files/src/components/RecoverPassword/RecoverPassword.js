@@ -5,7 +5,7 @@ import styled from "styled-components";
 import * as yup from "yup";
 import {useDispatch} from "react-redux";
 import {Link} from "react-router-dom";
-import API from "../../API/ApiBase";
+import API from "../../API/ApiBases";
 import MyModal from "../MyModal/MyModal";
 import Preloader from "../../Preloader/Preloader";
 

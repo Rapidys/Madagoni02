@@ -8,7 +8,7 @@ import {
 import {useDispatch, useSelector} from "react-redux";
 import 'react-image-crop/dist/ReactCrop.css';
 import userDefault from '../../assets/user.png'
-import API from "../../API/ApiBase";
+import API from "../../API/ApiBases";
 import {GetProfileInfo} from "../../Reducers/ProfileInfoReducer";
 import ImgCropper from "../ImgCropper/ImgCropper";
 

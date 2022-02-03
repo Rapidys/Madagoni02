@@ -1,15 +1,17 @@
-import API from "../../API/ApiBase";
+import API from "../../API/ApiBases";
 
 let initialState = {
   File: {},
   fileId: [],
   isFetching: false,
+  imgUrl:'',
 }
 
 const setFile = 'SET-FILE'
 const setFileId = 'SET-FILE-ID'
 const isFetch = 'isFetching'
 const delActive = 'delActive'
+const setImgUrl = 'SET-IMG-URL'
 let uploadFileReducer = (state = initialState, action) => {
 
   switch (action.type) {
@@ -37,6 +39,11 @@ let uploadFileReducer = (state = initialState, action) => {
         ...state,
         isFetching: action.fetching,
       }
+      case setImgUrl :
+      return {
+        ...state,
+        imgUrl: action.payload,
+      }
     default:
       return state
   }
@@ -45,9 +52,9 @@ export let uploadFileAC = (data) => ({type: setFile, data})
 export let FileIdAC = (id) => ({type: setFileId, id})
 export let isFetchingAC = (fetching) => ({type: isFetch, fetching})
 export let delActiveAC = (active) => ({type: delActive, active})
+export let setImgUrlAC = (payload) => ({type: setImgUrl, payload})
 
-export const uploadFile = (file) => {
-  debugger
+export const uploadFile = (file, isComment) => {
   return (dispatch) => {
     try {
       dispatch(isFetchingAC(true))
@@ -57,9 +64,17 @@ export const uploadFile = (file) => {
           dispatch(FileIdAC({
             AttachmentId: response.data,
             isActive: true,
-
           }))
           dispatch(isFetchingAC(false))
+          if (isComment && isComment === true) {
+            API.downloadFile(response.data).then(response => {
+              const downloadUrl = window.URL.createObjectURL(new Blob([response.data]));
+              const link = document.createElement('img');
+              link.src = downloadUrl;
+              dispatch(setImgUrlAC(downloadUrl))
+            })
+          }
+
         })
 
     } catch (e) {

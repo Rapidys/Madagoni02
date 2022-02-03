@@ -1,4 +1,4 @@
-import API from "../../API/ApiBase";
+import API from "../../API/ApiBases";
 import {getNotification} from "../../API/notificationService";
 
 let initialState = {

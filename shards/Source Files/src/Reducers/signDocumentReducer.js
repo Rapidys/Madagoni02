@@ -1,4 +1,4 @@
-import API from "../API/ApiBase";
+import API from "../API/ApiBases";
 import {getMessagePage} from "../API/sentDocumentService";
 
 let initialState = {

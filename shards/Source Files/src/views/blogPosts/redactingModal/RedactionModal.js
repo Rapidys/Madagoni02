@@ -3,7 +3,7 @@ import MyModal from "../../../components/MyModal/MyModal";
 import {Button, Form} from "shards-react";
 import NewPostFields from "../blogModal/newPostFields";
 import {useDispatch, useSelector} from "react-redux";
-import API from "../../../API/ApiBase";
+import API from "../../../API/ApiBases";
 import {getPosts} from "../../../Reducers/posts/blogPostsReducer";
 import Preloader from "../../../Preloader/Preloader";
 

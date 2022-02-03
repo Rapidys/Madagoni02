@@ -9,7 +9,7 @@ import {useHistory} from "react-router-dom";
 import Pagination from "../../../Pagination/Pagination";
 import {getFiles} from "../../../Reducers/files/getFilesReducer";
 import Preloader from "../../../Preloader/Preloader";
-import API from "../../../API/ApiBase";
+import API from "../../../API/ApiBases";
 
 let Styles = styled.div`
   .wrapper {

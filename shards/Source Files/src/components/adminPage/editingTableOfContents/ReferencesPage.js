@@ -3,7 +3,7 @@ import {Button, Card, Col} from "shards-react";
 import MySelect from "../../../MySelect/MySelect";
 import {getReferenceTypes} from "../../../Reducers/referenceType";
 import {useDispatch, useSelector} from "react-redux";
-import API from "../../../API/ApiBase";
+import API from "../../../API/ApiBases";
 import {setFinishOptionsAC} from "../../../Reducers/getDocReducer";
 import styled from "styled-components";
 import ReferenceTables from "./referenceTables";

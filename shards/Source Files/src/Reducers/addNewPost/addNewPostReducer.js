@@ -1,4 +1,4 @@
-import API from "../../API/ApiBase";
+import API from "../../API/ApiBases";
 import {setMotionDest, setMotionVis} from "./DocumentMotionsReducer";
 import {selectDocumentAC} from "./selectDocReducer";
 import {SetGlobalErrorsTrue} from "../errors/ErrorsReducer";

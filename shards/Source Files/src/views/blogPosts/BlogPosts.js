@@ -15,7 +15,6 @@ import BlogModal from "./blogModal/blogModal";
 import {getPosts} from "../../Reducers/posts/blogPostsReducer";
 import ReactQuill from "react-quill";
 import Editor from "../../components/add-new-post/editor/Editor";
-import styled from 'styled-components'
 import MyModal from "../../components/MyModal/MyModal";
 import Preloader from "../../Preloader/Preloader";
 import defaultPostImg from '../../assets/defaultPost.jpeg'
@@ -23,43 +22,11 @@ import defaultUser from '../../assets/user.png'
 import {Tooltip} from "@material-ui/core";
 import PostModal from "./postModal/postModal";
 import Pagination from "../../Pagination/Pagination";
-import NewPostFields from "./blogModal/newPostFields";
 import RedactionModal from "./redactingModal/RedactionModal";
-
-
-let Styles = styled.div`
-  .ql-container.ql-snow {
-    border: none;
-  }
-
-  .ql-editor {
-    padding: 0;
-  }
-
-  @media (min-width: 991px) {
-    .cardWrapper {
-      min-height: 430px;
-    }
-  }
-  @media (max-width: 1000px) {
-    .title {
-      font-size: 14px;
-    }
-  }
-  @media (max-width: 991px) {
-    .cardWrapper {
-      height: 400px;
-    }
-  }
-  @media (max-width: 769px) {
-    .cardWrapper {
-      height: auto;
-    }
-  }
+import {BlogStyles} from "./BlogPostsStyles";
 
 
 
-`
 
 let BlogPosts = () => {
 
@@ -110,7 +77,7 @@ let BlogPosts = () => {
   }
 
   return (
-    <Styles>
+    <BlogStyles>
       <Container fluid className="main-content-container px-4"
                  style={{marginBottom: '100px'}}
       >
@@ -242,7 +209,7 @@ let BlogPosts = () => {
         />
 
       </Container>
-    </Styles>
+    </BlogStyles>
 
   );
 

@@ -4,9 +4,8 @@ import {
   DialogContent,
   DialogTitle, FormControl, MenuItem
 } from "@material-ui/core";
-import {Button, Card, Col, FormTextarea, Row,} from "shards-react";
+import {Card, Col,} from "shards-react";
 import {useDispatch, useSelector} from "react-redux";
-import styled from "styled-components";
 import {
   getComments,
   setModalVisible
@@ -15,85 +14,10 @@ import {useParams} from "react-router-dom";
 import {
   createComment
 } from "../../../../Reducers/Comments/CreateNewCommentReducer";
+import {CommentStyles} from "./commentsStyles";
+import NewComment from "./newComment";
+import CommentItem from "./commentItem";
 
-let Styles = styled.div`
-  .commentBody {
-    height: 250px;
-    overflow-y: scroll;
-  }
-
-  .imgDiv {
-    width: 50px;
-    height: 60px;
-    margin-right: 2rem
-  }
-
-  .imgDiv img {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-  }
-
-  .textDiv {
-    max-width: 370px;
-    display: inline-block;
-    overflow-wrap: break-word;
-    white-space: pre-wrap;
-    border-radius: 10px;
-    padding: 5px;
-  }
-
-  .textDiv:hover {
-    background: #00b8d8;
-  }
-
-  @media screen and (max-width: 625px) {
-    .textDiv {
-      max-width: 270px;
-    }
-  }
-  @media screen and (max-width: 530px) {
-    .textDiv {
-      max-width: 170px;
-      font-size: 12px;
-    }
-
-    .imgDiv {
-      width: 40px;
-      height: 50px;
-
-    }
-  }
-  @media screen and (max-width: 455px) {
-    .textDiv {
-      max-width: 170px;
-      font-size: 11px;
-    }
-
-    .imgDiv {
-      width: 40px;
-      height: 50px;
-      margin-right: 1rem;
-    }
-  }
-  @media screen and (max-width: 380px) {
-    .textDiv {
-      max-width: 140px;
-    }
-  }
-  @media screen and (max-width: 350px) {
-    .textDiv {
-      max-width: 100px;
-    }
-  }
-
-  .closeDiv {
-    float: right;
-    padding: 10px;
-    cursor: pointer;
-  }
-
-`
 
 const Comments = () => {
 
@@ -129,6 +53,7 @@ const Comments = () => {
   };
 
   let setComment = () => {
+
     let newComment = {
       DocumentId: Number(params.id),
       CommentBody: textValue,
@@ -156,13 +81,13 @@ const Comments = () => {
       fullWidth={true}
       maxWidth={"sm"}
     >
-      <Styles>
+      <CommentStyles>
         <div className={"closeDiv"}>
           <i className="fa fa-times "
              onClick={handleClose}
           />
         </div>
-      </Styles>
+      </CommentStyles>
 
 
       <DialogTitle>კომენტარები</DialogTitle>
@@ -175,54 +100,21 @@ const Comments = () => {
           <MenuItem value="xl" style={{minHeight: 400, padding: 0}}>
 
             <Card className={"d-flex flex-column w-100"}>
-              <Styles>
+              <CommentStyles>
 
                 <Col className={"commentBody"}>
-                  {comments && comments.map(mess => {
-                    return <Row key={mess.documentCommentId}
-                                className={'d-flex justify-content-between align-items-center'}>
-                      <div
-                        className={"p-2 d-flex justify-content-between align-items-center"}>
-                        <div className='imgDiv ml-2 '>
-                          <img src={userImg ? userImg :
-                            <i className="fas fa-user"/>}
-                               alt="#"
-                          />
-                        </div>
-                        <div className="textDiv">
-                          <div className={'font-weight-bold'}>
-                            {mess.commentUser}
-                          </div>
-                          <div>
-                            {mess.commentBody}
-                          </div>
-                        </div>
-
-                      </div>
-                      <div className={'mr-2'}>
-                        {mess.commentDate.slice(11, 19)}
-                      </div>
-                    </Row>
-                  })}
-                </Col>
-              </Styles>
-              <Col>
-                <div>
-                  <p className="mb-2">
-                    {"🤔 დაწერეთ რამე საინტერესო..."}
-                  </p>
-                  <FormTextarea onChange={onTextChange} value={textValue}
-                                placeholder='კომენტარი ...'
-                                className={"mb-3"}
-                                onKeyPress={setCommentOnKeyPress}
+                  <CommentItem comments={comments}
+                               userImg = {userImg}
                   />
-                  <Button
-                    onClick={setComment}
-                  >
-                    გაგზავნა
-                  </Button>
-
-                </div>
+                </Col>
+              </CommentStyles>
+              <Col>
+                <NewComment
+                  onTextChange={onTextChange}
+                  textValue={textValue}
+                  setCommentOnKeyPress={setCommentOnKeyPress}
+                  setComment={setComment}
+                />
 
               </Col>
             </Card>

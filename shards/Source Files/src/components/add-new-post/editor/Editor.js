@@ -25,7 +25,7 @@ import {
   updateDocument
 } from "../../../Reducers/updateDocumentReducer";
 import {setAddBtnAC, setIsFinishedAC} from "../../../Reducers/getDocReducer";
-import API from "../../../API/ApiBase";
+import API from "../../../API/ApiBases";
 import GoBack from "../../../views/chosenDocument/MessagesPage/goBack";
 import EditorInput from "./EditorInput/EditorInput";
 import EditorModals from "./BtnModals/EditorModals";
@@ -194,6 +194,8 @@ const Editor = (props) => {
             signatureDefault={signatureDefault}
             setSignatureDefault={setSignatureDefault}
           />
+
+          {/*success Modal after Send Doc and resend*/}
 
           <EditorModals
             successResended={successResended}

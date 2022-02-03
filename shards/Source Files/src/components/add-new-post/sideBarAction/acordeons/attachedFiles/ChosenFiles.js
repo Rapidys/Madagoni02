@@ -4,7 +4,7 @@ import {
   delActiveAC,
 } from "../../../../../Reducers/addNewPost/UploadFileReducer";
 import {useHistory,} from "react-router-dom";
-import API from "../../../../../API/ApiBase";
+import API from "../../../../../API/ApiBases";
 
 
 const ChosenFiles = ({fileNames, file}) => {

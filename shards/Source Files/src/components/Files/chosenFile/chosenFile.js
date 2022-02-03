@@ -3,7 +3,7 @@ import {useHistory, useLocation, useParams} from "react-router-dom";
 import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
 import Preloader from "../../../Preloader/Preloader";
-import API from "../../../API/ApiBase";
+import API from "../../../API/ApiBases";
 import {Card, CardBody,} from "shards-react";
 import {
   setChangePage,

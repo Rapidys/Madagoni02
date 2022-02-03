@@ -5,7 +5,7 @@ import styled from "styled-components";
 import * as yup from "yup";
 import {useDispatch, useSelector} from "react-redux";
 import {Redirect, useParams} from "react-router-dom";
-import API from "../../API/ApiBase";
+import API from "../../API/ApiBases";
 import {isChangedAC, isLoadingAC} from "../../Reducers/changePasswordReducer";
 import Preloader from "../../Preloader/Preloader";
 

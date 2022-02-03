@@ -1,7 +1,7 @@
 import {
   GetDocumentAC, setDocLoadingAC,
 } from "../Reducers/getDocReducer";
-import API from "./ApiBase";
+import API from "./ApiBases";
 import {setToTalPages} from "../Reducers/PaginationReducer";
 import {
   chosenDocPageAC,
