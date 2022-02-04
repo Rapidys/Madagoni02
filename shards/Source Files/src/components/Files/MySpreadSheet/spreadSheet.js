@@ -117,17 +117,21 @@ const SpreadSheet = ({data, setData, fileInfo}) => {
         setFileBody={setFileBody}
       />
 
-      <ReactTableContainer ColRows={data} resizable={true} resizerOptions={{}}
-                           handleChange={handleChange}
-                           alphabet={alphabet}
-                           cursor={cursor}
-                           changeCursor={changeCursor}
-                           setData={setData}
-                           url = {url}
-                           decodedToken = {decoded}
-                           fileInfo = {fileInfo}
+      <div
+      >
+        <ReactTableContainer ColRows={data} resizable={true} resizerOptions={{}}
+                             handleChange={handleChange}
+                             alphabet={alphabet}
+                             cursor={cursor}
+                             changeCursor={changeCursor}
+                             setData={setData}
+                             url = {url}
+                             decodedToken = {decoded}
+                             fileInfo = {fileInfo}
 
-      />
+        />
+      </div>
+
 
       <div className={'mt-2'}>
         <Button

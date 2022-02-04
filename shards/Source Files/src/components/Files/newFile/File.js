@@ -52,9 +52,7 @@ const Files = () => {
   return (
     <div>
       <div className={'wrapper mb-5 h-auto'}>
-
         <Card>
-
           <CardBody>
             <h5 className={'ml-3 mb-4'}>ფაილის შექმნა</h5>
 

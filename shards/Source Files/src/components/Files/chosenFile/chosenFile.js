@@ -66,7 +66,7 @@ const ChosenFile = () => {
       <div className={'mb-5 h-auto'}>
         <Card>
           <CardBody>
-            <h5>
+            <h5 className={'ml-3'}>
               {fileInfo && fileInfo.fileTitle}
             </h5>
             <SpreadSheet data={files} setData={setFiles} fileInfo={fileInfo}/>

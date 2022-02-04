@@ -128,7 +128,7 @@ const API = {
     return $ApiBase.get(`/AddressBook/GetAddressBook`)
   },
   updateAddressBook(addressBook) {
-    return $ApiBase.post(`/AddressBook/UpdateAddressBook`,addressBook)
+    return $ApiBase.post(`/AddressBook/UpdateAddressBook`, addressBook)
   },
   axiosCreate() {
     return axios.create({

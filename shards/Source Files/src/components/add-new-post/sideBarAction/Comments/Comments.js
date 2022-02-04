@@ -29,7 +29,7 @@ const Comments = () => {
   let params = useParams()
 
   let dispatch = useDispatch()
-  let comments = useSelector(state => state.getComments.comments)
+  let comments = useSelector((state => state.getComments.comments))
 
 
   useEffect(() => {

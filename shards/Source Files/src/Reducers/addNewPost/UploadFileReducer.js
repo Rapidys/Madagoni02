@@ -68,10 +68,11 @@ export const uploadFile = (file, isComment) => {
           dispatch(isFetchingAC(false))
           if (isComment && isComment === true) {
             API.downloadFile(response.data).then(response => {
-              const downloadUrl = window.URL.createObjectURL(new Blob([response.data]));
-              const link = document.createElement('img');
-              link.src = downloadUrl;
-              dispatch(setImgUrlAC(downloadUrl))
+              // const downloadUrl = window.URL.createObjectURL(new Blob([response.data]));
+              // const link = document.createElement('img');
+              // link.src = downloadUrl;
+              console.log(response)
+              dispatch(setImgUrlAC(response.request.responseURL))
             })
           }
 

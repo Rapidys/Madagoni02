@@ -43,7 +43,6 @@ class ReactTable extends Component {
     super(props);
     this.tableSelector = "#somethingUnique";
     this.state = {
-      showFullText: false,
       draggableValue: '',
       showMenu: false,
       x: 0,
@@ -104,9 +103,6 @@ class ReactTable extends Component {
     }
   }
 
-  handleDoubleClick = () => {
-    this.setState({showFullText: true})
-  }
 
   handleContext = (e, inpIndex, index) => {
     e.preventDefault()
@@ -209,16 +205,16 @@ class ReactTable extends Component {
             setData={this.props.setData}
           />
 
-          <table id={'somethingUnique'} cellSpacing="0"
-                 className={'table table-striped'}
-
+          <table id={'somethingUnique'}
+                 className={'w-50'}
           >
-            <thead className="thead-dark">
-            <tr>
+            <thead>
+            <tr
+            >
               <th/>
               {this.props.ColRows[0].map((item, index) => {
                 return <th scope="col"
-                           style={{textAlign: 'center', width: '150px'}}
+                           style={{textAlign: 'center', width: '100px'}}
                            className={'table-border'}
                            key={index}
                            onContextMenu={(e) => this.handleContextCol(e, index)}
@@ -244,8 +240,7 @@ class ReactTable extends Component {
                   </th>
                   {item.map((it, inpIndex) => {
                       return (
-                        <td className={'p-0 m-0 w-auto'}
-                            style={{width: '150px'}}
+                        <td className={'p-0 m-0'}
                             key={inpIndex}
                             onContextMenu={(e) => this.handleContext(e, inpIndex, index)}
                         >
@@ -256,26 +251,48 @@ class ReactTable extends Component {
                               padding: '5px',
                             }}>{it.users && it.users.map(item => item.displayName)}</div>}
                           >
-                            <FormTextarea
-                              value={it.value}
-                              onChange={(e) =>
-                                this.props.handleChange(e, inpIndex, index)}
-                              className={'p-1 border-0'}
-                              onClick={this.props.changeCursor}
-                              id={inpIndex}
-                              style={{
-                                cursor: this.props.cursor,
-                                resize: this.state.showFullText ? '' : 'none',
-                                background: 'transparent',
-                                overflow: 'hidden',
-                                width: '100%',
-                                height: '30px',
-                              }}
-                              readOnly={this.handleUsersFromArray(it)}
-                              onFocus={this.props.changeCursor}
-                              onDoubleClick={this.handleDoubleClick}
-                            />
+                            {
+                              this.props.url === '/newFile'
+                                ? <FormTextarea
+                                  value={it.value}
+                                  onChange={(e) =>
+                                    this.props.handleChange(e, inpIndex, index)}
+                                  className={'p-1 border-0'}
+                                  onClick={this.props.changeCursor}
+                                  id={inpIndex}
+                                  style={{
+                                    cursor: this.props.cursor,
+                                    background: 'transparent',
+                                    overflow: 'hidden',
+                                    height: '30px',
+                                    resize: 'none',
+                                    borderRadius: '7px'
+                                  }}
+                                  onFocus={this.props.changeCursor}
 
+                                />
+
+                                : <FormTextarea
+                                  value={it.value}
+                                  onChange={(e) =>
+                                    this.props.handleChange(e, inpIndex, index)}
+                                  className={'p-1 border-0'}
+                                  onClick={this.props.changeCursor}
+                                  id={inpIndex}
+                                  style={{
+                                    cursor: this.props.cursor,
+                                    background: 'transparent',
+                                    overflow: 'hidden',
+                                    height: '30px',
+                                    resize: 'none',
+                                    borderRadius: '7px'
+                                  }}
+                                  readOnly={this.handleUsersFromArray(it)}
+                                  onFocus={this.props.changeCursor}
+
+                                />
+
+                            }
 
                           </Tooltip>
 

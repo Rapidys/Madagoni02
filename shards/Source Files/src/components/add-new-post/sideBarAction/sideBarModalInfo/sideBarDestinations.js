@@ -213,7 +213,7 @@ const SideBarDestinations = (props) => {
   let handleSaveBook = () => {
     let newBook = {
       addressBookId: addressBookId,
-      addressBookName: addressBookName ? addressBookName : bookName,
+      addressBookName: bookName ? bookName : addressBookName ,
       isActive: true,
       Targets: [...destination],
     }
@@ -305,7 +305,7 @@ const SideBarDestinations = (props) => {
                         type='text'
                         placeholder={'ჯგუფის სახელი'}
                         className={'mt-2'}
-                        value={addressBookName ? addressBookName : bookName}
+                        value={bookName ? bookName : addressBookName}
                         onChange={(e) =>
                           setBookName(e.target.value)
                         }
